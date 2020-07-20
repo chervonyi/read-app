@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    tools:context=".LoginActivity"
+    android:padding="@dimen/mainPadding">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:divider="@drawable/divider_form"
+        android:layout_marginTop="30dp"
+        android:showDividers="middle"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login_title"
+            android:textSize="@dimen/headerFontSize"
+            android:textColor="@color/colorFontMain"
+            android:fontFamily="@font/cabin_semi_bold"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/itemHeight"
+            android:background="@drawable/edit_text_background"
+            android:hint="@string/email_hint"
+            android:paddingStart="20dp"
+            tools:ignore="RtlSymmetry"
+            android:inputType="textEmailAddress"
+            android:importantForAutofill="no"
+            android:textColor="@color/colorFontMain"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/itemHeight"
+            android:background="@drawable/edit_text_background"
+            android:hint="@string/password_hint"
+            android:paddingStart="20dp"
+            tools:ignore="RtlSymmetry"
+            android:inputType="textPassword"
+            android:importantForAutofill="no"
+            android:textColor="@color/colorFontMain" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/itemHeight"
+            android:background="@drawable/main_button"
+            android:text="@string/log_in_button"
+            android:textAllCaps="false"
+            android:textColor="@color/colorFontMainButton"
+            android:textSize="@dimen/buttonFontSize"
+            android:fontFamily="@font/cabin_semi_bold"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:focusable="false"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-10dp"
+            android:text="@string/forgot_password_button"
+            android:textAllCaps="false"
+            android:fontFamily="@font/cabin_semi_bold"
+            android:textSize="@dimen/hintFontSize"
+            android:textColor="@color/colorFontSub"
+            android:background="@null"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:focusable="false"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dont_have_account_hint"
+            android:textSize="@dimen/hintFontSize"
+            android:textColor="@color/colorFontMain"
+            android:fontFamily="@font/cabin_semi_bold"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-8dp"
+            android:text="@string/sign_up_button"
+            android:textAllCaps="false"
+            android:fontFamily="@font/cabin_semi_bold"
+            android:textSize="@dimen/hintFontSize"
+            android:textColor="@color/colorAccent"
+            android:background="@null"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:focusable="false"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">ReadApplication</string>
+    <string name="login_title">Log in to Read</string>
+    <string name="email_hint">Email</string>
+    <string name="password_hint">Password</string>
+    <string name="log_in_button">Log In</string>
+    <string name="forgot_password_button">Forgot password?</string>
+    <string name="dont_have_account_hint">Don’t have account?</string>
+    <string name="sign_up_button">Sign Up</string>
 </resources>

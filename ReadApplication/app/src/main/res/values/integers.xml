@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--    FONTS    -->
+    <dimen name="headerFontSize">22sp</dimen>
+    <dimen name="buttonFontSize">18sp</dimen>
+    <dimen name="hintFontSize">16sp</dimen>
+
+    <dimen name="mainPadding">20dp</dimen>
+    <dimen name="cornerRadius">10dp</dimen>
+    <dimen name="itemHeight">60dp</dimen>
+    
+</resources>
