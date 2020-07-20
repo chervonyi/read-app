@@ -3,7 +3,7 @@
 
     <!--    FONTS    -->
     <dimen name="headerFontSize">22sp</dimen>
-    <dimen name="buttonFontSize">18sp</dimen>
+    <dimen name="buttonFontSize">20sp</dimen>
     <dimen name="hintFontSize">16sp</dimen>
 
     <dimen name="mainPadding">20dp</dimen>
