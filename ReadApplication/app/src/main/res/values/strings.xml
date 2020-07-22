@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ReadApplication</string>
+    <string name="app_name">Read</string>
     <string name="login_title">Log in to Read</string>
     <string name="email_hint">Email</string>
     <string name="password_hint">Password</string>
