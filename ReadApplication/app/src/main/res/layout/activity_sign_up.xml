@@ -25,6 +25,7 @@
             android:fontFamily="@font/cabin_semi_bold"/>
 
         <EditText
+            android:id="@+id/editTextName"
             android:layout_width="match_parent"
             android:layout_height="@dimen/itemHeight"
             android:background="@drawable/edit_text_background"
@@ -36,6 +37,7 @@
             android:textColor="@color/colorFontMain"/>
 
         <EditText
+            android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
             android:layout_height="@dimen/itemHeight"
             android:background="@drawable/edit_text_background"
@@ -47,6 +49,7 @@
             android:textColor="@color/colorFontMain"/>
 
         <EditText
+            android:id="@+id/editTextPassword"
             android:layout_width="match_parent"
             android:layout_height="@dimen/itemHeight"
             android:background="@drawable/edit_text_background"
@@ -58,6 +61,7 @@
             android:textColor="@color/colorFontMain" />
 
         <Button
+            android:id="@+id/buttonCreateAccount"
             android:layout_width="match_parent"
             android:layout_height="@dimen/itemHeight"
             android:background="@drawable/main_button"
@@ -67,7 +71,8 @@
             android:textSize="@dimen/buttonFontSize"
             android:fontFamily="@font/cabin_semi_bold"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:focusable="false"/>
+            android:focusable="false"
+            android:onClick="onClickCreateAccount"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -95,7 +100,8 @@
                 android:textColor="@color/colorAccent"
                 android:background="@null"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:focusable="false"/>
+                android:focusable="false"
+                android:onClick="onClickShowPrivacyPolicy"/>
 
         </LinearLayout>
 
