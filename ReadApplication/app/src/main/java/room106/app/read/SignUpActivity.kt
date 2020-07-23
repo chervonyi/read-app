@@ -5,12 +5,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firestore.v1.DocumentTransform
+import room106.app.read.models.User
 
 class SignUpActivity : AppCompatActivity() {
 
@@ -22,6 +28,7 @@ class SignUpActivity : AppCompatActivity() {
 
     // Firebase
     private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,12 +46,14 @@ class SignUpActivity : AppCompatActivity() {
 
         // Firebase
         auth = Firebase.auth
+        db = Firebase.firestore
 
         if (auth.currentUser != null) {
             // TODO - Go to OfferLogOutActivity (cause user is logged in)
         }
     }
 
+    //region Click Listeners
     fun onClickCreateAccount(v: View) {
 
         val name = nameEditText.text.toString()
@@ -53,18 +62,32 @@ class SignUpActivity : AppCompatActivity() {
 
         if (isNameValid(name) && isEmailValid(email) && isPasswordValid(password)) {
             auth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener {
+                .addOnSuccessListener {
                     // Sign In success
 
-                    // val userInstance = User(name, defaultAvatarID, ...)
+                    val userInstance = getDefaultUserData(name)
+                    val currentUser = auth.currentUser
+                    if (currentUser != null) {
+                        db.collection("users").document(currentUser.uid).set(userInstance)
+                            .addOnSuccessListener {
+                                // Registration successful
+                                Log.d(TAG, "Registration successful")
 
-                    // db.collection("users").document(auth.currentUser.uid).set(userInstance)
-                        // .addOnSuccessListener() {  *Go to MainActivity* }
-
+                                // TODO - In final version - Go To ChangeAvatarActivity
+                                // Go To MainActivity
+                                val intent = Intent(this, MainActivity::class.java)
+                                startActivity(intent)
+                            }
+                            .addOnFailureListener {
+                                // TODO - Implement
+                            }
+                    }
                 }
 
                 .addOnFailureListener {
+                    // Failed to register new user
                     // TODO - Implement
+                    Log.d(TAG, "Failed to register new user: ${it.message}")
                 }
         }
     }
@@ -78,7 +101,24 @@ class SignUpActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
+    //endregion
 
+    //region Sign Up
+    private fun getDefaultUserData(name: String): User {
+        // DEFAULT VALUES:
+        val avatar = 0
+        val isPaid = false
+        val articlesCount = 0
+        val followersCount = 0
+        val likesCount = 0
+
+        val timestamp = Timestamp.now()
+
+        return User(name, avatar, isPaid, timestamp, articlesCount, followersCount, likesCount )
+    }
+    //endregion
+
+    //region Sign Up Form
     private val signUpFormWatcher = object: TextWatcher {
         override fun afterTextChanged(p0: Editable?) { }
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
@@ -119,5 +159,10 @@ class SignUpActivity : AppCompatActivity() {
         //   - min 5 chars
         //   - max 20 chars
         return password.length in 5..20
+    }
+    //endregion
+
+    companion object {
+        const val TAG = "SignUpActivity"
     }
 }
