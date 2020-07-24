@@ -48,12 +48,14 @@
         android:padding="@dimen/mainPadding">
 
         <ImageView
+            android:id="@+id/imageViewUserAvatar"
             android:layout_width="@dimen/avatarSize"
             android:layout_height="@dimen/avatarSize"
             android:background="@drawable/avatar_tmp"
             android:contentDescription="@string/user_avatar_content_description" />
 
         <TextView
+            android:id="@+id/textViewUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -80,6 +82,7 @@
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/textViewUserTitlesCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/titles_count_tmp"
@@ -112,6 +115,7 @@
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/textViewUserFollowersCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/followers_count_tmp"
@@ -144,6 +148,7 @@
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/textViewUserLikesCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/likes_count_tmp"

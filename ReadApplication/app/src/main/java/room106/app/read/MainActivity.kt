@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
                     "\nAvatar: ${userData.avatar} " +
                     "\nisPaid: ${userData.isPaid} " +
                     "\nRegistration: ${userData.registration} " +
-                    "\nTitles: ${userData.articlesCount} " +
+                    "\nTitles: ${userData.titlesCount} " +
                     "\nFollowers: ${userData.followersCount} " +
                     "\nLikes: ${userData.likesCount}"
 

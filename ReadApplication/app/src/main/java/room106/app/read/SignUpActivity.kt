@@ -108,13 +108,13 @@ class SignUpActivity : AppCompatActivity() {
         // DEFAULT VALUES:
         val avatar = 0
         val isPaid = false
-        val articlesCount = 0
+        val titlesCount = 0
         val followersCount = 0
         val likesCount = 0
 
         val timestamp = Timestamp.now()
 
-        return User(name, avatar, isPaid, timestamp, articlesCount, followersCount, likesCount )
+        return User(name, avatar, isPaid, timestamp, titlesCount, followersCount, likesCount )
     }
     //endregion
 
