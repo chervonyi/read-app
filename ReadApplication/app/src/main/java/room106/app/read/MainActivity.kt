@@ -1,7 +1,9 @@
 package room106.app.read
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -30,6 +32,20 @@ class MainActivity : AppCompatActivity() {
         db = Firebase.firestore
 
         readUserData()
+    }
+
+
+    //region User
+    fun onClickUserAccount(v: View) {
+        if (auth.currentUser != null) {
+            // User Logged In
+            val intent = Intent(this, UserActivity::class.java)
+            startActivity(intent)
+        } else {
+            // User Logged Out
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun readUserData() {
@@ -71,4 +87,5 @@ class MainActivity : AppCompatActivity() {
             accountDetailsTextView.text = "User Logged Out"
         }
     }
+    //endregion
 }
