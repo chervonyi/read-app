@@ -26,4 +26,6 @@
     <string name="followers_count_tmp">241</string>
     <string name="likes_count_tmp">17.1k</string>
     <string name="create_new_title_button">Create new</string>
+    <string name="log_out">Log Out</string>
+    <string name="change_avatar">Change avatar</string>
 </resources>

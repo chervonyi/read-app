@@ -34,7 +34,8 @@
             android:src="@drawable/ic_more"
             android:scaleType="fitCenter"
             android:padding="8dp"
-            android:contentDescription="@string/button_more_content_description" />
+            android:contentDescription="@string/button_more_content_description"
+            android:onClick="onClickUserMenu"/>
 
     </LinearLayout>
 

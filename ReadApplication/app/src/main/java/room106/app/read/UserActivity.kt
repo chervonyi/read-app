@@ -1,9 +1,13 @@
 package room106.app.read
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.PopupMenu
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -69,4 +73,40 @@ class UserActivity : AppCompatActivity() {
                 // TODO - Implement
             }
     }
+
+    //region Menu
+    fun onClickUserMenu(v: View) {
+        val menu = PopupMenu(this, v)
+
+        menu.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.currentUserMenuChangeAvatar -> {
+                    changeAvatar()
+                    true
+                }
+
+                R.id.currentUserMenuLogOut -> {
+                    logOutUser()
+                    true
+                }
+
+                else -> false
+            }
+        }
+        menu.inflate(R.menu.current_user_menu)
+        menu.show()
+    }
+
+    private fun changeAvatar() {
+        // TODO - Implement
+    }
+
+    private fun logOutUser() {
+        auth.signOut()
+
+        // Go to MainActivity
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+    }
+    //endregion
 }
