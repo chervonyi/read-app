@@ -26,6 +26,7 @@
             android:fontFamily="@font/cabin_semi_bold"/>
 
         <EditText
+            android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="@dimen/itemHeight"
             android:background="@drawable/edit_text_background"
@@ -37,6 +38,7 @@
             android:textColor="@color/colorFontMain"/>
 
         <EditText
+            android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="@dimen/itemHeight"
             android:background="@drawable/edit_text_background"
@@ -48,6 +50,7 @@
             android:textColor="@color/colorFontMain" />
 
         <Button
+            android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="@dimen/itemHeight"
             android:background="@drawable/main_button"
@@ -57,7 +60,8 @@
             android:textSize="@dimen/buttonFontSize"
             android:fontFamily="@font/cabin_semi_bold"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:focusable="false"/>
+            android:focusable="false"
+            android:onClick="onClickLogIn"/>
 
         <Button
             android:layout_width="wrap_content"

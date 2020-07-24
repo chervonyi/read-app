@@ -33,11 +33,11 @@ class UserActivity : AppCompatActivity() {
         setContentView(R.layout.activity_user)
 
         // Connect views
-        userAvatarImageView = findViewById(R.id.imageViewUserAvatar)
-        userNameTextView = findViewById(R.id.textViewUserName)
-        userTitlesCountTextView = findViewById(R.id.textViewUserTitlesCount)
-        userFollowersCountTextView = findViewById(R.id.textViewUserFollowersCount)
-        userLikesCountTextView = findViewById(R.id.textViewUserLikesCount)
+        userAvatarImageView = findViewById(R.id.userAvatarImageView)
+        userNameTextView = findViewById(R.id.userNameTextView)
+        userTitlesCountTextView = findViewById(R.id.userTitlesCountTextView)
+        userFollowersCountTextView = findViewById(R.id.userFollowersCountTextView)
+        userLikesCountTextView = findViewById(R.id.userLikesCountTextView)
 
         auth = Firebase.auth
         db = Firebase.firestore
@@ -75,7 +75,7 @@ class UserActivity : AppCompatActivity() {
     }
 
     //region Menu
-    fun onClickUserMenu(v: View) {
+    fun onClickShowUserMenu(v: View) {
         val menu = PopupMenu(this, v)
 
         menu.setOnMenuItemClickListener {

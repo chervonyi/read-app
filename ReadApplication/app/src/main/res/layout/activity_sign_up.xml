@@ -25,7 +25,7 @@
             android:fontFamily="@font/cabin_semi_bold"/>
 
         <EditText
-            android:id="@+id/editTextName"
+            android:id="@+id/nameEditText"
             android:layout_width="match_parent"
             android:layout_height="@dimen/itemHeight"
             android:background="@drawable/edit_text_background"
@@ -37,7 +37,7 @@
             android:textColor="@color/colorFontMain"/>
 
         <EditText
-            android:id="@+id/editTextEmail"
+            android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="@dimen/itemHeight"
             android:background="@drawable/edit_text_background"
@@ -49,7 +49,7 @@
             android:textColor="@color/colorFontMain"/>
 
         <EditText
-            android:id="@+id/editTextPassword"
+            android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="@dimen/itemHeight"
             android:background="@drawable/edit_text_background"
@@ -61,7 +61,7 @@
             android:textColor="@color/colorFontMain" />
 
         <Button
-            android:id="@+id/buttonCreateAccount"
+            android:id="@+id/createAccountButton"
             android:layout_width="match_parent"
             android:layout_height="@dimen/itemHeight"
             android:background="@drawable/main_button"

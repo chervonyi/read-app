@@ -35,10 +35,10 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up)
 
         // Connect views
-        nameEditText = findViewById(R.id.editTextName)
-        emailEditText = findViewById(R.id.editTextEmail)
-        passwordEditText = findViewById(R.id.editTextPassword)
-        createAccountButton = findViewById(R.id.buttonCreateAccount)
+        nameEditText = findViewById(R.id.nameEditText)
+        emailEditText = findViewById(R.id.emailEditText)
+        passwordEditText = findViewById(R.id.passwordEditText)
+        createAccountButton = findViewById(R.id.createAccountButton)
 
         nameEditText.addTextChangedListener(signUpFormWatcher)
         emailEditText.addTextChangedListener(signUpFormWatcher)

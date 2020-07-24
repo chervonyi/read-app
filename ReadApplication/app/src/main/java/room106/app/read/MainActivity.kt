@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    //region User
+    //region User data
     fun onClickUserAccount(v: View) {
         if (auth.currentUser != null) {
             // User Logged In
