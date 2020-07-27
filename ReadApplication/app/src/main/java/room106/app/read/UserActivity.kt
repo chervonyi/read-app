@@ -98,7 +98,9 @@ class UserActivity : AppCompatActivity() {
     }
 
     private fun changeAvatar() {
-        // TODO - Implement
+        // Go to ChangeAvatarActivity
+        val intent = Intent(this, ChangeAvatarActivity::class.java)
+        startActivity(intent)
     }
 
     private fun logOutUser() {

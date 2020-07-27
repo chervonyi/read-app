@@ -8,6 +8,8 @@
 
     <dimen name="iconSize">50dp</dimen>
     <dimen name="avatarSize">70dp</dimen>
+    <dimen name="avatarCornersRadius">20dp</dimen>
+    <dimen name="avatarListDivider">30dp</dimen>
 
     <dimen name="mainPadding">20dp</dimen>
     <dimen name="cornerRadius">10dp</dimen>

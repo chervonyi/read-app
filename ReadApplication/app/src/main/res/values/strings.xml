@@ -28,4 +28,7 @@
     <string name="create_new_title_button">Create new</string>
     <string name="log_out">Log Out</string>
     <string name="change_avatar">Change avatar</string>
+    <string name="change_avatar_title">Avatar</string>
+    <string name="change_avatar_hint">Everyone can see your avatar next to your name. You can change your avatar any time.</string>
+    <string name="finish">Finish</string>
 </resources>
