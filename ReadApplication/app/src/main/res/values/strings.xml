@@ -31,4 +31,5 @@
     <string name="change_avatar_title">Avatar</string>
     <string name="change_avatar_hint">Everyone can see your avatar next to your name. You can change your avatar any time.</string>
     <string name="finish">Finish</string>
+    <string name="avatar_content_description">Avatar</string>
 </resources>

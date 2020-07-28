@@ -75,6 +75,7 @@
                 android:fontFamily="@font/cabin_semi_bold"/>
 
             <LinearLayout
+                android:id="@+id/avatarsLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/mainPadding"
@@ -92,20 +93,32 @@
                     android:divider="@drawable/divider_avatars_list"
                     android:showDividers="middle">
 
-                    <room106.app.read.views.SelectAvatarImageButton
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/avatar_0"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
-                        app:avatar="@drawable/ic_avatar_0"/>
+                        app:riv_corner_radius="@dimen/avatarCornersRadius"
+                        app:riv_border_color="@android:color/transparent"
+                        app:riv_border_width="@dimen/selectedAvatarBorderWidth"
+                        android:src="@drawable/ic_avatar_0"/>
 
-                    <room106.app.read.views.SelectAvatarImageButton
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/avatar_1"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
-                        app:avatar="@drawable/ic_avatar_1"/>
+                        app:riv_corner_radius="@dimen/avatarCornersRadius"
+                        app:riv_border_color="@android:color/transparent"
+                        app:riv_border_width="@dimen/selectedAvatarBorderWidth"
+                        android:src="@drawable/ic_avatar_1"/>
 
-                    <room106.app.read.views.SelectAvatarImageButton
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/avatar_2"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
-                        app:avatar="@drawable/ic_avatar_2"/>
+                        app:riv_corner_radius="@dimen/avatarCornersRadius"
+                        app:riv_border_color="@android:color/transparent"
+                        app:riv_border_width="@dimen/selectedAvatarBorderWidth"
+                        android:src="@drawable/ic_avatar_2"/>
 
                 </LinearLayout>
 
@@ -117,20 +130,32 @@
                     android:divider="@drawable/divider_avatars_list"
                     android:showDividers="middle">
 
-                    <room106.app.read.views.SelectAvatarImageButton
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/avatar_3"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
-                        app:avatar="@drawable/ic_avatar_3"/>
+                        app:riv_corner_radius="@dimen/avatarCornersRadius"
+                        app:riv_border_color="@android:color/transparent"
+                        app:riv_border_width="@dimen/selectedAvatarBorderWidth"
+                        android:src="@drawable/ic_avatar_3"/>
 
-                    <room106.app.read.views.SelectAvatarImageButton
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/avatar_4"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
-                        app:avatar="@drawable/ic_avatar_4"/>
+                        app:riv_corner_radius="@dimen/avatarCornersRadius"
+                        app:riv_border_color="@android:color/transparent"
+                        app:riv_border_width="@dimen/selectedAvatarBorderWidth"
+                        android:src="@drawable/ic_avatar_4"/>
 
-                    <room106.app.read.views.SelectAvatarImageButton
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/avatar_5"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
-                        app:avatar="@drawable/ic_avatar_5"/>
+                        app:riv_corner_radius="@dimen/avatarCornersRadius"
+                        app:riv_border_color="@android:color/transparent"
+                        app:riv_border_width="@dimen/selectedAvatarBorderWidth"
+                        android:src="@drawable/ic_avatar_5"/>
 
                 </LinearLayout>
 
@@ -142,20 +167,32 @@
                     android:divider="@drawable/divider_avatars_list"
                     android:showDividers="middle">
 
-                    <room106.app.read.views.SelectAvatarImageButton
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/avatar_6"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
-                        app:avatar="@drawable/ic_avatar_6"/>
+                        app:riv_corner_radius="@dimen/avatarCornersRadius"
+                        app:riv_border_color="@android:color/transparent"
+                        app:riv_border_width="@dimen/selectedAvatarBorderWidth"
+                        android:src="@drawable/ic_avatar_6"/>
 
-                    <room106.app.read.views.SelectAvatarImageButton
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/avatar_7"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
-                        app:avatar="@drawable/ic_avatar_7"/>
+                        app:riv_corner_radius="@dimen/avatarCornersRadius"
+                        app:riv_border_color="@android:color/transparent"
+                        app:riv_border_width="@dimen/selectedAvatarBorderWidth"
+                        android:src="@drawable/ic_avatar_7"/>
 
-                    <room106.app.read.views.SelectAvatarImageButton
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/avatar_8"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
-                        app:avatar="@drawable/ic_avatar_8"/>
+                        app:riv_corner_radius="@dimen/avatarCornersRadius"
+                        app:riv_border_color="@android:color/transparent"
+                        app:riv_border_width="@dimen/selectedAvatarBorderWidth"
+                        android:src="@drawable/ic_avatar_8"/>
 
                 </LinearLayout>
 
@@ -167,20 +204,32 @@
                     android:divider="@drawable/divider_avatars_list"
                     android:showDividers="middle">
 
-                    <room106.app.read.views.SelectAvatarImageButton
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/avatar_9"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
-                        app:avatar="@drawable/ic_avatar_9"/>
+                        app:riv_corner_radius="@dimen/avatarCornersRadius"
+                        app:riv_border_color="@android:color/transparent"
+                        app:riv_border_width="@dimen/selectedAvatarBorderWidth"
+                        android:src="@drawable/ic_avatar_9"/>
 
-                    <room106.app.read.views.SelectAvatarImageButton
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/avatar_10"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
-                        app:avatar="@drawable/ic_avatar_10"/>
+                        app:riv_corner_radius="@dimen/avatarCornersRadius"
+                        app:riv_border_color="@android:color/transparent"
+                        app:riv_border_width="@dimen/selectedAvatarBorderWidth"
+                        android:src="@drawable/ic_avatar_10"/>
 
-                    <room106.app.read.views.SelectAvatarImageButton
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/avatar_11"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
-                        app:avatar="@drawable/ic_avatar_11"/>
+                        app:riv_corner_radius="@dimen/avatarCornersRadius"
+                        app:riv_border_color="@android:color/transparent"
+                        app:riv_border_width="@dimen/selectedAvatarBorderWidth"
+                        android:src="@drawable/ic_avatar_11"/>
 
                 </LinearLayout>
 
@@ -192,20 +241,32 @@
                     android:divider="@drawable/divider_avatars_list"
                     android:showDividers="middle">
 
-                    <room106.app.read.views.SelectAvatarImageButton
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/avatar_12"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
-                        app:avatar="@drawable/ic_avatar_12"/>
+                        app:riv_corner_radius="@dimen/avatarCornersRadius"
+                        app:riv_border_color="@android:color/transparent"
+                        app:riv_border_width="@dimen/selectedAvatarBorderWidth"
+                        android:src="@drawable/ic_avatar_12"/>
 
-                    <room106.app.read.views.SelectAvatarImageButton
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/avatar_13"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
-                        app:avatar="@drawable/ic_avatar_13"/>
+                        app:riv_corner_radius="@dimen/avatarCornersRadius"
+                        app:riv_border_color="@android:color/transparent"
+                        app:riv_border_width="@dimen/selectedAvatarBorderWidth"
+                        android:src="@drawable/ic_avatar_13"/>
 
-                    <room106.app.read.views.SelectAvatarImageButton
+                    <com.makeramen.roundedimageview.RoundedImageView
+                        android:id="@+id/avatar_14"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
-                        app:avatar="@drawable/ic_avatar_14"/>
+                        app:riv_corner_radius="@dimen/avatarCornersRadius"
+                        app:riv_border_color="@android:color/transparent"
+                        app:riv_border_width="@dimen/selectedAvatarBorderWidth"
+                        android:src="@drawable/ic_avatar_14"/>
 
                 </LinearLayout>
 
