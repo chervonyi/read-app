@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".UserActivity"
     android:background="@color/colorBackground"
     android:orientation="vertical">
@@ -20,7 +21,8 @@
             android:scaleType="fitCenter"
             android:padding="8dp"
             android:src="@drawable/ic_back"
-            android:contentDescription="@string/button_back_content_description" />
+            android:contentDescription="@string/button_back_content_description"
+            android:onClick="onClickBack"/>
 
         <Space
             android:layout_width="0dp"
@@ -48,12 +50,13 @@
         android:gravity="center"
         android:padding="@dimen/mainPadding">
 
-        <ImageView
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/userAvatarImageView"
             android:layout_width="@dimen/avatarSize"
             android:layout_height="@dimen/avatarSize"
             android:background="@drawable/avatar_tmp"
-            android:contentDescription="@string/user_avatar_content_description"/>
+            android:contentDescription="@string/user_avatar_content_description"
+            app:riv_corner_radius="@dimen/avatarCornersRadius"/>
 
         <TextView
             android:id="@+id/userNameTextView"

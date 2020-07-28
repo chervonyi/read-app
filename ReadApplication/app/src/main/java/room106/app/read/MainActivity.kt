@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageButton
 import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -11,12 +12,14 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.makeramen.roundedimageview.RoundedImageView
 import room106.app.read.models.User
 
 class MainActivity : AppCompatActivity() {
 
     // Views
     private lateinit var accountDetailsTextView: TextView
+    private lateinit var userAccountImageButton: RoundedImageView
 
     // Firebase
     private lateinit var auth: FirebaseAuth
@@ -26,7 +29,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Connect views
         accountDetailsTextView = findViewById(R.id.accountDetails)
+        userAccountImageButton = findViewById(R.id.userAccountImageButton)
 
         auth = Firebase.auth
         db = Firebase.firestore
@@ -71,6 +76,13 @@ class MainActivity : AppCompatActivity() {
 
         if (user != null && userData != null) {
             // User Logged In
+
+            // Set avatar
+            val avatarName = "ic_avatar_${userData.avatar}"
+            val image = resources.getIdentifier(avatarName, "drawable", packageName)
+            userAccountImageButton.setImageResource(image)
+
+
             val accountDetails = "uid: ${user.uid} " +
                     "\nEmail: {${user.email}} " +
                     "\nName: ${userData.name} " +

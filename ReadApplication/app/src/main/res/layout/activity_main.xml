@@ -19,12 +19,14 @@
             android:layout_height="match_parent"
             android:layout_weight="1"/>
 
-        <ImageButton
+        <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/userAccountImageButton"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@color/colorPrimary"
-            android:onClick="onClickUserAccount"/>
+            android:background="@null"
+            android:onClick="onClickUserAccount"
+            android:scaleType="centerCrop"
+            app:riv_corner_radius="14dp"/>
 
     </LinearLayout>
 

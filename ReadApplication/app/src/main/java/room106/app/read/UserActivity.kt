@@ -13,12 +13,13 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.makeramen.roundedimageview.RoundedImageView
 import room106.app.read.models.User
 
 class UserActivity : AppCompatActivity() {
 
     // Views
-    private lateinit var userAvatarImageView: ImageView
+    private lateinit var userAvatarImageView: RoundedImageView
     private lateinit var userNameTextView: TextView
     private lateinit var userTitlesCountTextView: TextView
     private lateinit var userFollowersCountTextView: TextView
@@ -61,7 +62,11 @@ class UserActivity : AppCompatActivity() {
 
                 if (user != null) {
 
-                    // TODO - Assign appropriate avatar
+                    // Set User avatar
+                    val avatarName = "ic_avatar_${user.avatar}"
+                    val image = resources.getIdentifier(avatarName, "drawable", packageName)
+                    userAvatarImageView.setImageResource(image)
+
                     userNameTextView.text =             user.name
                     userTitlesCountTextView.text =      user.titlesCount.toString()
                     userFollowersCountTextView.text =   user.followersCount.toString()
@@ -111,4 +116,8 @@ class UserActivity : AppCompatActivity() {
         startActivity(intent)
     }
     //endregion
+
+    fun onClickBack(v: View) {
+        finish()
+    }
 }
