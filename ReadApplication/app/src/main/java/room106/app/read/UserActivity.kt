@@ -29,6 +29,8 @@ class UserActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
 
+    private lateinit var userData: User
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user)
@@ -61,6 +63,8 @@ class UserActivity : AppCompatActivity() {
                 val user = document.toObject(User::class.java)
 
                 if (user != null) {
+
+                    userData = user
 
                     // Set User avatar
                     val avatarName = "ic_avatar_${user.avatar}"
@@ -105,6 +109,7 @@ class UserActivity : AppCompatActivity() {
     private fun changeAvatar() {
         // Go to ChangeAvatarActivity
         val intent = Intent(this, ChangeAvatarActivity::class.java)
+        intent.putExtra("avatar_id", userData.avatar)
         startActivity(intent)
     }
 

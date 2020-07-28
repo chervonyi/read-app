@@ -72,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
     private fun updateUserUI(user: FirebaseUser?, userData: User?) {
 
         if (user != null && userData != null) {

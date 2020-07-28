@@ -21,7 +21,8 @@
             android:scaleType="fitCenter"
             android:padding="8dp"
             android:src="@drawable/ic_back"
-            android:contentDescription="@string/button_back_content_description" />
+            android:contentDescription="@string/button_back_content_description"
+            android:onClick="onClickBack"/>
 
         <Space
             android:layout_width="0dp"
@@ -94,31 +95,34 @@
                     android:showDividers="middle">
 
                     <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/avatar_0"
+                        android:tag="0"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
                         app:riv_corner_radius="@dimen/avatarCornersRadius"
                         app:riv_border_color="@android:color/transparent"
                         app:riv_border_width="@dimen/selectedAvatarBorderWidth"
-                        android:src="@drawable/ic_avatar_0"/>
+                        android:src="@drawable/ic_avatar_0"
+                        android:onClick="onSelectAvatar"/>
 
                     <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/avatar_1"
+                        android:tag="1"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
                         app:riv_corner_radius="@dimen/avatarCornersRadius"
                         app:riv_border_color="@android:color/transparent"
                         app:riv_border_width="@dimen/selectedAvatarBorderWidth"
-                        android:src="@drawable/ic_avatar_1"/>
+                        android:src="@drawable/ic_avatar_1"
+                        android:onClick="onSelectAvatar"/>
 
                     <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/avatar_2"
+                        android:tag="2"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
                         app:riv_corner_radius="@dimen/avatarCornersRadius"
                         app:riv_border_color="@android:color/transparent"
                         app:riv_border_width="@dimen/selectedAvatarBorderWidth"
-                        android:src="@drawable/ic_avatar_2"/>
+                        android:src="@drawable/ic_avatar_2"
+                        android:onClick="onSelectAvatar"/>
 
                 </LinearLayout>
 
@@ -131,31 +135,34 @@
                     android:showDividers="middle">
 
                     <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/avatar_3"
+                        android:tag="3"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
                         app:riv_corner_radius="@dimen/avatarCornersRadius"
                         app:riv_border_color="@android:color/transparent"
                         app:riv_border_width="@dimen/selectedAvatarBorderWidth"
-                        android:src="@drawable/ic_avatar_3"/>
+                        android:src="@drawable/ic_avatar_3"
+                        android:onClick="onSelectAvatar"/>
 
                     <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/avatar_4"
+                        android:tag="4"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
                         app:riv_corner_radius="@dimen/avatarCornersRadius"
                         app:riv_border_color="@android:color/transparent"
                         app:riv_border_width="@dimen/selectedAvatarBorderWidth"
-                        android:src="@drawable/ic_avatar_4"/>
+                        android:src="@drawable/ic_avatar_4"
+                        android:onClick="onSelectAvatar"/>
 
                     <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/avatar_5"
+                        android:tag="5"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
                         app:riv_corner_radius="@dimen/avatarCornersRadius"
                         app:riv_border_color="@android:color/transparent"
                         app:riv_border_width="@dimen/selectedAvatarBorderWidth"
-                        android:src="@drawable/ic_avatar_5"/>
+                        android:src="@drawable/ic_avatar_5"
+                        android:onClick="onSelectAvatar"/>
 
                 </LinearLayout>
 
@@ -168,31 +175,34 @@
                     android:showDividers="middle">
 
                     <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/avatar_6"
+                        android:tag="6"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
                         app:riv_corner_radius="@dimen/avatarCornersRadius"
                         app:riv_border_color="@android:color/transparent"
                         app:riv_border_width="@dimen/selectedAvatarBorderWidth"
-                        android:src="@drawable/ic_avatar_6"/>
+                        android:src="@drawable/ic_avatar_6"
+                        android:onClick="onSelectAvatar"/>
 
                     <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/avatar_7"
+                        android:tag="7"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
                         app:riv_corner_radius="@dimen/avatarCornersRadius"
                         app:riv_border_color="@android:color/transparent"
                         app:riv_border_width="@dimen/selectedAvatarBorderWidth"
-                        android:src="@drawable/ic_avatar_7"/>
+                        android:src="@drawable/ic_avatar_7"
+                        android:onClick="onSelectAvatar"/>
 
                     <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/avatar_8"
+                        android:tag="8"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
                         app:riv_corner_radius="@dimen/avatarCornersRadius"
                         app:riv_border_color="@android:color/transparent"
                         app:riv_border_width="@dimen/selectedAvatarBorderWidth"
-                        android:src="@drawable/ic_avatar_8"/>
+                        android:src="@drawable/ic_avatar_8"
+                        android:onClick="onSelectAvatar"/>
 
                 </LinearLayout>
 
@@ -205,31 +215,34 @@
                     android:showDividers="middle">
 
                     <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/avatar_9"
+                        android:tag="9"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
                         app:riv_corner_radius="@dimen/avatarCornersRadius"
                         app:riv_border_color="@android:color/transparent"
                         app:riv_border_width="@dimen/selectedAvatarBorderWidth"
-                        android:src="@drawable/ic_avatar_9"/>
+                        android:src="@drawable/ic_avatar_9"
+                        android:onClick="onSelectAvatar"/>
 
                     <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/avatar_10"
+                        android:tag="10"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
                         app:riv_corner_radius="@dimen/avatarCornersRadius"
                         app:riv_border_color="@android:color/transparent"
                         app:riv_border_width="@dimen/selectedAvatarBorderWidth"
-                        android:src="@drawable/ic_avatar_10"/>
+                        android:src="@drawable/ic_avatar_10"
+                        android:onClick="onSelectAvatar"/>
 
                     <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/avatar_11"
+                        android:tag="11"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
                         app:riv_corner_radius="@dimen/avatarCornersRadius"
                         app:riv_border_color="@android:color/transparent"
                         app:riv_border_width="@dimen/selectedAvatarBorderWidth"
-                        android:src="@drawable/ic_avatar_11"/>
+                        android:src="@drawable/ic_avatar_11"
+                        android:onClick="onSelectAvatar"/>
 
                 </LinearLayout>
 
@@ -242,31 +255,34 @@
                     android:showDividers="middle">
 
                     <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/avatar_12"
+                        android:tag="12"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
                         app:riv_corner_radius="@dimen/avatarCornersRadius"
                         app:riv_border_color="@android:color/transparent"
                         app:riv_border_width="@dimen/selectedAvatarBorderWidth"
-                        android:src="@drawable/ic_avatar_12"/>
+                        android:src="@drawable/ic_avatar_12"
+                        android:onClick="onSelectAvatar"/>
 
                     <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/avatar_13"
+                        android:tag="13"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
                         app:riv_corner_radius="@dimen/avatarCornersRadius"
                         app:riv_border_color="@android:color/transparent"
                         app:riv_border_width="@dimen/selectedAvatarBorderWidth"
-                        android:src="@drawable/ic_avatar_13"/>
+                        android:src="@drawable/ic_avatar_13"
+                        android:onClick="onSelectAvatar"/>
 
                     <com.makeramen.roundedimageview.RoundedImageView
-                        android:id="@+id/avatar_14"
+                        android:tag="14"
                         android:layout_width="@dimen/avatarSize"
                         android:layout_height="@dimen/avatarSize"
                         app:riv_corner_radius="@dimen/avatarCornersRadius"
                         app:riv_border_color="@android:color/transparent"
                         app:riv_border_width="@dimen/selectedAvatarBorderWidth"
-                        android:src="@drawable/ic_avatar_14"/>
+                        android:src="@drawable/ic_avatar_14"
+                        android:onClick="onSelectAvatar"/>
 
                 </LinearLayout>
 
