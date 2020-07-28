@@ -44,43 +44,48 @@ class UserActivity : AppCompatActivity() {
 
         auth = Firebase.auth
         db = Firebase.firestore
+    }
+
+    override fun onStart() {
+        super.onStart()
 
         // TODO - If extras contains some UID, then use this uid.
         // TODO - If extras does not contain any UID, then use Auth.currentUser.uid.
 
         if (auth.currentUser != null) {
-            loadUserData(auth.currentUser!!.uid)
+            readUserData(auth.currentUser!!.uid)
         }
     }
 
-    private fun loadUserData(uid: String) {
-
+    private fun readUserData(uid: String) {
         val userRef = db.collection("users").document(uid)
 
-        // TODO - Assign realtime listener or read once
-        userRef.get()
-            .addOnSuccessListener { document ->
+        // Read once user data from database
+        userRef.get().addOnSuccessListener { document ->
                 val user = document.toObject(User::class.java)
 
                 if (user != null) {
-
                     userData = user
-
-                    // Set User avatar
-                    val avatarName = "ic_avatar_${user.avatar}"
-                    val image = resources.getIdentifier(avatarName, "drawable", packageName)
-                    userAvatarImageView.setImageResource(image)
-
-                    userNameTextView.text =             user.name
-                    userTitlesCountTextView.text =      user.titlesCount.toString()
-                    userFollowersCountTextView.text =   user.followersCount.toString()
-                    userLikesCountTextView.text =       user.likesCount.toString()
+                    updateUserUI(user)
                 }
             }
 
             .addOnFailureListener {
                 // TODO - Implement
             }
+    }
+
+    private fun updateUserUI(userData: User) {
+        // Set User avatar
+        val avatarName = "ic_avatar_${userData.avatar}"
+        val image = resources.getIdentifier(avatarName, "drawable", packageName)
+        userAvatarImageView.setImageResource(image)
+
+        // Set other user info
+        userNameTextView.text =             userData.name
+        userTitlesCountTextView.text =      userData.titlesCount.toString()
+        userFollowersCountTextView.text =   userData.followersCount.toString()
+        userLikesCountTextView.text =       userData.likesCount.toString()
     }
 
     //region Menu

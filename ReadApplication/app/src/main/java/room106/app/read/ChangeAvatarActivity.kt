@@ -20,8 +20,6 @@ class ChangeAvatarActivity : AppCompatActivity() {
     // Views
     private lateinit var avatarsLinearLayout: LinearLayout
 
-    private var selectedAvatar = 0
-
     // Firebase
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
@@ -36,15 +34,44 @@ class ChangeAvatarActivity : AppCompatActivity() {
         // Firebase
         auth = Firebase.auth
         db = Firebase.firestore
-
-        selectCurrentUserAvatar()
     }
 
-    private fun selectCurrentUserAvatar() {
+    override fun onStart() {
+        super.onStart()
+        highlightCurrentUserAvatar()
+    }
+
+    // On Click avatar
+    fun onSelectAvatar(v: View) {
+        val avatarId = (v.tag.toString().toInt())
+        highlightAvatar(avatarId)
+
+        // Save selected avatar in database
+        saveAvatar(avatarId)
+    }
+
+    private fun highlightAvatar(id: Int) {
+        for (i in 0 until avatarsLinearLayout.childCount) {
+            val innerList = avatarsLinearLayout.getChildAt(i) as LinearLayout
+            for (j in 0 until innerList.childCount) {
+                val avatarImageView = innerList.getChildAt(j) as RoundedImageView
+
+                avatarImageView.borderColor = if (avatarImageView.tag.toString().toInt() == id) {
+                    // Highlight
+                     ContextCompat.getColor(this, R.color.colorAvatarBorder)
+                } else {
+                    // Remove highlight
+                     ContextCompat.getColor(this, android.R.color.transparent)
+                }
+            }
+        }
+    }
+
+    private fun highlightCurrentUserAvatar() {
 
         if (intent.hasExtra("avatar_id")) {
             val avatarId = intent.getIntExtra("avatar_id", 0)
-            highlightAvatarImageView(avatarId)
+            highlightAvatar(avatarId)
         } else {
             val currentUser = auth.currentUser
             if (currentUser != null) {
@@ -54,41 +81,21 @@ class ChangeAvatarActivity : AppCompatActivity() {
                     val userData = document.toObject(User::class.java)
 
                     if (userData?.avatar != null) {
-                        highlightAvatarImageView(userData.avatar)
+                        highlightAvatar(userData.avatar)
                     }
                 }
             }
         }
     }
 
-    // On Click avatar
-    fun onSelectAvatar(v: View) {
-        highlightAvatarImageView(v.tag.toString().toInt())
-    }
+    private fun saveAvatar(selectedAvatar: Int) {
+        val currentUser = auth.currentUser
 
-    private fun highlightAvatarImageView(id: Int) {
-        for (i in 0 until avatarsLinearLayout.childCount) {
-            val innerList = avatarsLinearLayout.getChildAt(i) as LinearLayout
-            for (j in 0 until innerList.childCount) {
-                val avatarImageView = innerList.getChildAt(j) as RoundedImageView
-
-                if (avatarImageView.tag.toString().toInt() == id) {
-                    // Highlight
-                    avatarImageView.borderColor = ContextCompat.getColor(this, R.color.colorAvatarBorder)
-
-                    // Save selected avatar ID
-                    selectedAvatar = avatarImageView.tag.toString().toInt()
-
-                    // Save selected avatar in database
-                    saveSelectedAvatar()
-                } else {
-                    // Remove highlight
-                    avatarImageView.borderColor = ContextCompat.getColor(this, android.R.color.transparent)
-                }
-            }
+        if (currentUser != null && selectedAvatar in 0..14) {
+            val userRef = db.collection("users").document(currentUser.uid)
+            userRef.update("avatar", selectedAvatar)
         }
     }
-
 
     fun onClickBack(v: View) {
         finish()
@@ -97,15 +104,4 @@ class ChangeAvatarActivity : AppCompatActivity() {
     fun onClickFinish(v: View) {
         // TODO - Implement
     }
-
-    private fun saveSelectedAvatar() {
-
-        val currentUser = auth.currentUser
-        if (currentUser != null && selectedAvatar in 0..14) {
-
-            val userRef = db.collection("users").document(currentUser.uid)
-            userRef.update("avatar", selectedAvatar)
-        }
-    }
-
 }

@@ -35,10 +35,12 @@ class MainActivity : AppCompatActivity() {
 
         auth = Firebase.auth
         db = Firebase.firestore
-
-        readUserData()
     }
 
+    override fun onStart() {
+        super.onStart()
+        readUserData()
+    }
 
     //region User data
     fun onClickUserAccount(v: View) {
@@ -59,7 +61,7 @@ class MainActivity : AppCompatActivity() {
         if (user != null) {
             val userRef = db.collection("users").document(user.uid)
 
-            // Read once or assign realtime listener
+            // Read once user data from database
             userRef.get().addOnSuccessListener { document ->
                 if (document != null) {
                     // Data read successfully
@@ -72,7 +74,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
     private fun updateUserUI(user: FirebaseUser?, userData: User?) {
 
         if (user != null && userData != null) {
@@ -82,7 +83,6 @@ class MainActivity : AppCompatActivity() {
             val avatarName = "ic_avatar_${userData.avatar}"
             val image = resources.getIdentifier(avatarName, "drawable", packageName)
             userAccountImageButton.setImageResource(image)
-
 
             val accountDetails = "uid: ${user.uid} " +
                     "\nEmail: {${user.email}} " +
