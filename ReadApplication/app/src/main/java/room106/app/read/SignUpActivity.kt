@@ -93,7 +93,8 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     fun onClickShowPrivacyPolicy(v: View) {
-        // TODO - Implement
+        val intent = Intent(this, PrivacyPolicyActivity::class.java)
+        startActivity(intent)
     }
 
     fun onClickGoToLogin(v: View) {

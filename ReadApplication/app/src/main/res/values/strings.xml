@@ -32,4 +32,6 @@
     <string name="change_avatar_hint">Everyone can see your avatar next to your name. You can change your avatar any time.</string>
     <string name="finish">Finish</string>
     <string name="avatar_content_description">Avatar</string>
+    <string name="close_activity_content_description">Close Activity</string>
+    <string name="privacy_policy_title">Privacy Policy</string>
 </resources>

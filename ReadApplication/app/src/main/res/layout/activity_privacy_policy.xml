@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PrivacyPolicyActivity"
+    android:orientation="vertical"
+    android:background="@color/colorBackground">
+
+    <ImageButton
+        android:layout_width="@dimen/iconSize"
+        android:layout_height="@dimen/iconSize"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@null"
+        android:src="@drawable/ic_close"
+        android:scaleType="centerCrop"
+        android:layout_gravity="end"
+        android:padding="5dp"
+        android:contentDescription="@string/close_activity_content_description"
+        android:onClick="onClickClose"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/mainPadding"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="@string/privacy_policy_title"
+                android:textSize="@dimen/headerFontSize"
+                android:fontFamily="@font/cabin_semi_bold"
+                android:textColor="@color/colorFontMain"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="I. What kinds of information do we collect?"
+                android:textSize="@dimen/mainFontSize"
+                android:fontFamily="@font/cabin_semi_bold"
+                android:textColor="@color/colorFontMain"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="To provide the Facebook Products, we must process information about you. The types of information we collect depend on how you use our Products. You can learn how to access and delete information we collect by visiting the Facebook Settings.\n\n..."
+                android:textSize="@dimen/mainFontSize"
+                android:fontFamily="@font/cabin_regular"
+                android:textColor="@color/colorFontSub"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
