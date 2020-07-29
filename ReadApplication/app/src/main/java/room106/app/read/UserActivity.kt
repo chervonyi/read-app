@@ -115,6 +115,7 @@ class UserActivity : AppCompatActivity() {
         // Go to ChangeAvatarActivity
         val intent = Intent(this, ChangeAvatarActivity::class.java)
         intent.putExtra("avatar_id", userData.avatar)
+        intent.putExtra("purpose", "change_avatar")
         startActivity(intent)
     }
 

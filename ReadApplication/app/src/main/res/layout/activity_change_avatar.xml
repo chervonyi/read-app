@@ -15,6 +15,7 @@
         android:orientation="horizontal">
 
         <ImageButton
+            android:id="@+id/backImageButton"
             android:layout_width="@dimen/iconSize"
             android:layout_height="@dimen/iconSize"
             android:background="@null"
@@ -22,7 +23,8 @@
             android:padding="8dp"
             android:src="@drawable/ic_back"
             android:contentDescription="@string/button_back_content_description"
-            android:onClick="onClickBack"/>
+            android:onClick="onClickBack"
+            android:visibility="invisible"/>
 
         <Space
             android:layout_width="0dp"
@@ -30,6 +32,7 @@
             android:layout_weight="1"/>
 
         <Button
+            android:id="@+id/finishButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/finish"
@@ -38,7 +41,8 @@
             android:textSize="@dimen/buttonFontSize"
             android:textColor="@color/colorAccent"
             android:background="@null"
-            style="@style/Widget.AppCompat.Button.Borderless"/>
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:onClick="onClickFinish"/>
 
     </LinearLayout>
     

@@ -1,8 +1,11 @@
 package room106.app.read
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -19,6 +22,8 @@ class ChangeAvatarActivity : AppCompatActivity() {
 
     // Views
     private lateinit var avatarsLinearLayout: LinearLayout
+    private lateinit var backImageButton: ImageButton
+    private lateinit var finishButton: Button
 
     // Firebase
     private lateinit var auth: FirebaseAuth
@@ -30,6 +35,23 @@ class ChangeAvatarActivity : AppCompatActivity() {
 
         // Connect views
         avatarsLinearLayout = findViewById(R.id.avatarsLinearLayout)
+        backImageButton = findViewById(R.id.backImageButton)
+        finishButton = findViewById(R.id.finishButton)
+
+        if (intent.hasExtra("purpose")) {
+            val purpose = intent.getStringExtra("purpose")
+
+            if (purpose == "sign_up") {
+                // Activity opened after SignUp
+                backImageButton.visibility = View.INVISIBLE
+                finishButton.visibility = View.VISIBLE
+
+            } else if (purpose == "change_avatar") {
+                // Activity opened after UserActivity
+                backImageButton.visibility = View.VISIBLE
+                finishButton.visibility = View.INVISIBLE
+            }
+        }
 
         // Firebase
         auth = Firebase.auth
@@ -102,6 +124,8 @@ class ChangeAvatarActivity : AppCompatActivity() {
     }
 
     fun onClickFinish(v: View) {
-        // TODO - Implement
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 }

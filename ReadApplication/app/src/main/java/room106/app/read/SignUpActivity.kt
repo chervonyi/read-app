@@ -73,9 +73,9 @@ class SignUpActivity : AppCompatActivity() {
                                 // Registration successful
                                 Log.d(TAG, "Registration successful")
 
-                                // TODO - In final version - Go To ChangeAvatarActivity
-                                // Go To MainActivity
-                                val intent = Intent(this, MainActivity::class.java)
+                                // Go to ChangeAvatarActivity
+                                val intent = Intent(this, ChangeAvatarActivity::class.java)
+                                intent.putExtra("purpose", "sign_up")
                                 startActivity(intent)
                             }
                             .addOnFailureListener {
