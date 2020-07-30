@@ -1,4 +1,4 @@
-package room106.app.read
+package room106.app.read.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,13 +9,14 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.firestore.v1.DocumentTransform
+import room106.app.read.R
 import room106.app.read.models.User
 
 class SignUpActivity : AppCompatActivity() {
@@ -79,15 +80,14 @@ class SignUpActivity : AppCompatActivity() {
                                 startActivity(intent)
                             }
                             .addOnFailureListener {
-                                // TODO - Implement
+                                Toast.makeText(this, getString(R.string.failed_to_register), Toast.LENGTH_LONG).show()
                             }
                     }
                 }
 
                 .addOnFailureListener {
                     // Failed to register new user
-                    // TODO - Implement
-                    Log.d(TAG, "Failed to register new user: ${it.message}")
+                    Toast.makeText(this, getString(R.string.failed_to_register), Toast.LENGTH_LONG).show()
                 }
         }
     }
@@ -126,7 +126,6 @@ class SignUpActivity : AppCompatActivity() {
 
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             createAccountButton.isEnabled = isValidateForm()
-            // TODO - add red notes about invalid fields
         }
     }
 

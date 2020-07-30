@@ -1,10 +1,9 @@
-package room106.app.read
+package room106.app.read.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageButton
 import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -13,6 +12,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.makeramen.roundedimageview.RoundedImageView
+import room106.app.read.R
 import room106.app.read.models.User
 
 class MainActivity : AppCompatActivity() {

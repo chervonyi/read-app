@@ -1,8 +1,7 @@
-package room106.app.read
+package room106.app.read.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
@@ -15,6 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.makeramen.roundedimageview.RoundedImageView
+import room106.app.read.R
 import room106.app.read.models.User
 
 
@@ -80,7 +80,9 @@ class ChangeAvatarActivity : AppCompatActivity() {
 
                 avatarImageView.borderColor = if (avatarImageView.tag.toString().toInt() == id) {
                     // Highlight
-                     ContextCompat.getColor(this, R.color.colorAvatarBorder)
+                     ContextCompat.getColor(this,
+                         R.color.colorAvatarBorder
+                     )
                 } else {
                     // Remove highlight
                      ContextCompat.getColor(this, android.R.color.transparent)

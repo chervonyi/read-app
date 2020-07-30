@@ -1,8 +1,9 @@
-package room106.app.read
+package room106.app.read.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import room106.app.read.R
 
 class PrivacyPolicyActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

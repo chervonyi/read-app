@@ -39,4 +39,6 @@
     <string name="sending">Sending..</string>
     <string name="sent">Sent</string>
     <string name="failed">Failed</string>
+    <string name="incorrect_login">Incorrect email or password</string>
+    <string name="failed_to_register">Failed to register</string>
 </resources>
