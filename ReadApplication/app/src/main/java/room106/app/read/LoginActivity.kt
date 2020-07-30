@@ -1,16 +1,17 @@
 package room106.app.read
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -59,6 +60,17 @@ class LoginActivity : AppCompatActivity() {
         val intent = Intent(this, SignUpActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    fun onClickForgotPassword(v: View) {
+       val intent = Intent(this, ResetPasswordActivity::class.java)
+
+        val email = emailEditText.text.toString()
+        if (isEmailValid(email)) {
+            intent.putExtra("typed_email", email)
+        }
+
+        startActivity(intent)
     }
     //endregion
 

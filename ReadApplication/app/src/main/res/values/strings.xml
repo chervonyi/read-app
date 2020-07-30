@@ -34,4 +34,9 @@
     <string name="avatar_content_description">Avatar</string>
     <string name="close_activity_content_description">Close Activity</string>
     <string name="privacy_policy_title">Privacy Policy</string>
+    <string name="reset_password_button">Reset password</string>
+    <string name="forgot_password_header">Forgot password</string>
+    <string name="sending">Sending..</string>
+    <string name="sent">Sent</string>
+    <string name="failed">Failed</string>
 </resources>

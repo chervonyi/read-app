@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -61,7 +60,8 @@
             android:fontFamily="@font/cabin_semi_bold"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:focusable="false"
-            android:onClick="onClickLogIn"/>
+            android:onClick="onClickLogIn"
+            android:enabled="false"/>
 
         <Button
             android:layout_width="wrap_content"
@@ -74,7 +74,8 @@
             android:textColor="@color/colorFontSub"
             android:background="@null"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:focusable="false"/>
+            android:focusable="false"
+            android:onClick="onClickForgotPassword"/>
 
     </LinearLayout>
 
