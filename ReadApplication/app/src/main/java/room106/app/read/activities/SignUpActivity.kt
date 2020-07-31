@@ -5,10 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -26,10 +29,13 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var createAccountButton: Button
+    private lateinit var showPasswordButton: ImageButton
 
     // Firebase
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
+
+    private var isPasswordVisible = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +46,7 @@ class SignUpActivity : AppCompatActivity() {
         emailEditText = findViewById(R.id.emailEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
         createAccountButton = findViewById(R.id.createAccountButton)
+        showPasswordButton = findViewById(R.id.showPasswordButton)
 
         nameEditText.addTextChangedListener(signUpFormWatcher)
         emailEditText.addTextChangedListener(signUpFormWatcher)
@@ -101,6 +108,24 @@ class SignUpActivity : AppCompatActivity() {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    fun onClickShowHidePassword(v: View) {
+        isPasswordVisible = !isPasswordVisible
+
+        val cursorPosition = passwordEditText.selectionEnd
+
+        if (isPasswordVisible) {
+            // Show password
+            showPasswordButton.setImageResource(R.drawable.ic_eye_off)
+            passwordEditText.transformationMethod = HideReturnsTransformationMethod()
+            passwordEditText.setSelection(cursorPosition)
+        } else {
+            // Hide password
+            showPasswordButton.setImageResource(R.drawable.ic_eye)
+            passwordEditText.transformationMethod = PasswordTransformationMethod()
+            passwordEditText.setSelection(cursorPosition)
+        }
     }
     //endregion
 

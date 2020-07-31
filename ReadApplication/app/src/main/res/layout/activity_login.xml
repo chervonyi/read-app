@@ -36,17 +36,35 @@
             android:importantForAutofill="no"
             android:textColor="@color/colorFontMain"/>
 
-        <EditText
-            android:id="@+id/passwordEditText"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/itemHeight"
-            android:background="@drawable/edit_text_background"
-            android:hint="@string/password_hint"
-            android:paddingStart="20dp"
-            tools:ignore="RtlSymmetry"
-            android:inputType="textPassword"
-            android:importantForAutofill="no"
-            android:textColor="@color/colorFontMain" />
+            android:layout_height="@dimen/itemHeight">
+
+            <EditText
+                android:id="@+id/passwordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/itemHeight"
+                android:background="@drawable/edit_text_background"
+                android:hint="@string/password_hint"
+                android:paddingStart="20dp"
+                tools:ignore="RtlSymmetry"
+                android:inputType="textPassword"
+                android:importantForAutofill="no"
+                android:textColor="@color/colorFontMain" />
+
+            <ImageButton
+                android:id="@+id/showPasswordButton"
+                android:layout_width="@dimen/iconSize"
+                android:layout_height="@dimen/iconSize"
+                android:src="@drawable/ic_eye"
+                android:background="@null"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="@string/show_password_content_description"
+                android:onClick="onClickShowHidePassword"/>
+
+        </RelativeLayout>
 
         <Button
             android:id="@+id/loginButton"
