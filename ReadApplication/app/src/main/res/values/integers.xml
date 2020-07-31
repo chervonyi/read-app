@@ -5,7 +5,7 @@
     <dimen name="headerFontSize">22sp</dimen>
     <dimen name="mainFontSize">20sp</dimen>
     <dimen name="buttonFontSize">20sp</dimen>
-    <dimen name="hintFontSize">16sp</dimen>
+    <dimen name="hintFontSize">18sp</dimen>
 
     <dimen name="iconSize">50dp</dimen>
     <dimen name="avatarSize">70dp</dimen>
@@ -20,5 +20,8 @@
     <integer name="nameMaxLength">30</integer>
     <integer name="emailMaxLength">30</integer>
     <integer name="passwordMaxLength">30</integer>
+
+<!--    Animation   -->
+    <integer name="buttonAnimDuration">200</integer>
 
 </resources>

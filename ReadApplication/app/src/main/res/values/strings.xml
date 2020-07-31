@@ -10,7 +10,7 @@
     <string name="sign_up_title">Create an account</string>
     <string name="name_hint">Name</string>
     <string name="create_account">Create account</string>
-    <string name="privacy_policy_pre_text">By signing up, you agree to our</string>
+    <string name="privacy_policy_pre_text">By signing up, you agree to our </string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="log_in">Log In</string>

@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:divider="@drawable/divider_form"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:showDividers="middle"
         android:gravity="center">
 
@@ -111,7 +111,7 @@
             android:layout_height="wrap_content"
             android:text="@string/dont_have_account_hint"
             android:textSize="@dimen/hintFontSize"
-            android:textColor="@color/colorFontMain"
+            android:textColor="@color/colorFontSub"
             android:fontFamily="@font/cabin_semi_bold"/>
 
         <Button

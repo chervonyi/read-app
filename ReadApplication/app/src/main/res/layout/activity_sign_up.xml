@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:divider="@drawable/divider_form"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:showDividers="middle"
         android:gravity="center">
 
@@ -99,23 +99,23 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="-10dp"
-            android:gravity="center">
+            android:orientation="vertical"
+            android:layout_marginTop="0dp"
+            android:gravity="center_horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/privacy_policy_pre_text"
                 android:textSize="@dimen/hintFontSize"
-                android:textColor="@color/colorFontMain"
+                android:textColor="@color/colorFontSub"
                 android:fontFamily="@font/cabin_semi_bold"/>
 
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/privacy_policy"
-                android:layout_marginStart="5dp"
+                android:layout_marginTop="-5dp"
                 android:textAllCaps="false"
                 android:fontFamily="@font/cabin_semi_bold"
                 android:textSize="@dimen/hintFontSize"
@@ -141,7 +141,7 @@
             android:layout_height="wrap_content"
             android:text="@string/already_have_an_account"
             android:textSize="@dimen/hintFontSize"
-            android:textColor="@color/colorFontMain"
+            android:textColor="@color/colorFontSub"
             android:fontFamily="@font/cabin_semi_bold"/>
 
         <Button

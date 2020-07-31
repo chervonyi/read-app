@@ -57,7 +57,10 @@ class SignUpActivity : AppCompatActivity() {
         db = Firebase.firestore
 
         if (auth.currentUser != null) {
-            // TODO - Go to OfferLogOutActivity (cause user is logged in)
+            // User is Logged In -> Go to MainActivity
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         }
     }
 

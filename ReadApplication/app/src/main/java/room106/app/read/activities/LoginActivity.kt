@@ -46,6 +46,13 @@ class LoginActivity : AppCompatActivity() {
 
         // Firebase
         auth = Firebase.auth
+
+        if (auth.currentUser != null) {
+            // User is Logged In -> Go to MainActivity
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     //region Click Listeners
