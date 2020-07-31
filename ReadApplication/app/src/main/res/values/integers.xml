@@ -16,5 +16,9 @@
     <dimen name="mainPadding">20dp</dimen>
     <dimen name="cornerRadius">10dp</dimen>
     <dimen name="itemHeight">60dp</dimen>
-    
+
+    <integer name="nameMaxLength">30</integer>
+    <integer name="emailMaxLength">30</integer>
+    <integer name="passwordMaxLength">30</integer>
+
 </resources>

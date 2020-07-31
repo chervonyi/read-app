@@ -31,7 +31,8 @@
             android:background="@drawable/edit_text_background"
             android:hint="@string/email_hint"
             android:paddingStart="20dp"
-            tools:ignore="RtlSymmetry"
+            android:paddingEnd="20dp"
+            android:maxLength="@integer/emailMaxLength"
             android:inputType="textEmailAddress"
             android:importantForAutofill="no"
             android:textColor="@color/colorFontMain"/>
@@ -47,9 +48,10 @@
                 android:background="@drawable/edit_text_background"
                 android:hint="@string/password_hint"
                 android:paddingStart="20dp"
-                tools:ignore="RtlSymmetry"
+                android:paddingEnd="60dp"
                 android:inputType="textPassword"
                 android:importantForAutofill="no"
+                android:maxLength="@integer/passwordMaxLength"
                 android:textColor="@color/colorFontMain" />
 
             <ImageButton
