@@ -55,6 +55,7 @@ class ResetPasswordActivity : AppCompatActivity() {
 
                     Handler().postDelayed({
                         finish()
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
                     }, 1000)
                 }
                 .addOnFailureListener {
@@ -76,6 +77,7 @@ class ResetPasswordActivity : AppCompatActivity() {
 
     fun onClickBack(v: View) {
         finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
     }
 
     private fun isEmailValid(email: String): Boolean {

@@ -48,10 +48,13 @@ class MainActivity : AppCompatActivity() {
             // User Logged In
             val intent = Intent(this, UserActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
         } else {
             // User Logged Out
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
+            finish()
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
         }
     }
 

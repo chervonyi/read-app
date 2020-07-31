@@ -116,6 +116,7 @@ class UserActivity : AppCompatActivity() {
         intent.putExtra("avatar_id", userData.avatar)
         intent.putExtra("purpose", "change_avatar")
         startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
 
     private fun logOutUser() {
@@ -124,10 +125,13 @@ class UserActivity : AppCompatActivity() {
         // Go to MainActivity
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+        finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
     }
     //endregion
 
     fun onClickBack(v: View) {
         finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
     }
 }

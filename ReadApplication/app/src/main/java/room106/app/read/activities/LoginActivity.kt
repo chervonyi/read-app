@@ -52,6 +52,7 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
         }
     }
 
@@ -68,6 +69,8 @@ class LoginActivity : AppCompatActivity() {
                     // Go to MainActivity
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
+                    finish()
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
                 }
                 .addOnFailureListener {
                     Toast.makeText(this, getString(R.string.incorrect_login), Toast.LENGTH_LONG).show()
@@ -79,6 +82,7 @@ class LoginActivity : AppCompatActivity() {
         val intent = Intent(this, SignUpActivity::class.java)
         startActivity(intent)
         finish()
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
 
     fun onClickForgotPassword(v: View) {
@@ -90,6 +94,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
 
     fun onClickShowHidePassword(v: View) {

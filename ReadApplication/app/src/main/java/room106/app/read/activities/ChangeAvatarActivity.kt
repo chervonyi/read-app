@@ -123,11 +123,13 @@ class ChangeAvatarActivity : AppCompatActivity() {
 
     fun onClickBack(v: View) {
         finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
     }
 
     fun onClickFinish(v: View) {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
 }
