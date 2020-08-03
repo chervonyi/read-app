@@ -42,4 +42,6 @@
     <string name="incorrect_login">Incorrect email or password</string>
     <string name="failed_to_register">Failed to register</string>
     <string name="show_password_content_description">Show/Hide Password Button</string>
+    <string name="anonymous_user_button_content_description">Anonymous User Button</string>
+    <string name="search_content_description">Search</string>
 </resources>

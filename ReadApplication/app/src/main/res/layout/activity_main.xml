@@ -4,42 +4,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity"
-    android:padding="@dimen/mainPadding">
+    tools:context=".activities.MainActivity">
 
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:layout_marginTop="@dimen/headerPadding"
+        android:paddingStart="@dimen/headerPadding"
+        android:paddingEnd="@dimen/mainPadding">
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
+        <ImageButton
+            android:layout_width="@dimen/iconSize"
+            android:layout_height="@dimen/iconSize"
+            android:background="@null"
+            android:src="@drawable/ic_search"
+            android:scaleType="fitCenter"
+            android:padding="10dp"
+            android:contentDescription="@string/search_content_description" />
 
         <com.makeramen.roundedimageview.RoundedImageView
             android:id="@+id/userAccountImageButton"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:background="@null"
+            android:layout_width="@dimen/avatarSmallSize"
+            android:layout_height="@dimen/avatarSmallSize"
+            android:background="@drawable/anonymous_user"
             android:onClick="onClickUserAccount"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
             android:scaleType="centerCrop"
-            app:riv_corner_radius="14dp"/>
+            app:riv_corner_radius="@dimen/smallUserIconCorners"/>
 
-    </LinearLayout>
+        <ImageButton
+            android:id="@+id/anonymousUserImageButton"
+            android:layout_width="@dimen/avatarSmallSize"
+            android:layout_height="@dimen/avatarSmallSize"
+            android:background="@drawable/anonymous_user"
+            android:src="@drawable/ic_person"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:scaleType="fitCenter"
+            android:padding="5dp"
+            android:onClick="onClickAnonymousUser"
+            android:contentDescription="@string/anonymous_user_button_content_description" />
 
-
-    <TextView
-        android:id="@+id/accountDetails"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Account:"
-        android:textSize="20sp"
-        android:fontFamily="@font/cabin_regular"
-        android:textColor="@color/colorFontMain"/>
-
+    </RelativeLayout>
 
 </RelativeLayout>

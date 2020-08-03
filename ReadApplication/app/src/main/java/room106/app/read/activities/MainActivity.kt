@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -18,8 +19,8 @@ import room106.app.read.models.User
 class MainActivity : AppCompatActivity() {
 
     // Views
-    private lateinit var accountDetailsTextView: TextView
     private lateinit var userAccountImageButton: RoundedImageView
+    private lateinit var anonymousUserImageButton: ImageView
 
     // Firebase
     private lateinit var auth: FirebaseAuth
@@ -30,8 +31,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Connect views
-        accountDetailsTextView = findViewById(R.id.accountDetails)
         userAccountImageButton = findViewById(R.id.userAccountImageButton)
+        anonymousUserImageButton = findViewById(R.id.anonymousUserImageButton)
 
         auth = Firebase.auth
         db = Firebase.firestore
@@ -43,19 +44,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     //region User data
+    fun onClickAnonymousUser(v: View) {
+        val intent = Intent(this, SignUpActivity::class.java)
+        startActivity(intent)
+        finish()
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
+    }
+
     fun onClickUserAccount(v: View) {
-        if (auth.currentUser != null) {
-            // User Logged In
-            val intent = Intent(this, UserActivity::class.java)
-            startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
-        } else {
-            // User Logged Out
-            val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
-            finish()
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
-        }
+        val intent = Intent(this, UserActivity::class.java)
+        startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
 
     private fun readUserData() {
@@ -78,7 +77,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateUserUI(user: FirebaseUser?, userData: User?) {
-
         if (user != null && userData != null) {
             // User Logged In
 
@@ -86,21 +84,13 @@ class MainActivity : AppCompatActivity() {
             val avatarName = "ic_avatar_${userData.avatar}"
             val image = resources.getIdentifier(avatarName, "drawable", packageName)
             userAccountImageButton.setImageResource(image)
+            userAccountImageButton.visibility = View.VISIBLE
+            anonymousUserImageButton.visibility = View.INVISIBLE
 
-            val accountDetails = "uid: ${user.uid} " +
-                    "\nEmail: {${user.email}} " +
-                    "\nName: ${userData.name} " +
-                    "\nAvatar: ${userData.avatar} " +
-                    "\nisPaid: ${userData.isPaid} " +
-                    "\nRegistration: ${userData.registration} " +
-                    "\nTitles: ${userData.titlesCount} " +
-                    "\nFollowers: ${userData.followersCount} " +
-                    "\nLikes: ${userData.likesCount}"
-
-            accountDetailsTextView.text = accountDetails
         } else {
             // User Logged Out
-            accountDetailsTextView.text = "User Logged Out"
+            userAccountImageButton.visibility = View.INVISIBLE
+            anonymousUserImageButton.visibility = View.VISIBLE
         }
     }
     //endregion

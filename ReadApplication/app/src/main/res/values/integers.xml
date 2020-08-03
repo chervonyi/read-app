@@ -4,18 +4,22 @@
     <!--    FONTS    -->
     <dimen name="headerFontSize">22sp</dimen>
     <dimen name="mainFontSize">20sp</dimen>
+    <dimen name="editTextFontSize">17sp</dimen>
     <dimen name="buttonFontSize">20sp</dimen>
-    <dimen name="hintFontSize">18sp</dimen>
+    <dimen name="hintFontSize">16sp</dimen>
 
     <dimen name="iconSize">50dp</dimen>
     <dimen name="avatarSize">70dp</dimen>
+    <dimen name="avatarSmallSize">40dp</dimen>
+    <dimen name="smallUserIconCorners">10dp</dimen>
     <dimen name="avatarCornersRadius">20dp</dimen>
     <dimen name="avatarListDivider">30dp</dimen>
     <dimen name="selectedAvatarBorderWidth">3dp</dimen>
 
     <dimen name="mainPadding">20dp</dimen>
-    <dimen name="cornerRadius">10dp</dimen>
-    <dimen name="itemHeight">60dp</dimen>
+    <dimen name="headerPadding">10dp</dimen>
+    <dimen name="cornerRadius">6dp</dimen>
+    <dimen name="itemHeight">50dp</dimen>
 
     <integer name="nameMaxLength">30</integer>
     <integer name="emailMaxLength">30</integer>
