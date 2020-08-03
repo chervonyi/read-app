@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.viewpager.widget.ViewPager
+import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -14,6 +16,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.makeramen.roundedimageview.RoundedImageView
 import room106.app.read.R
+import room106.app.read.TitleTypesFragmentPageAdapter
 import room106.app.read.models.User
 
 class MainActivity : AppCompatActivity() {
@@ -21,6 +24,8 @@ class MainActivity : AppCompatActivity() {
     // Views
     private lateinit var userAccountImageButton: RoundedImageView
     private lateinit var anonymousUserImageButton: ImageView
+    private lateinit var titleTypesTabLayout: TabLayout
+    private lateinit var viewPager: ViewPager
 
     // Firebase
     private lateinit var auth: FirebaseAuth
@@ -33,6 +38,13 @@ class MainActivity : AppCompatActivity() {
         // Connect views
         userAccountImageButton = findViewById(R.id.userAccountImageButton)
         anonymousUserImageButton = findViewById(R.id.anonymousUserImageButton)
+        titleTypesTabLayout = findViewById(R.id.titleTypesTabLayout)
+        viewPager = findViewById(R.id.viewPager)
+
+        // Prepare tab
+        titleTypesTabLayout.addOnTabSelectedListener(onTabSelectedListener)
+        viewPager.adapter = TitleTypesFragmentPageAdapter(supportFragmentManager)
+        viewPager.addOnPageChangeListener(onPageChangeListener)
 
         auth = Firebase.auth
         db = Firebase.firestore
@@ -91,6 +103,33 @@ class MainActivity : AppCompatActivity() {
             // User Logged Out
             userAccountImageButton.visibility = View.INVISIBLE
             anonymousUserImageButton.visibility = View.VISIBLE
+        }
+    }
+    //endregion
+
+    //region Tab Listeners
+    private val onTabSelectedListener = object : TabLayout.OnTabSelectedListener {
+        override fun onTabReselected(p0: TabLayout.Tab?) { }
+
+        override fun onTabUnselected(p0: TabLayout.Tab?) { }
+
+        override fun onTabSelected(p0: TabLayout.Tab?) {
+            viewPager.currentItem = p0!!.position
+        }
+    }
+
+    private val onPageChangeListener = object : ViewPager.OnPageChangeListener {
+        override fun onPageScrollStateChanged(state: Int) { }
+
+        override fun onPageScrolled(
+            position: Int,
+            positionOffset: Float,
+            positionOffsetPixels: Int
+        ) { }
+
+        override fun onPageSelected(position: Int) {
+            val tab = titleTypesTabLayout.getTabAt(position)
+            tab?.select()
         }
     }
     //endregion

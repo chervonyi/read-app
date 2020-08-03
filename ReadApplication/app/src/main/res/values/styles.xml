@@ -8,4 +8,18 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <style name="CustomTabStyle" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">@dimen/tabFontSize</item>
+        <item name="android:textColor">@color/colorFontMain</item>
+        <item name="android:fontFamily">@font/cabin_semi_bold</item>
+    </style>
+
+
+    <style name="CustomTabLayoutStyle" parent="Widget.Design.TabLayout">
+<!--        <item name="tabIndicatorHeight">0dp</item>-->
+        <item name="tabIndicatorColor">@color/colorFontMain</item>
+        <item name="tabRippleColor">@null</item>
+    </style>
 </resources>

@@ -7,6 +7,7 @@
     <dimen name="editTextFontSize">17sp</dimen>
     <dimen name="buttonFontSize">20sp</dimen>
     <dimen name="hintFontSize">16sp</dimen>
+    <dimen name="tabFontSize">16sp</dimen>
 
     <dimen name="iconSize">50dp</dimen>
     <dimen name="avatarSize">70dp</dimen>

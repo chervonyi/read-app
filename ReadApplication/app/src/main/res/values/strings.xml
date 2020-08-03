@@ -44,4 +44,8 @@
     <string name="show_password_content_description">Show/Hide Password Button</string>
     <string name="anonymous_user_button_content_description">Anonymous User Button</string>
     <string name="search_content_description">Search</string>
+    <string name="tab_new">New</string>
+    <string name="tab_recommended">Recommended</string>
+    <string name="tab_top">Top</string>
+    <string name="tab_followed">Followed</string>
 </resources>
