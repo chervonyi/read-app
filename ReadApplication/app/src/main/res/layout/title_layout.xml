@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/content_panel"
+    android:padding="@dimen/mainPadding">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tmp_title_panel_header"
+        android:textSize="@dimen/titlePanelHeaderFontSize"
+        android:textColor="@color/colorFontMain"
+        android:fontFamily="@font/cabin_semi_bold"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/userAccountImageButton"
+            android:layout_width="@dimen/avatarTinySize"
+            android:layout_height="@dimen/avatarTinySize"
+            android:background="@drawable/anonymous_user"
+            android:onClick="onClickUserAccount"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_avatar_1"
+            app:riv_corner_radius="@dimen/tinyUserIconCorners"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/tmp_title_panel_author"
+            android:textSize="@dimen/titlePanelAuthorFontSize"
+            android:textColor="@color/colorFontMain"
+            android:fontFamily="@font/cabin_semi_bold"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tmp_title_panel_body"
+        android:layout_marginTop="10dp"
+        android:textSize="@dimen/titlePanelAuthorFontSize"
+        android:textColor="@color/colorFontMain"
+        android:fontFamily="@font/cabin_regular"/>
+
+</LinearLayout>

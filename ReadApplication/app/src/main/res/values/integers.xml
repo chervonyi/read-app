@@ -8,11 +8,16 @@
     <dimen name="buttonFontSize">20sp</dimen>
     <dimen name="hintFontSize">16sp</dimen>
     <dimen name="tabFontSize">16sp</dimen>
+    <dimen name="titlePanelHeaderFontSize">20sp</dimen>
+    <dimen name="titlePanelAuthorFontSize">16sp</dimen>
+    <dimen name="titlePanelDescriptionFontSize">16sp</dimen>
 
     <dimen name="iconSize">50dp</dimen>
     <dimen name="avatarSize">70dp</dimen>
     <dimen name="avatarSmallSize">40dp</dimen>
+    <dimen name="avatarTinySize">35dp</dimen>
     <dimen name="smallUserIconCorners">10dp</dimen>
+    <dimen name="tinyUserIconCorners">8dp</dimen>
     <dimen name="avatarCornersRadius">20dp</dimen>
     <dimen name="avatarListDivider">30dp</dimen>
     <dimen name="selectedAvatarBorderWidth">3dp</dimen>

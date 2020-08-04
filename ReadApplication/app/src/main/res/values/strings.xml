@@ -48,4 +48,7 @@
     <string name="tab_recommended">Recommended</string>
     <string name="tab_top">Top</string>
     <string name="tab_followed">Followed</string>
+    <string name="tmp_title_panel_header">The Summer House</string>
+    <string name="tmp_title_panel_author">James Patterson</string>
+    <string name="tmp_title_panel_body">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don’t look even slightly believable.</string>
 </resources>
