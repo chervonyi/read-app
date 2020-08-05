@@ -2,15 +2,18 @@ package room106.app.read.views
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.makeramen.roundedimageview.RoundedImageView
 import room106.app.read.R
+import room106.app.read.activities.TitleActivity
 import room106.app.read.models.Title
 
 @SuppressLint("ViewConstructor")
-class TitleView(context: Context?, private val title: Title) : LinearLayout(context) {
+class TitleView(context: Context?, private val title: Title, private val titleID: String) : LinearLayout(context),
+    View.OnClickListener {
 
     // Views
     private lateinit var header: TextView
@@ -35,5 +38,15 @@ class TitleView(context: Context?, private val title: Title) : LinearLayout(cont
         val avatarName = "ic_avatar_${title.authorAvatar}"
         val image = resources.getIdentifier(avatarName, "drawable", context?.packageName)
         authorAvatar.setImageResource(image)
+
+        setOnClickListener(this)
     }
+
+    override fun onClick(p0: View?) {
+        val intent = Intent(context, TitleActivity::class.java)
+        // TODO - put titledID in extra
+        context.startActivity(intent)
+    }
+
+
 }

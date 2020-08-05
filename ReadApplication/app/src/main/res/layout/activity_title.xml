@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground"
+    tools:context=".activities.TitleActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:layout_width="@dimen/iconSize"
+            android:layout_height="@dimen/iconSize"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:padding="8dp"
+            android:src="@drawable/ic_back"
+            android:contentDescription="@string/button_back_content_description"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:layout_width="@dimen/iconSize"
+            android:layout_height="@dimen/iconSize"
+            android:background="@null"
+            android:src="@drawable/ic_more"
+            android:scaleType="fitCenter"
+            android:padding="8dp"
+            android:contentDescription="@string/button_more_content_description"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/mainPadding"
+            android:divider="@drawable/divider_form"
+            android:showDividers="middle">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tmp_title_panel_header"
+                android:textSize="@dimen/titleHeaderFontSize"
+                android:textColor="@color/colorFontMain"
+                android:fontFamily="@font/cabin_semi_bold"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <com.makeramen.roundedimageview.RoundedImageView
+                    android:id="@+id/titleAuthorAvatar"
+                    android:layout_width="@dimen/avatarSmallSize"
+                    android:layout_height="@dimen/avatarSmallSize"
+                    android:background="@drawable/anonymous_user"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_avatar_1"
+                    app:riv_corner_radius="@dimen/tinyUserIconCorners"/>
+
+                <TextView
+                    android:id="@+id/titleAuthor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/tmp_title_panel_author"
+                    android:textSize="@dimen/titleAuthorFontSize"
+                    android:textColor="@color/colorFontMain"
+                    android:fontFamily="@font/cabin_semi_bold"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="14dp"
+                android:background="@drawable/content_panel">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/userTitlesCountTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/_12k"
+                        android:textSize="22sp"
+                        android:textColor="@color/colorFontUserStatsNumbers"
+                        android:fontFamily="@font/cabin_bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_stats_reads"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorFontUserStatsNumbers"
+                        android:fontFamily="@font/cabin_regular"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorUserStatsDivider"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/userFollowersCountTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/followers_count_tmp"
+                        android:textSize="22sp"
+                        android:textColor="@color/colorFontUserStatsNumbers"
+                        android:fontFamily="@font/cabin_bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/title_stats_likes"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorFontUserStatsNumbers"
+                        android:fontFamily="@font/cabin_regular"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorUserStatsDivider"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/userLikesCountTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/time_to_read_tmp"
+                        android:textSize="22sp"
+                        android:textColor="@color/colorFontUserStatsNumbers"
+                        android:fontFamily="@font/cabin_bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/time_to_read_min"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorFontUserStatsNumbers"
+                        android:fontFamily="@font/cabin_regular"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tmp_title_panel_body"
+                android:textSize="@dimen/titleDescriptionFontSize"
+                android:textColor="@color/colorFontBody"
+                android:fontFamily="@font/cabin_regular"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/itemHeight"
+                android:background="@drawable/main_button"
+                android:text="@string/save"
+                android:textAllCaps="false"
+                android:textColor="@color/colorFontMainButton"
+                android:textSize="@dimen/buttonFontSize"
+                android:fontFamily="@font/cabin_semi_bold"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:focusable="false"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/long_text"
+                android:textSize="@dimen/titleDescriptionFontSize"
+                android:textColor="@color/colorFontBody"
+                android:fontFamily="@font/cabin_regular"
+                android:layout_marginBottom="20dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="@dimen/itemHeight"
+                    android:background="@drawable/like_button"
+                    android:text="@string/like"
+                    android:textAllCaps="false"
+                    android:textColor="@color/colorFontMainButton"
+                    android:textSize="@dimen/buttonFontSize"
+                    android:fontFamily="@font/cabin_semi_bold"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:focusable="false"/>
+
+                <ImageButton
+                    android:layout_width="@dimen/itemHeight"
+                    android:layout_height="@dimen/itemHeight"
+                    android:layout_marginStart="@dimen/mainPadding"
+                    android:src="@drawable/ic_arrow_up"
+                    android:background="@drawable/content_panel"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="@string/button_up_content_description" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

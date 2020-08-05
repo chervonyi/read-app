@@ -50,7 +50,7 @@ class NewFragment: Fragment() {
         titlesRef.get().addOnSuccessListener { documents ->
             for (document in documents) {
                 val title = document.toObject(Title::class.java)
-                val titleView = TitleView(context, title)
+                val titleView = TitleView(context, title, document.id)
                 titlesLinearLayout.addView(titleView)
             }
         }

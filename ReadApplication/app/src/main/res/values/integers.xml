@@ -11,6 +11,10 @@
     <dimen name="titlePanelHeaderFontSize">20sp</dimen>
     <dimen name="titlePanelAuthorFontSize">16sp</dimen>
     <dimen name="titlePanelDescriptionFontSize">16sp</dimen>
+    <dimen name="titleHeaderFontSize">24sp</dimen>
+    <dimen name="titleAuthorFontSize">18sp</dimen>
+    <dimen name="titleDescriptionFontSize">18sp</dimen>
+    <dimen name="titleBodyFontSize">18sp</dimen>
 
     <dimen name="iconSize">50dp</dimen>
     <dimen name="avatarSize">70dp</dimen>
