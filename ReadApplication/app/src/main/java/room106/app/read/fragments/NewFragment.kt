@@ -6,13 +6,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import room106.app.read.R
+import room106.app.read.models.Title
 import room106.app.read.views.TitleView
 
 class NewFragment: Fragment() {
 
     // Views
     private lateinit var titlesLinearLayout: LinearLayout
+
+    // Firebase
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,26 +31,28 @@ class NewFragment: Fragment() {
         // Connect Views
         titlesLinearLayout = v.findViewById(R.id.titlesLinearLayout)
 
-        loadTitles()
+        // Firebase
+        db = Firebase.firestore
 
         return v
     }
 
+    override fun onStart() {
+        super.onStart()
+        loadTitles()
+    }
+
     private fun loadTitles() {
-        // TODO - Implement
+        // TODO - Add some limitation like: whereEqualTo.. order.. limits..
+        val titlesRef = db.collection("titles")
 
-        val t1 = TitleView(context)
-        val t2 = TitleView(context)
-        val t3 = TitleView(context)
-        val t4 = TitleView(context)
-        val t5 = TitleView(context)
-        val t6 = TitleView(context)
-
-        titlesLinearLayout.addView(t1)
-        titlesLinearLayout.addView(t2)
-        titlesLinearLayout.addView(t3)
-        titlesLinearLayout.addView(t4)
-        titlesLinearLayout.addView(t5)
-        titlesLinearLayout.addView(t6)
+        // Execute query
+        titlesRef.get().addOnSuccessListener { documents ->
+            for (document in documents) {
+                val title = document.toObject(Title::class.java)
+                val titleView = TitleView(context, title)
+                titlesLinearLayout.addView(titleView)
+            }
+        }
     }
 }

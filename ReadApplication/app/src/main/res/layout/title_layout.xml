@@ -8,6 +8,7 @@
     android:padding="@dimen/mainPadding">
 
     <TextView
+        android:id="@+id/titleHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/tmp_title_panel_header"
@@ -23,7 +24,7 @@
         android:gravity="center">
 
         <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/userAccountImageButton"
+            android:id="@+id/titleAuthorAvatar"
             android:layout_width="@dimen/avatarTinySize"
             android:layout_height="@dimen/avatarTinySize"
             android:background="@drawable/anonymous_user"
@@ -33,6 +34,7 @@
             app:riv_corner_radius="@dimen/tinyUserIconCorners"/>
 
         <TextView
+            android:id="@+id/titleAuthor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
@@ -44,6 +46,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/titleDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/tmp_title_panel_body"
