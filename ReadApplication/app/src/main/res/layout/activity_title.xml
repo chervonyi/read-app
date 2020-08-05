@@ -27,6 +27,7 @@
             android:showDividers="middle">
 
             <TextView
+                android:id="@+id/titleHeaderTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/tmp_title_panel_header"
@@ -41,7 +42,7 @@
                 android:gravity="center">
 
                 <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/titleAuthorAvatar"
+                    android:id="@+id/titleAuthorAvatarImageView"
                     android:layout_width="@dimen/avatarSmallSize"
                     android:layout_height="@dimen/avatarSmallSize"
                     android:background="@drawable/anonymous_user"
@@ -50,7 +51,7 @@
                     app:riv_corner_radius="@dimen/tinyUserIconCorners"/>
 
                 <TextView
-                    android:id="@+id/titleAuthor"
+                    android:id="@+id/titleAuthorTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -76,7 +77,7 @@
                     android:gravity="center">
 
                     <TextView
-                        android:id="@+id/userTitlesCountTextView"
+                        android:id="@+id/titleReadsCountTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/_12k"
@@ -109,7 +110,7 @@
                     android:gravity="center">
 
                     <TextView
-                        android:id="@+id/userFollowersCountTextView"
+                        android:id="@+id/titleLikesCountTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/followers_count_tmp"
@@ -142,7 +143,7 @@
                     android:gravity="center">
 
                     <TextView
-                        android:id="@+id/userLikesCountTextView"
+                        android:id="@+id/titleTimeToReadTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/time_to_read_tmp"
@@ -163,6 +164,7 @@
             </LinearLayout>
 
             <TextView
+                android:id="@+id/titleDescriptionTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/tmp_title_panel_body"
@@ -183,6 +185,7 @@
                 android:focusable="false"/>
 
             <TextView
+                android:id="@+id/titleBodyTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/long_text"

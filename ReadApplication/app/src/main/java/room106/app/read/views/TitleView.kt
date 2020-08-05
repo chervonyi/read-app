@@ -13,41 +13,30 @@ import room106.app.read.activities.TitleActivity
 import room106.app.read.models.Title
 
 @SuppressLint("ViewConstructor")
-class TitleView(context: Context?, private val title: Title, private val titleID: String) : LinearLayout(context),
-    View.OnClickListener {
+class TitleView(context: Context?, private val title: Title, private val titleID: String) : LinearLayout(context){
 
     // Views
-    private lateinit var header: TextView
-    private lateinit var author: TextView
-    private lateinit var authorAvatar: RoundedImageView
-    private lateinit var description: TextView
+    private var headerTextView: TextView
+    private var authorTextView: TextView
+    private var authorAvatarImageView: RoundedImageView
+    private var descriptionTextView: TextView
 
     init {
         View.inflate(context, R.layout.title_layout, this)
 
         // Connect views
-        header = findViewById(R.id.titleHeader)
-        author = findViewById(R.id.titleAuthor)
-        authorAvatar = findViewById(R.id.titleAuthorAvatar)
-        description = findViewById(R.id.titleDescription)
+        headerTextView = findViewById(R.id.titleHeaderTextView)
+        authorTextView = findViewById(R.id.titleAuthorTextView)
+        authorAvatarImageView = findViewById(R.id.titleAuthorAvatarImageView)
+        descriptionTextView = findViewById(R.id.titleDescriptionTextView)
 
         // Assign data
-        header.text = title.title
-        author.text = title.authorName
-        description.text = title.description
+        headerTextView.text = title.title
+        authorTextView.text = title.authorName
+        descriptionTextView.text = title.description
 
         val avatarName = "ic_avatar_${title.authorAvatar}"
         val image = resources.getIdentifier(avatarName, "drawable", context?.packageName)
-        authorAvatar.setImageResource(image)
-
-        setOnClickListener(this)
+        authorAvatarImageView.setImageResource(image)
     }
-
-    override fun onClick(p0: View?) {
-//        val intent = Intent(context, TitleActivity::class.java)
-//        context.startActivity(intent)
-
-    }
-
-
 }

@@ -56,7 +56,7 @@ class NewFragment: Fragment() {
 
                 titleView.setOnClickListener {
                     val intent = Intent(context, TitleActivity::class.java)
-                    // TODO - intent.putExtra("title_id", document.id)
+                    intent.putExtra("title_id", document.id)
                     context?.startActivity(intent)
                     activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
                 }
