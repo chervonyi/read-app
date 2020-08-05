@@ -1,93 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/colorBackground"
     tools:context=".activities.MainActivity">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/headerPadding"
-        android:paddingStart="@dimen/headerPadding"
-        android:paddingEnd="@dimen/mainPadding">
-
-        <ImageButton
-            android:layout_width="@dimen/iconSize"
-            android:layout_height="@dimen/iconSize"
-            android:background="@null"
-            android:src="@drawable/ic_search"
-            android:scaleType="fitCenter"
-            android:padding="10dp"
-            android:contentDescription="@string/search_content_description" />
-
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/userAccountImageButton"
-            android:layout_width="@dimen/avatarSmallSize"
-            android:layout_height="@dimen/avatarSmallSize"
-            android:background="@drawable/anonymous_user"
-            android:onClick="onClickUserAccount"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:scaleType="centerCrop"
-            app:riv_corner_radius="@dimen/smallUserIconCorners"/>
-
-        <ImageButton
-            android:id="@+id/anonymousUserImageButton"
-            android:layout_width="@dimen/avatarSmallSize"
-            android:layout_height="@dimen/avatarSmallSize"
-            android:background="@drawable/anonymous_user"
-            android:src="@drawable/ic_person"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:scaleType="fitCenter"
-            android:padding="5dp"
-            android:onClick="onClickAnonymousUser"
-            android:contentDescription="@string/anonymous_user_button_content_description" />
-
-    </RelativeLayout>
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/titleTypesTabLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        app:tabTextAppearance="@style/CustomTabStyle"
-        app:tabIndicator="@drawable/tab_indicator"
-        app:tabMode="auto"
-        app:tabIndicatorHeight="10dp"
-        style="@style/CustomTabLayoutStyle">
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tab_new" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tab_recommended" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tab_top" />
-
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/tab_followed" />
-    </com.google.android.material.tabs.TabLayout>
-
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-</LinearLayout>
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBackground"
+        app:elevation="0dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/headerPadding"
+            android:paddingStart="@dimen/headerPadding"
+            android:paddingEnd="@dimen/mainPadding"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <ImageButton
+                android:layout_width="@dimen/iconSize"
+                android:layout_height="@dimen/iconSize"
+                android:background="@null"
+                android:src="@drawable/ic_search"
+                android:scaleType="fitCenter"
+                android:padding="10dp"
+                android:contentDescription="@string/search_content_description" />
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/userAccountImageButton"
+                android:layout_width="@dimen/avatarSmallSize"
+                android:layout_height="@dimen/avatarSmallSize"
+                android:background="@drawable/anonymous_user"
+                android:onClick="onClickUserAccount"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:scaleType="centerCrop"
+                app:riv_corner_radius="@dimen/smallUserIconCorners"/>
+
+            <ImageButton
+                android:id="@+id/anonymousUserImageButton"
+                android:layout_width="@dimen/avatarSmallSize"
+                android:layout_height="@dimen/avatarSmallSize"
+                android:background="@drawable/anonymous_user"
+                android:src="@drawable/ic_person"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:scaleType="fitCenter"
+                android:padding="5dp"
+                android:onClick="onClickAnonymousUser"
+                android:contentDescription="@string/anonymous_user_button_content_description" />
+
+        </RelativeLayout>
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/titleTypesTabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:tabTextAppearance="@style/CustomTabStyle"
+            app:tabIndicator="@drawable/tab_indicator"
+            app:tabMode="auto"
+            app:tabIndicatorHeight="10dp"
+            style="@style/CustomTabLayoutStyle">
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tab_new" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tab_recommended" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tab_top" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tab_followed" />
+        </com.google.android.material.tabs.TabLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
