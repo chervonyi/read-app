@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.makeramen.roundedimageview.RoundedImageView
 import room106.app.read.R
+import room106.app.read.activities.MainActivity
 import room106.app.read.activities.TitleActivity
 import room106.app.read.models.Title
 
@@ -43,9 +44,9 @@ class TitleView(context: Context?, private val title: Title, private val titleID
     }
 
     override fun onClick(p0: View?) {
-        val intent = Intent(context, TitleActivity::class.java)
-        // TODO - put titledID in extra
-        context.startActivity(intent)
+//        val intent = Intent(context, TitleActivity::class.java)
+//        context.startActivity(intent)
+
     }
 
 

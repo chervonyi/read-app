@@ -1,55 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/colorBackground"
     tools:context=".activities.TitleActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:layout_width="@dimen/iconSize"
-            android:layout_height="@dimen/iconSize"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            android:padding="8dp"
-            android:src="@drawable/ic_back"
-            android:contentDescription="@string/button_back_content_description"/>
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-
-        <ImageButton
-            android:layout_width="@dimen/iconSize"
-            android:layout_height="@dimen/iconSize"
-            android:background="@null"
-            android:src="@drawable/ic_more"
-            android:scaleType="fitCenter"
-            android:padding="8dp"
-            android:contentDescription="@string/button_more_content_description"/>
-
-    </LinearLayout>
-
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:overScrollMode="never"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="@dimen/mainPadding"
+            android:paddingTop="@dimen/headerPadding"
+            android:paddingStart="@dimen/mainPadding"
+            android:paddingEnd="@dimen/mainPadding"
+            android:paddingBottom="@dimen/mainPadding"
             android:divider="@drawable/divider_form"
             android:showDividers="middle">
 
@@ -250,6 +223,47 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
-</LinearLayout>
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBackground"
+        app:elevation="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            app:layout_scrollFlags="scroll|enterAlways">
+
+            <ImageButton
+                android:layout_width="@dimen/iconSize"
+                android:layout_height="@dimen/iconSize"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:padding="8dp"
+                android:src="@drawable/ic_back"
+                android:contentDescription="@string/button_back_content_description"/>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <ImageButton
+                android:layout_width="@dimen/iconSize"
+                android:layout_height="@dimen/iconSize"
+                android:background="@null"
+                android:src="@drawable/ic_more"
+                android:scaleType="fitCenter"
+                android:padding="8dp"
+                android:contentDescription="@string/button_more_content_description"/>
+
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
