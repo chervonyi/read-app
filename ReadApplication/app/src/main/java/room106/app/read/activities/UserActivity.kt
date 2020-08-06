@@ -130,6 +130,14 @@ class UserActivity : AppCompatActivity() {
     }
     //endregion
 
+
+    fun onClickCreateNewTitle(v: View) {
+        val intent = Intent(this, EditTitleActivity::class.java)
+        startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
+    }
+
+
     fun onClickBack(v: View) {
         finish()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)

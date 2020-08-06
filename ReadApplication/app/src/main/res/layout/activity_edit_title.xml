@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorBackground"
+    tools:context=".activities.EditTitleActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        app:layout_scrollFlags="scroll|enterAlways">
+
+        <ImageButton
+            android:layout_width="@dimen/iconSize"
+            android:layout_height="@dimen/iconSize"
+            android:background="@null"
+            android:scaleType="fitCenter"
+            android:padding="8dp"
+            android:src="@drawable/ic_back"
+            android:contentDescription="@string/button_back_content_description"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <ImageButton
+            android:layout_width="@dimen/iconSize"
+            android:layout_height="@dimen/iconSize"
+            android:background="@null"
+            android:src="@drawable/ic_more"
+            android:scaleType="fitCenter"
+            android:padding="8dp"
+            android:contentDescription="@string/button_more_content_description"/>
+
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="none"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/mainPadding">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/title_hint"
+                android:gravity="top"
+                android:minLines="2"
+                android:maxLines="3"
+                android:textSize="@dimen/headerFontSize"
+                android:fontFamily="@font/cabin_semi_bold"
+                android:textColor="@color/colorFontMain"
+                android:inputType="textCapSentences|textMultiLine"
+                android:importantForAutofill="no"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/description_hint"
+                android:gravity="top"
+                android:minLines="4"
+                android:maxLines="5"
+                android:textSize="@dimen/mainFontSize"
+                android:fontFamily="@font/cabin_regular"
+                android:textColor="@color/colorFontMain"
+                android:inputType="textCapSentences|textMultiLine"
+                android:importantForAutofill="no" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:hint="@string/text_hint"
+                android:gravity="top"
+                android:textSize="@dimen/mainFontSize"
+                android:fontFamily="@font/cabin_regular"
+                android:textColor="@color/colorFontMain"
+                android:inputType="textCapSentences|textMultiLine"
+                android:importantForAutofill="no" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/itemHeight"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/main_button"
+                android:text="@string/save"
+                android:textAllCaps="false"
+                android:textColor="@color/colorFontMainButton"
+                android:textSize="@dimen/buttonFontSize"
+                android:fontFamily="@font/cabin_semi_bold"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:focusable="false"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/itemHeight"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/content_panel"
+                android:text="@string/publish"
+                android:textAllCaps="false"
+                android:textColor="@color/colorFontPublishButton"
+                android:textSize="@dimen/buttonFontSize"
+                android:fontFamily="@font/cabin_semi_bold"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:focusable="false"/>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

@@ -13,6 +13,7 @@
     <color name="colorFontBody">#535353</color>
     <color name="colorFontSub">#7C7C7C</color>
     <color name="colorFontMainButton">#FFF</color>
+    <color name="colorFontPublishButton">#8993A2</color>
 
 
     <!--    User Stats Panel   -->

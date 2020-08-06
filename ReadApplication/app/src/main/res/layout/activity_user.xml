@@ -183,7 +183,8 @@
             android:textSize="@dimen/buttonFontSize"
             android:fontFamily="@font/cabin_semi_bold"
             style="@style/Widget.AppCompat.Button.Borderless"
-            android:focusable="false"/>
+            android:focusable="false"
+            android:onClick="onClickCreateNewTitle"/>
 
     </LinearLayout>
 
