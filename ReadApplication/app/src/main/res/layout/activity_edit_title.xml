@@ -24,6 +24,7 @@
             android:padding="@dimen/mainPadding">
 
             <EditText
+                android:id="@+id/titleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/title_hint"
@@ -37,6 +38,7 @@
                 android:importantForAutofill="no"/>
 
             <EditText
+                android:id="@+id/descriptionEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/description_hint"
@@ -50,6 +52,7 @@
                 android:importantForAutofill="no" />
 
             <EditText
+                android:id="@+id/bodyEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/text_hint"
@@ -62,6 +65,7 @@
                 android:importantForAutofill="no" />
 
             <Button
+                android:id="@+id/saveTitleButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/itemHeight"
                 android:layout_marginTop="20dp"
@@ -72,9 +76,11 @@
                 android:textSize="@dimen/buttonFontSize"
                 android:fontFamily="@font/cabin_semi_bold"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:focusable="false"/>
+                android:focusable="false"
+                android:onClick="onClickSave"/>
 
             <Button
+                android:id="@+id/publishTitleButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/itemHeight"
                 android:layout_marginTop="14dp"
@@ -85,7 +91,8 @@
                 android:textSize="@dimen/buttonFontSize"
                 android:fontFamily="@font/cabin_semi_bold"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:focusable="false"/>
+                android:focusable="false"
+                android:onClick="onClickPublish"/>
 
 
         </LinearLayout>
@@ -113,7 +120,8 @@
                 android:scaleType="fitCenter"
                 android:padding="8dp"
                 android:src="@drawable/ic_back"
-                android:contentDescription="@string/button_back_content_description"/>
+                android:contentDescription="@string/button_back_content_description"
+                android:onClick="onClickBack"/>
 
             <Space
                 android:layout_width="0dp"
@@ -127,7 +135,8 @@
                 android:src="@drawable/ic_more"
                 android:scaleType="fitCenter"
                 android:padding="8dp"
-                android:contentDescription="@string/button_more_content_description"/>
+                android:contentDescription="@string/button_more_content_description"
+                android:onClick="onClickMore"/>
 
         </LinearLayout>
 

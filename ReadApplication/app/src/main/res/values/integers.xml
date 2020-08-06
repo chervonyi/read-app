@@ -35,6 +35,14 @@
     <integer name="emailMaxLength">30</integer>
     <integer name="passwordMaxLength">30</integer>
 
+    <!--    MIN & MAX     -->
+    <integer name="titleMinLength">5</integer>
+    <integer name="titleMaxLength">30</integer>
+    <integer name="descriptionMinLength">10</integer>
+    <integer name="descriptionMaxLength">50</integer>
+    <integer name="titleBodyMinLength">50</integer>
+    <integer name="titleBodyMaxLength">10000</integer>
+
     <!--    Animation   -->
     <integer name="buttonAnimDuration">200</integer>
     <integer name="animation_duration">300</integer>
