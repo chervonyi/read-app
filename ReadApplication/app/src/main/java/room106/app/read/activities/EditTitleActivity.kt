@@ -3,9 +3,11 @@ package room106.app.read.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputType
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import com.google.android.gms.tasks.OnSuccessListener
@@ -48,18 +50,18 @@ class EditTitleActivity : AppCompatActivity() {
         saveTitleButton = findViewById(R.id.saveTitleButton)
         publishTitleButton = findViewById(R.id.publishTitleButton)
 
-        // TODO - Add "Done" button for EditText while multiline is available using:
-//        setImeOptions(EditorInfo.IME_ACTION_DONE);
-//        editText.setRawInputType(InputType.TYPE_CLASS_TEXT);
+        // Set "Done" button on keyboard
+        titleEditText.imeOptions = EditorInfo.IME_ACTION_DONE
+        titleEditText.setRawInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
+        descriptionEditText.imeOptions = EditorInfo.IME_ACTION_DONE
+        descriptionEditText.setRawInputType(InputType.TYPE_TEXT_FLAG_CAP_SENTENCES)
 
         // Connect listeners
         titleEditText.addTextChangedListener(titleDataWatcher)
         descriptionEditText.addTextChangedListener(titleDataWatcher)
         bodyEditText.addTextChangedListener(titleDataWatcher)
 
-
         titleID = intent.getStringExtra("title_id")
-
         if (titleID != null) {
             // User editing an existing title
             // TODO - Load title data and set it
@@ -168,7 +170,7 @@ class EditTitleActivity : AppCompatActivity() {
         }
     }
 
-    private fun isFieldsValid(): Boolean {
+    private fun isValidForPublish(): Boolean {
         return isTitleValid() && isDescriptionValid() && isBodyValid()
     }
 
@@ -197,10 +199,7 @@ class EditTitleActivity : AppCompatActivity() {
                 descriptionEditText.text.length > minLengthToSave ||
                 bodyEditText.text.length > minLengthToSave
 
-
-        publishTitleButton.visibility = if (isTitleValid() &&
-            isDescriptionValid() &&
-            isBodyValid()) {
+        publishTitleButton.visibility = if (isValidForPublish()) {
             View.VISIBLE
         } else {
             View.GONE

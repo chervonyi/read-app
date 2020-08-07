@@ -48,6 +48,8 @@ class NewFragment: Fragment() {
         // TODO - Add some limitation like: whereEqualTo.. order.. limits..
         val titlesRef = db.collection("titles")
 
+        titlesLinearLayout.removeAllViews()
+
         // Execute query
         titlesRef.get().addOnSuccessListener { documents ->
             for (document in documents) {

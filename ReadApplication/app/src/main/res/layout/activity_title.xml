@@ -9,6 +9,7 @@
     tools:context=".activities.TitleActivity">
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/mainNestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:overScrollMode="never"
@@ -220,7 +221,8 @@
                     android:src="@drawable/ic_arrow_up"
                     android:background="@drawable/content_panel"
                     android:scaleType="centerCrop"
-                    android:contentDescription="@string/button_up_content_description" />
+                    android:contentDescription="@string/button_up_content_description"
+                    android:onClick="onClickScrollTop"/>
 
             </LinearLayout>
 
@@ -229,6 +231,7 @@
     </androidx.core.widget.NestedScrollView>
 
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorBackground"

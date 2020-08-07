@@ -1,9 +1,13 @@
 package room106.app.read.activities
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.ScrollView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.widget.NestedScrollView
+import com.google.android.material.appbar.AppBarLayout
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -11,9 +15,12 @@ import com.makeramen.roundedimageview.RoundedImageView
 import room106.app.read.R
 import room106.app.read.models.Title
 
+
 class TitleActivity : AppCompatActivity() {
 
     // Views
+    private lateinit var mainNestedScrollView: NestedScrollView
+    private lateinit var appBarLayout: AppBarLayout
     private lateinit var headerTextView: TextView
     private lateinit var authorAvatarImageView: RoundedImageView
     private lateinit var authorTextView: TextView
@@ -33,6 +40,8 @@ class TitleActivity : AppCompatActivity() {
         setContentView(R.layout.activity_title)
 
         // Connect views
+        mainNestedScrollView = findViewById(R.id.mainNestedScrollView)
+        appBarLayout = findViewById(R.id.appBarLayout)
         headerTextView = findViewById(R.id.titleHeaderTextView)
         authorAvatarImageView = findViewById(R.id.titleAuthorAvatarImageView)
         authorTextView = findViewById(R.id.titleAuthorTextView)
@@ -91,6 +100,11 @@ class TitleActivity : AppCompatActivity() {
     fun onClickBack(v: View) {
         finish()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
+    }
+
+    fun onClickScrollTop(v: View) {
+        mainNestedScrollView.fullScroll(ScrollView.FOCUS_UP)
+        appBarLayout.setExpanded(true)
     }
 
     fun onClickMore(v: View) {

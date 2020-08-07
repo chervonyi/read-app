@@ -51,6 +51,8 @@ class DraftFragment: Fragment() {
     private fun loadTitles() {
         val currentUser = auth.currentUser ?: return
 
+        titlesLinearLayout.removeAllViews()
+
         val titlesRef = db.collection("titles")
             .whereEqualTo("authorID", currentUser.uid)
             .whereEqualTo("status", "draft")
