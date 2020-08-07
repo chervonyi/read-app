@@ -60,12 +60,17 @@ class TitleActivity : AppCompatActivity() {
 
            titleRef.get().addOnSuccessListener { document ->
                val title = document.toObject(Title::class.java)
-               updateTitleUI(title)
+
+               document.reference.collection("body").document("text")
+                   .get().addOnSuccessListener { bodyDocument ->
+                       val body = bodyDocument.get("text").toString()
+                       updateTitleUI(title, body)
+                   }
            }
        }
     }
 
-    private fun updateTitleUI(title: Title?) {
+    private fun updateTitleUI(title: Title?, body: String) {
         if (title != null) {
             headerTextView.text = title.title
             authorTextView.text = title.authorName
@@ -74,7 +79,7 @@ class TitleActivity : AppCompatActivity() {
             likesCountTextView.text = title.likesCount.toString()
 
             // TODO - timeToReadTextView.text = body.length / 100 ...
-            // TODO - Assign title body
+            bodyTextView.text = body
 
             val avatarName = "ic_avatar_${title.authorAvatar}"
             val image = resources.getIdentifier(avatarName, "drawable", packageName)
