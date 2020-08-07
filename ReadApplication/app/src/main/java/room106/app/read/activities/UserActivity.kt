@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
 import com.google.firebase.auth.FirebaseAuth
@@ -13,6 +14,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.makeramen.roundedimageview.RoundedImageView
 import room106.app.read.R
+import room106.app.read.fragments.CurrentUserFragment
 import room106.app.read.models.User
 
 class UserActivity : AppCompatActivity() {
@@ -23,12 +25,15 @@ class UserActivity : AppCompatActivity() {
     private lateinit var userTitlesCountTextView: TextView
     private lateinit var userFollowersCountTextView: TextView
     private lateinit var userLikesCountTextView: TextView
+    private lateinit var userTitlesFrameLayout: FrameLayout
 
     // Firebase
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
 
     private lateinit var userData: User
+    private var userID: String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +45,22 @@ class UserActivity : AppCompatActivity() {
         userTitlesCountTextView = findViewById(R.id.userTitlesCountTextView)
         userFollowersCountTextView = findViewById(R.id.userFollowersCountTextView)
         userLikesCountTextView = findViewById(R.id.userLikesCountTextView)
+        userTitlesFrameLayout = findViewById(R.id.userTitlesFrameLayout)
 
         auth = Firebase.auth
         db = Firebase.firestore
+
+        userID = intent.getStringExtra("user_id")
+
+        if (userID == null) {
+            // Load current user Fragment
+            val ft = supportFragmentManager.beginTransaction()
+            ft.replace(R.id.userTitlesFrameLayout, CurrentUserFragment())
+            ft.commit()
+        } else {
+            // Load other user fragment
+            // TODO - Implement
+        }
     }
 
     override fun onStart() {

@@ -66,4 +66,8 @@
     <string name="description_hint">Description</string>
     <string name="text_hint">Text</string>
     <string name="publish">Publish</string>
+    <string name="tab_published">Published</string>
+    <string name="tab_draft">Draft</string>
+    <string name="tab_liked">Liked</string>
+    <string name="tab_saved">Saved</string>
 </resources>

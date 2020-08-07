@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,184 +8,200 @@
     android:background="@color/colorBackground"
     android:orientation="vertical">
 
-    <LinearLayout
+    <FrameLayout
+        android:id="@+id/userTitlesFrameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:background="@color/colorBackground"
+        app:elevation="0dp">
 
-        <ImageButton
-            android:layout_width="@dimen/iconSize"
-            android:layout_height="@dimen/iconSize"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            android:padding="8dp"
-            android:src="@drawable/ic_back"
-            android:contentDescription="@string/button_back_content_description"
-            android:onClick="onClickBack"/>
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-
-        <ImageButton
-            android:layout_width="@dimen/iconSize"
-            android:layout_height="@dimen/iconSize"
-            android:background="@null"
-            android:src="@drawable/ic_more"
-            android:scaleType="fitCenter"
-            android:padding="8dp"
-            android:contentDescription="@string/button_more_content_description"
-            android:onClick="onClickShowUserMenu"/>
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="30dp"
-        android:gravity="center"
-        android:padding="@dimen/mainPadding">
-
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/userAvatarImageView"
-            android:layout_width="@dimen/avatarSize"
-            android:layout_height="@dimen/avatarSize"
-            android:background="@drawable/avatar_tmp"
-            android:contentDescription="@string/user_avatar_content_description"
-            app:riv_corner_radius="@dimen/avatarCornersRadius"/>
-
-        <TextView
-            android:id="@+id/userNameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/user_name"
-            android:textSize="22sp"
-            android:textColor="@color/colorFontMain"
-            android:fontFamily="@font/cabin_semi_bold"/>
-
-
-        <!--    User Stats Panel   -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:layout_marginTop="25dp"
-            android:padding="14dp"
-            android:background="@drawable/content_panel">
+            app:layout_scrollFlags="scroll">
 
-            <LinearLayout
+            <ImageButton
+                android:layout_width="@dimen/iconSize"
+                android:layout_height="@dimen/iconSize"
+                android:background="@null"
+                android:scaleType="fitCenter"
+                android:padding="8dp"
+                android:src="@drawable/ic_back"
+                android:contentDescription="@string/button_back_content_description"
+                android:onClick="onClickBack"/>
+
+            <Space
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/userTitlesCountTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/titles_count_tmp"
-                    android:textSize="22sp"
-                    android:textColor="@color/colorFontUserStatsNumbers"
-                    android:fontFamily="@font/cabin_bold"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/user_stats_titles"
-                    android:textSize="16sp"
-                    android:textColor="@color/colorFontUserStatsNumbers"
-                    android:fontFamily="@font/cabin_regular"/>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:background="@color/colorUserStatsDivider"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_weight="1"/>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/userFollowersCountTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/followers_count_tmp"
-                    android:textSize="22sp"
-                    android:textColor="@color/colorFontUserStatsNumbers"
-                    android:fontFamily="@font/cabin_bold"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/user_stats_followers"
-                    android:textSize="16sp"
-                    android:textColor="@color/colorFontUserStatsNumbers"
-                    android:fontFamily="@font/cabin_regular"/>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/colorUserStatsDivider"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"/>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
-
-                <TextView
-                    android:id="@+id/userLikesCountTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/likes_count_tmp"
-                    android:textSize="22sp"
-                    android:textColor="@color/colorFontUserStatsNumbers"
-                    android:fontFamily="@font/cabin_bold"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/user_stats_likes"
-                    android:textSize="16sp"
-                    android:textColor="@color/colorFontUserStatsNumbers"
-                    android:fontFamily="@font/cabin_regular"/>
-
-            </LinearLayout>
+            <ImageButton
+                android:layout_width="@dimen/iconSize"
+                android:layout_height="@dimen/iconSize"
+                android:background="@null"
+                android:src="@drawable/ic_more"
+                android:scaleType="fitCenter"
+                android:padding="8dp"
+                android:contentDescription="@string/button_more_content_description"
+                android:onClick="onClickShowUserMenu"/>
 
         </LinearLayout>
 
-        <Button
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/itemHeight"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/main_button"
-            android:text="@string/create_new_title_button"
-            android:textAllCaps="false"
-            android:textColor="@color/colorFontMainButton"
-            android:textSize="@dimen/buttonFontSize"
-            android:fontFamily="@font/cabin_semi_bold"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:focusable="false"
-            android:onClick="onClickCreateNewTitle"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="30dp"
+            android:gravity="center"
+            android:padding="@dimen/mainPadding"
+            app:layout_scrollFlags="scroll">
 
-    </LinearLayout>
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/userAvatarImageView"
+                android:layout_width="@dimen/avatarSize"
+                android:layout_height="@dimen/avatarSize"
+                android:background="@drawable/avatar_tmp"
+                android:contentDescription="@string/user_avatar_content_description"
+                app:riv_corner_radius="@dimen/avatarCornersRadius"/>
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/userNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/user_name"
+                android:textSize="22sp"
+                android:textColor="@color/colorFontMain"
+                android:fontFamily="@font/cabin_semi_bold"/>
+
+
+            <!--    User Stats Panel   -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="25dp"
+                android:padding="14dp"
+                android:background="@drawable/content_panel">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/userTitlesCountTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/titles_count_tmp"
+                        android:textSize="22sp"
+                        android:textColor="@color/colorFontUserStatsNumbers"
+                        android:fontFamily="@font/cabin_bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_stats_titles"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorFontUserStatsNumbers"
+                        android:fontFamily="@font/cabin_regular"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorUserStatsDivider"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/userFollowersCountTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/followers_count_tmp"
+                        android:textSize="22sp"
+                        android:textColor="@color/colorFontUserStatsNumbers"
+                        android:fontFamily="@font/cabin_bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_stats_followers"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorFontUserStatsNumbers"
+                        android:fontFamily="@font/cabin_regular"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/colorUserStatsDivider"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/userLikesCountTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/likes_count_tmp"
+                        android:textSize="22sp"
+                        android:textColor="@color/colorFontUserStatsNumbers"
+                        android:fontFamily="@font/cabin_bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/user_stats_likes"
+                        android:textSize="16sp"
+                        android:textColor="@color/colorFontUserStatsNumbers"
+                        android:fontFamily="@font/cabin_regular"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/itemHeight"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/main_button"
+                android:text="@string/create_new_title_button"
+                android:textAllCaps="false"
+                android:textColor="@color/colorFontMainButton"
+                android:textSize="@dimen/buttonFontSize"
+                android:fontFamily="@font/cabin_semi_bold"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:focusable="false"
+                android:onClick="onClickCreateNewTitle"/>
+
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
