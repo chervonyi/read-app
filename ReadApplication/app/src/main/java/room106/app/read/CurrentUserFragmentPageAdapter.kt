@@ -10,9 +10,9 @@ class CurrentUserFragmentPageAdapter(fm: FragmentManager) : FragmentPagerAdapter
     override fun getItem(position: Int): Fragment {
         return when(position) {
             0 -> PublishedFragment()
-            1 -> PublishedFragment()
-            2 -> PublishedFragment()
-            3 -> PublishedFragment()
+            1 -> DraftFragment()
+            2 -> LikedFragment()
+            3 -> SavedFragment()
             else -> PublishedFragment()
         }
     }
