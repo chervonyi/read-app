@@ -14,7 +14,7 @@ class OtherUserFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val v = inflater.inflate(R.layout.other_user_titles_layout, container, false)
+        val v = inflater.inflate(R.layout.fragment_other_user_titles, container, false)
 
         return v
     }

@@ -14,6 +14,6 @@ class RecommendedFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_recommended, container, false)
+        return inflater.inflate(R.layout.fragment_titles_list, container, false)
     }
 }

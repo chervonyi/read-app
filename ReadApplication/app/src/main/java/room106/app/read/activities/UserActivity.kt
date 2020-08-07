@@ -59,7 +59,10 @@ class UserActivity : AppCompatActivity() {
             ft.commit()
         } else {
             // Load other user fragment
-            // TODO - Implement
+            // TODO - Implement:
+//            val ft = supportFragmentManager.beginTransaction()
+//            ft.replace(R.id.userTitlesFrameLayout, OtherUserFragment())
+//            ft.commit()
         }
     }
 

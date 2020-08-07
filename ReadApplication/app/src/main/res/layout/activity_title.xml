@@ -249,7 +249,8 @@
                 android:scaleType="fitCenter"
                 android:padding="8dp"
                 android:src="@drawable/ic_back"
-                android:contentDescription="@string/button_back_content_description"/>
+                android:contentDescription="@string/button_back_content_description"
+                android:onClick="onClickBack"/>
 
             <Space
                 android:layout_width="0dp"
@@ -263,7 +264,8 @@
                 android:src="@drawable/ic_more"
                 android:scaleType="fitCenter"
                 android:padding="8dp"
-                android:contentDescription="@string/button_more_content_description"/>
+                android:contentDescription="@string/button_more_content_description"
+                android:onClick="onClickMore"/>
 
         </LinearLayout>
 

@@ -14,6 +14,6 @@ class FollowedFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_followed, container, false)
+        return inflater.inflate(R.layout.fragment_titles_list, container, false)
     }
 }

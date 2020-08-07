@@ -84,7 +84,8 @@ class TitleActivity : AppCompatActivity() {
 
     //region Listeners
     fun onClickBack(v: View) {
-        // TODO - Implement
+        finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
     }
 
     fun onClickMore(v: View) {

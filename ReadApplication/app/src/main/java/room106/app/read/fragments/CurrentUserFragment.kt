@@ -9,7 +9,6 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import room106.app.read.CurrentUserFragmentPageAdapter
 import room106.app.read.R
-import room106.app.read.TitleTypesFragmentPageAdapter
 
 class CurrentUserFragment: Fragment() {
 
@@ -22,7 +21,7 @@ class CurrentUserFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val v = inflater.inflate(R.layout.current_user_titles_layout, container, false)
+        val v = inflater.inflate(R.layout.fragment_current_user_titles, container, false)
 
         viewPager = v.findViewById(R.id.viewPager)
         currentUserTabLayout = v.findViewById(R.id.currentUserTabLayout)
