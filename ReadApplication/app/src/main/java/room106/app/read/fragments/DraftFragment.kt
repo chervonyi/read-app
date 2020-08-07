@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -22,6 +24,7 @@ class DraftFragment: Fragment() {
 
     // Firebase
     private lateinit var db: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +38,7 @@ class DraftFragment: Fragment() {
 
         // Firebase
         db = Firebase.firestore
+        auth = Firebase.auth
 
         return v
     }
@@ -45,8 +49,11 @@ class DraftFragment: Fragment() {
     }
 
     private fun loadTitles() {
-        // TODO - CHANGE LOADING ALL TITLE FOR USER'S PUBLISHED TITLES!
+        val currentUser = auth.currentUser ?: return
+
         val titlesRef = db.collection("titles")
+            .whereEqualTo("authorID", currentUser.uid)
+            .whereEqualTo("status", "draft")
 
         // Execute query
         titlesRef.get().addOnSuccessListener { documents ->
