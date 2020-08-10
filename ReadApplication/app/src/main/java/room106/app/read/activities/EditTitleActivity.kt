@@ -39,6 +39,7 @@ class EditTitleActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
 
     private var titleID: String? = null
+    private var titleStatus: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,6 +91,8 @@ class EditTitleActivity : AppCompatActivity() {
             db.collection("titles").document(titleID!!).get()
                 .addOnSuccessListener {document ->
                     val title = document.toObject(Title::class.java)
+
+                    titleStatus = title?.status
 
                     document.reference.collection("body").document("text")
                         .get().addOnSuccessListener { bodyDocument ->
@@ -157,6 +160,8 @@ class EditTitleActivity : AppCompatActivity() {
                                 .set(bodyObject).addOnSuccessListener {
                                     titleID = titleDocument.id
                                     saveTitleButton.text = getString(R.string.saved)
+                                    titleStatus = "draft"
+                                    checkFields()
                                 }
                         }
 
@@ -196,6 +201,28 @@ class EditTitleActivity : AppCompatActivity() {
             }
         }
     }
+
+    fun onClickPublish(v: View) {
+        if (titleID != null) {
+            val titleRef = db.collection("titles").document(titleID!!)
+
+            titleRef.update("status", "published")
+                .addOnSuccessListener {
+                    Toast.makeText(this, getString(R.string.published), Toast.LENGTH_SHORT).show()
+                    titleStatus = "published"
+                    checkFields()
+                }
+        }
+    }
+
+    fun onClickMore(v: View) {
+        // TODO - Implement
+    }
+
+    fun onClickBack(v: View) {
+        finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
+    }
     //endregion
 
     //region Fields validation
@@ -209,7 +236,11 @@ class EditTitleActivity : AppCompatActivity() {
     }
 
     private fun isValidForPublish(): Boolean {
-        return isTitleValid() && isDescriptionValid() && isBodyValid()
+        return isTitleValid() &&
+                isDescriptionValid() &&
+                isBodyValid() &&
+                titleID != null &&
+                titleStatus == "draft"
     }
 
     private fun isTitleValid(): Boolean {
@@ -244,27 +275,6 @@ class EditTitleActivity : AppCompatActivity() {
         }
     }
     //endregion
-
-    fun onClickPublish(v: View) {
-        if (titleID != null) {
-            val titleRef = db.collection("titles").document(titleID!!)
-
-            titleRef.update("status", "published")
-                .addOnSuccessListener {
-                    Toast.makeText(this, getString(R.string.published), Toast.LENGTH_SHORT).show()
-                    checkFields()
-                }
-        }
-    }
-
-    fun onClickMore(v: View) {
-        // TODO - Implement
-    }
-
-    fun onClickBack(v: View) {
-        finish()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
-    }
 
     companion object {
         const val TAG = "EditTitleActivity"
