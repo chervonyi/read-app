@@ -10,6 +10,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -38,7 +39,6 @@ class EditTitleActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
 
     private var titleID: String? = null
-    private var title: Title? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,6 +84,7 @@ class EditTitleActivity : AppCompatActivity() {
         checkFields()
     }
 
+    //region Load Title Data
     private fun loadTitleData() {
         if (titleID != null) {
             db.collection("titles").document(titleID!!).get()
@@ -100,8 +101,6 @@ class EditTitleActivity : AppCompatActivity() {
     }
 
     private fun updateTitleUI(title: Title?, body: String) {
-        this.title = title
-
         if (title != null) {
             titleEditText.setText(title.title)
             descriptionEditText.setText(title.description)
@@ -112,6 +111,7 @@ class EditTitleActivity : AppCompatActivity() {
             bodyEditText.setText("")
         }
     }
+    //endregion
 
     //region Click Listeners
     fun onClickSave(v: View) {
@@ -246,7 +246,15 @@ class EditTitleActivity : AppCompatActivity() {
     //endregion
 
     fun onClickPublish(v: View) {
-        // TODO - Implement
+        if (titleID != null) {
+            val titleRef = db.collection("titles").document(titleID!!)
+
+            titleRef.update("status", "published")
+                .addOnSuccessListener {
+                    Toast.makeText(this, getString(R.string.published), Toast.LENGTH_SHORT).show()
+                    checkFields()
+                }
+        }
     }
 
     fun onClickMore(v: View) {
