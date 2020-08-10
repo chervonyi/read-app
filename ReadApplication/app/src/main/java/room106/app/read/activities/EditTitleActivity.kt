@@ -38,6 +38,7 @@ class EditTitleActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
 
     private var titleID: String? = null
+    private var title: Title? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,22 +62,58 @@ class EditTitleActivity : AppCompatActivity() {
         descriptionEditText.addTextChangedListener(titleDataWatcher)
         bodyEditText.addTextChangedListener(titleDataWatcher)
 
+        // Firebase
+        auth = Firebase.auth
+        db = Firebase.firestore
+
         titleID = intent.getStringExtra("title_id")
+    }
+
+    override fun onStart() {
+        super.onStart()
+
         if (titleID != null) {
             // User editing an existing title
-            // TODO - Load title data and set it
+            loadTitleData()
+            saveTitleButton.text = getString(R.string.save)
         } else {
             // User's going to create a new title
             saveTitleButton.text = getString(R.string.save_draft)
         }
 
-        // Firebase
-        auth = Firebase.auth
-        db = Firebase.firestore
-
         checkFields()
     }
 
+    private fun loadTitleData() {
+        if (titleID != null) {
+            db.collection("titles").document(titleID!!).get()
+                .addOnSuccessListener {document ->
+                    val title = document.toObject(Title::class.java)
+
+                    document.reference.collection("body").document("text")
+                        .get().addOnSuccessListener { bodyDocument ->
+                            val body = bodyDocument.get("text").toString()
+                            updateTitleUI(title, body)
+                        }
+                }
+        }
+    }
+
+    private fun updateTitleUI(title: Title?, body: String) {
+        this.title = title
+
+        if (title != null) {
+            titleEditText.setText(title.title)
+            descriptionEditText.setText(title.description)
+            bodyEditText.setText(body)
+        } else {
+            titleEditText.setText("")
+            descriptionEditText.setText("")
+            bodyEditText.setText("")
+        }
+    }
+
+    //region Click Listeners
     fun onClickSave(v: View) {
         val currentUser = auth.currentUser ?: return
 
@@ -159,6 +196,7 @@ class EditTitleActivity : AppCompatActivity() {
             }
         }
     }
+    //endregion
 
     //region Fields validation
     private val titleDataWatcher = object: TextWatcher {

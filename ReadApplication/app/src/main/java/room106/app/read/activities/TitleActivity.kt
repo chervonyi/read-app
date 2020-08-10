@@ -1,13 +1,16 @@
 package room106.app.read.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.appcompat.widget.PopupMenu
 import androidx.core.widget.NestedScrollView
 import com.google.android.material.appbar.AppBarLayout
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -32,8 +35,10 @@ class TitleActivity : AppCompatActivity() {
 
     // Firebase
     private lateinit var db: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
 
     private var titleID: String? = null
+    private var title: Title? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +61,7 @@ class TitleActivity : AppCompatActivity() {
         }
 
         db = Firebase.firestore
+        auth = Firebase.auth
     }
 
     override fun onStart() {
@@ -80,6 +86,8 @@ class TitleActivity : AppCompatActivity() {
     }
 
     private fun updateTitleUI(title: Title?, body: String) {
+        this.title = title
+
         if (title != null) {
             headerTextView.text = title.title
             authorTextView.text = title.authorName
@@ -108,7 +116,47 @@ class TitleActivity : AppCompatActivity() {
     }
 
     fun onClickMore(v: View) {
-        // TODO - Implement
+        if (title != null && titleID != null) {
+            val currentUser = auth.currentUser
+
+            if (currentUser != null && currentUser.uid == title!!.authorID) {
+                // Show Current User menu
+                showCurrentUserMenu(v)
+            } else {
+                // Show simple menu
+                showSimpleMenu(v)
+            }
+        }
     }
+
+    private fun showCurrentUserMenu(v: View) {
+        val menu = PopupMenu(this, v)
+
+        menu.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.titleMenuEdit -> {
+                    onClickEditTitle()
+                    true
+                }
+
+                else -> false
+            }
+        }
+        menu.inflate(R.menu.title_current_user_author_menu)
+        menu.show()
+    }
+
+    private fun showSimpleMenu(v: View) {
+        // TODO - Show simple menu
+        // If there is no item in simple menu then Hide/Show menu button
+    }
+
+    private fun onClickEditTitle() {
+        val intent = Intent(this, EditTitleActivity::class.java)
+        intent.putExtra("title_id", titleID)
+        startActivity(intent)
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
+    }
+
     //endregion
 }

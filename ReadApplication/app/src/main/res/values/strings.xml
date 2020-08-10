@@ -70,4 +70,5 @@
     <string name="tab_draft">Draft</string>
     <string name="tab_liked">Liked</string>
     <string name="tab_saved">Saved</string>
+    <string name="edit">Edit</string>
 </resources>
