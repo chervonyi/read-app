@@ -15,6 +15,7 @@ import com.google.firebase.ktx.Firebase
 import com.makeramen.roundedimageview.RoundedImageView
 import room106.app.read.R
 import room106.app.read.fragments.CurrentUserFragment
+import room106.app.read.fragments.OtherUserFragment
 import room106.app.read.models.User
 
 class UserActivity : AppCompatActivity() {
@@ -51,29 +52,34 @@ class UserActivity : AppCompatActivity() {
         db = Firebase.firestore
 
         userID = intent.getStringExtra("user_id")
-
-        if (userID == null) {
-            // Load current user Fragment
-            val ft = supportFragmentManager.beginTransaction()
-            ft.replace(R.id.userTitlesFrameLayout, CurrentUserFragment())
-            ft.commit()
-        } else {
-            // Load other user fragment
-            // TODO - Implement:
-//            val ft = supportFragmentManager.beginTransaction()
-//            ft.replace(R.id.userTitlesFrameLayout, OtherUserFragment())
-//            ft.commit()
-        }
     }
 
     override fun onStart() {
         super.onStart()
 
-        // TODO - If extras contains some UID, then use this uid.
-        // TODO - If extras does not contain any UID, then use Auth.currentUser.uid.
+        val ft = supportFragmentManager.beginTransaction()
 
-        if (auth.currentUser != null) {
+        if (auth.currentUser != null && (userID == null || userID == auth.currentUser?.uid)) {
+            // Load current user data
             readUserData(auth.currentUser!!.uid)
+
+            // TODO - Show "Create new" button
+
+            // Set appropriate bottom panel
+            ft.replace(R.id.userTitlesFrameLayout, CurrentUserFragment())
+            ft.commit()
+        } else if (userID != null) {
+            // Load other user data
+            readUserData(userID!!)
+
+            // TODO - Show "Follow" button
+
+            // Set appropriate bottom panel
+            ft.replace(R.id.userTitlesFrameLayout, OtherUserFragment())
+            ft.commit()
+        } else {
+            finish()
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
         }
     }
 

@@ -56,6 +56,10 @@ class TitleActivity : AppCompatActivity() {
         descriptionTextView = findViewById(R.id.titleDescriptionTextView)
         bodyTextView = findViewById(R.id.titleBodyTextView)
 
+        // Assign listeners
+        authorAvatarImageView.setOnClickListener(onClickTitleAuthor)
+        authorTextView.setOnClickListener(onClickTitleAuthor)
+
         if (intent.hasExtra("title_id")) {
             titleID = intent.getStringExtra("title_id")
         }
@@ -105,6 +109,15 @@ class TitleActivity : AppCompatActivity() {
     }
 
     //region Listeners
+    private val onClickTitleAuthor = View.OnClickListener {
+        if (title != null) {
+            val intent = Intent(this, UserActivity::class.java)
+            intent.putExtra("user_id", title?.authorID)
+            startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
+        }
+    }
+
     fun onClickBack(v: View) {
         finish()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)

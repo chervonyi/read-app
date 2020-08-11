@@ -14,8 +14,11 @@ class OtherUserFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val v = inflater.inflate(R.layout.fragment_other_user_titles, container, false)
+        // TODO - delete fragment_other_user_titles.xml
+//        val v = inflater.inflate(R.layout.fragment_other_user_titles, container, false)
 
+        val v = inflater.inflate(R.layout.fragment_titles_list, container, false)
+        // TODO - Read titles
         return v
     }
 }
