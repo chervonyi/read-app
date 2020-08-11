@@ -187,6 +187,7 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/createNewTitleButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/itemHeight"
                 android:layout_marginTop="20dp"
@@ -199,6 +200,22 @@
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:focusable="false"
                 android:onClick="onClickCreateNewTitle"/>
+
+            <Button
+                android:id="@+id/followButton"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/itemHeight"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/main_button"
+                android:text="@string/follow"
+                android:textAllCaps="false"
+                android:textColor="@color/colorFontMainButton"
+                android:textSize="@dimen/buttonFontSize"
+                android:fontFamily="@font/cabin_semi_bold"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:focusable="false"
+                android:onClick="onClickFollow"
+                android:visibility="gone"/>
 
         </LinearLayout>
 

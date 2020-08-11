@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
@@ -20,6 +21,7 @@ import room106.app.read.models.User
 
 class UserActivity : AppCompatActivity() {
 
+    //region Fields
     // Views
     private lateinit var userAvatarImageView: RoundedImageView
     private lateinit var userNameTextView: TextView
@@ -27,6 +29,8 @@ class UserActivity : AppCompatActivity() {
     private lateinit var userFollowersCountTextView: TextView
     private lateinit var userLikesCountTextView: TextView
     private lateinit var userTitlesFrameLayout: FrameLayout
+    private lateinit var createNewTitleButton: Button
+    private lateinit var followButton: Button
 
     // Firebase
     private lateinit var auth: FirebaseAuth
@@ -34,8 +38,9 @@ class UserActivity : AppCompatActivity() {
 
     private lateinit var userData: User
     private var userID: String? = null
+    //endregion
 
-
+    //region Start Activity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user)
@@ -47,6 +52,8 @@ class UserActivity : AppCompatActivity() {
         userFollowersCountTextView = findViewById(R.id.userFollowersCountTextView)
         userLikesCountTextView = findViewById(R.id.userLikesCountTextView)
         userTitlesFrameLayout = findViewById(R.id.userTitlesFrameLayout)
+        createNewTitleButton = findViewById(R.id.createNewTitleButton)
+        followButton = findViewById(R.id.followButton)
 
         auth = Firebase.auth
         db = Firebase.firestore
@@ -63,7 +70,8 @@ class UserActivity : AppCompatActivity() {
             // Load current user data
             readUserData(auth.currentUser!!.uid)
 
-            // TODO - Show "Create new" button
+            createNewTitleButton.visibility = View.VISIBLE
+            followButton.visibility = View.GONE
 
             // Set appropriate bottom panel
             ft.replace(R.id.userTitlesFrameLayout, CurrentUserFragment())
@@ -72,7 +80,8 @@ class UserActivity : AppCompatActivity() {
             // Load other user data
             readUserData(userID!!)
 
-            // TODO - Show "Follow" button
+            createNewTitleButton.visibility = View.GONE
+            followButton.visibility = View.VISIBLE
 
             // Set appropriate bottom panel
             ft.replace(R.id.userTitlesFrameLayout, OtherUserFragment())
@@ -82,7 +91,9 @@ class UserActivity : AppCompatActivity() {
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
         }
     }
+    //endregion
 
+    //region User Data
     private fun readUserData(uid: String) {
         val userRef = db.collection("users").document(uid)
 
@@ -113,6 +124,7 @@ class UserActivity : AppCompatActivity() {
         userFollowersCountTextView.text =   userData.followersCount.toString()
         userLikesCountTextView.text =       userData.likesCount.toString()
     }
+    //endregion
 
     //region Menu
     fun onClickShowUserMenu(v: View) {
@@ -157,16 +169,20 @@ class UserActivity : AppCompatActivity() {
     }
     //endregion
 
-
+    //region Click Listeners
     fun onClickCreateNewTitle(v: View) {
         val intent = Intent(this, EditTitleActivity::class.java)
         startActivity(intent)
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
 
+    fun onClickFollow(v: View) {
+        // TODO - Implement
+    }
 
     fun onClickBack(v: View) {
         finish()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
     }
+    //endregion
 }
