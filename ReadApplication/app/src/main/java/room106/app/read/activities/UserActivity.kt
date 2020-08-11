@@ -84,7 +84,7 @@ class UserActivity : AppCompatActivity() {
             followButton.visibility = View.VISIBLE
 
             // Set appropriate bottom panel
-            ft.replace(R.id.userTitlesFrameLayout, OtherUserFragment())
+            ft.replace(R.id.userTitlesFrameLayout, OtherUserFragment(userID!!))
             ft.commit()
         } else {
             finish()
