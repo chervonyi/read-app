@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.OfferToLoginActivity"
+    android:background="@color/colorBackground">
+
+    <ImageButton
+        android:layout_width="@dimen/iconSize"
+        android:layout_height="@dimen/iconSize"
+        android:layout_marginTop="@dimen/headerPadding"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:padding="8dp"
+        android:src="@drawable/ic_back"
+        android:contentDescription="@string/button_back_content_description"
+        android:onClick="onClickBack"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="50dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_group"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/illustration_content_description" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textAlignment="center"
+            android:text="@string/offer_to_login"
+            android:textSize="@dimen/mainFontSize"
+            android:textColor="@color/colorFontMain"
+            android:fontFamily="@font/cabin_regular"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/mainPadding">
+
+        <Button
+            android:id="@+id/createNewTitleButton"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/itemHeight"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/main_button"
+            android:text="@string/sign_up"
+            android:textAllCaps="false"
+            android:textColor="@color/colorFontMainButton"
+            android:textSize="@dimen/buttonFontSize"
+            android:fontFamily="@font/cabin_semi_bold"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:focusable="false"
+            android:onClick="onClickSignUp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/log_in"
+            android:textAllCaps="false"
+            android:fontFamily="@font/cabin_semi_bold"
+            android:textSize="@dimen/buttonFontSize"
+            android:textColor="@color/colorAccent"
+            android:background="@null"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:focusable="false"
+            android:onClick="onClickLogin"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

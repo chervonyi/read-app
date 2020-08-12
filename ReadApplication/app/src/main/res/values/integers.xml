@@ -5,7 +5,7 @@
     <dimen name="headerFontSize">22sp</dimen>
     <dimen name="mainFontSize">20sp</dimen>
     <dimen name="editTextFontSize">17sp</dimen>
-    <dimen name="buttonFontSize">20sp</dimen>
+    <dimen name="buttonFontSize">18sp</dimen>
     <dimen name="hintFontSize">16sp</dimen>
     <dimen name="tabFontSize">16sp</dimen>
     <dimen name="titlePanelHeaderFontSize">20sp</dimen>

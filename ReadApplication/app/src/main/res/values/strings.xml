@@ -73,4 +73,8 @@
     <string name="tab_saved">Saved</string>
     <string name="edit">Edit</string>
     <string name="follow">Follow</string>
+    <string name="illustration_content_description">Illustration</string>
+    <string name="offer_to_login">Sign Up to like and save favorite titles or follow loved authors!</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="log_in">Log In</string>
 </resources>
