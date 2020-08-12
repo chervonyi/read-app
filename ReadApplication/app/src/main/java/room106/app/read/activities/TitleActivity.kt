@@ -3,12 +3,15 @@ package room106.app.read.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import com.google.android.material.appbar.AppBarLayout
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentReference
@@ -34,6 +37,7 @@ class TitleActivity : AppCompatActivity() {
     private lateinit var timeToReadTextView: TextView
     private lateinit var descriptionTextView: TextView
     private lateinit var bodyTextView: TextView
+    private lateinit var likeButton: Button
 
     // Firebase
     private lateinit var db: FirebaseFirestore
@@ -57,6 +61,7 @@ class TitleActivity : AppCompatActivity() {
         timeToReadTextView = findViewById(R.id.titleTimeToReadTextView)
         descriptionTextView = findViewById(R.id.titleDescriptionTextView)
         bodyTextView = findViewById(R.id.titleBodyTextView)
+        likeButton = findViewById(R.id.likeButton)
 
         // Assign listeners
         authorAvatarImageView.setOnClickListener(onClickTitleAuthor)
@@ -73,6 +78,7 @@ class TitleActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         loadTitle()
+        checkIfLiked()
     }
 
     private fun loadTitle() {
@@ -177,5 +183,84 @@ class TitleActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
 
+    //endregion
+
+    //region Like
+    fun onClickLike(v: View) {
+        if (title != null && titleID != null) {
+
+            val currentUserID = auth.currentUser?.uid
+
+            if (currentUserID == null) {
+                // Offer to login
+                val intent = Intent(this, OfferToLoginActivity::class.java)
+                startActivity(intent)
+                finish()
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
+            } else {
+
+                if (likeDocID != null) {
+                    // Title has already been liked -> Do unlike
+                    db.collection("liked").document(likeDocID!!).delete()
+                        .addOnSuccessListener {
+                            likeDocID = null
+                        }
+                } else {
+                    // Like title
+                    val likeDoc = hashMapOf(
+                        "userID" to currentUserID,
+                        "titleID" to titleID,
+                        "time" to Timestamp.now(),
+                        "title" to title!!.title,
+                        "description" to title!!.description,
+                        "authorID" to title!!.authorID,
+                        "authorName" to title!!.authorName,
+                        "authorAvatar" to title!!.authorAvatar
+                    )
+
+                    db.collection("liked").add(likeDoc)
+                        .addOnSuccessListener {
+                            likeDocID = it.id
+                        }
+                }
+            }
+        }
+    }
+
+    private var _likeDocID: String? = null
+
+    private var likeDocID: String?
+        get() {
+            return _likeDocID
+        }
+        set(newValue) {
+            _likeDocID = newValue
+
+            if (newValue != null) {
+                likeButton.setBackgroundResource(R.drawable.simple_buttonl)
+                likeButton.text = getString(R.string.you_liked_it)
+                likeButton.setTextColor(ContextCompat.getColor(this, R.color.colorSimpleButtonText))
+            } else {
+                likeButton.setBackgroundResource(R.drawable.like_button)
+                likeButton.text = getString(R.string.like)
+                likeButton.setTextColor(ContextCompat.getColor(this, R.color.colorFontMainButton))
+            }
+        }
+
+    private fun checkIfLiked() {
+        val currentUserID = auth.currentUser?.uid
+
+        if (titleID != null && currentUserID != null) {
+            db.collection("liked")
+                .whereEqualTo("userID", currentUserID)
+                .whereEqualTo("titleID", titleID)
+                .get()
+                .addOnSuccessListener { documents ->
+                    likeDocID = documents.documents[0].id
+                }
+        } else {
+            likeDocID = null
+        }
+    }
     //endregion
 }

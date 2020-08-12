@@ -22,10 +22,10 @@
     <color name="colorFontUserStatsNumbers">#8993A2</color>
     <color name="colorFontUserStatsTitles">#C2C7CE</color>
 
+    <color name="colorSimpleButtonText">#979CA7</color>
     <color name="colorButton">#7D79E8</color>
     <color name="colorButtonPressed">#6F6BD8</color>
     <color name="colorButtonDisabled">#A8A7E6</color>
-
     <color name="colorLikeButton">#EB4E4E</color>
     <color name="colorLikeButtonPressed">#DA4242</color>
 
