@@ -78,4 +78,5 @@
     <string name="sign_up">Sign Up</string>
     <string name="you_liked_it">You liked it!</string>
     <string name="you_saved_it">You saved it!</string>
+    <string name="you_following">Following</string>
 </resources>

@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -90,6 +91,8 @@ class UserActivity : AppCompatActivity() {
             finish()
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
         }
+
+        checkIfFollowing()
     }
     //endregion
 
@@ -176,13 +179,84 @@ class UserActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
 
-    fun onClickFollow(v: View) {
-        // TODO - Implement
-    }
-
     fun onClickBack(v: View) {
         finish()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
+    }
+    //endregion
+
+    //region Follow
+    fun onClickFollow(v: View) {
+        if (userID != null) {
+
+            val currentUserID = auth.currentUser?.uid
+
+            if (currentUserID == null) {
+                // Offer to login
+                val intent = Intent(this, OfferToLoginActivity::class.java)
+                startActivity(intent)
+                finish()
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
+
+            } else if (followingDocID != null) {
+                // User has already followed this account
+                db.collection("following").document(followingDocID!!).delete()
+                    .addOnSuccessListener {
+                        followingDocID = null
+                    }
+
+            } else if (userID != currentUserID) {
+
+                val followDoc = hashMapOf(
+                    "userID" to userID,
+                    "followerID" to currentUserID
+                )
+
+                db.collection("following").add(followDoc)
+                    .addOnSuccessListener {
+                        followingDocID = it.id
+                    }
+            }
+        }
+    }
+
+    private var _followingDocID: String? = null
+
+    private var followingDocID: String?
+        get() {
+            return _followingDocID
+        }
+        set(newValue) {
+            _followingDocID = newValue
+
+            if (newValue != null) {
+                followButton.setBackgroundResource(R.drawable.simple_button)
+                followButton.text = getString(R.string.you_following)
+                followButton.setTextColor(ContextCompat.getColor(this, R.color.colorSimpleButtonText))
+            } else {
+                followButton.setBackgroundResource(R.drawable.main_button)
+                followButton.text = getString(R.string.follow)
+                followButton.setTextColor(ContextCompat.getColor(this, R.color.colorFontMainButton))
+            }
+        }
+
+    private fun checkIfFollowing() {
+        val currentUserID = auth.currentUser?.uid
+
+        if (userID != null && currentUserID != null && userID != currentUserID) {
+
+            db.collection("following")
+                .whereEqualTo("userID", userID)
+                .whereEqualTo("followerID", currentUserID)
+                .get()
+                .addOnSuccessListener { documents ->
+                    if (documents.documents.size > 0) {
+                        followingDocID = documents.documents[0].id
+                    }
+                }
+        } else {
+            followingDocID = null
+        }
     }
     //endregion
 }
