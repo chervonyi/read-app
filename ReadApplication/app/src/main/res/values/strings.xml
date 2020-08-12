@@ -77,4 +77,5 @@
     <string name="offer_to_login">Sign Up to like and save favorite titles or follow loved authors!</string>
     <string name="sign_up">Sign Up</string>
     <string name="you_liked_it">You liked it!</string>
+    <string name="you_saved_it">You saved it!</string>
 </resources>

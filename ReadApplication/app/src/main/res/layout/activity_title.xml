@@ -174,6 +174,7 @@
                 android:fontFamily="@font/cabin_regular"/>
 
             <Button
+                android:id="@+id/saveTitleButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/itemHeight"
                 android:background="@drawable/main_button"
@@ -183,7 +184,8 @@
                 android:textSize="@dimen/buttonFontSize"
                 android:fontFamily="@font/cabin_semi_bold"
                 style="@style/Widget.AppCompat.Button.Borderless"
-                android:focusable="false"/>
+                android:focusable="false"
+                android:onClick="onClickSaveFavoriteTitle"/>
 
             <TextView
                 android:id="@+id/titleBodyTextView"

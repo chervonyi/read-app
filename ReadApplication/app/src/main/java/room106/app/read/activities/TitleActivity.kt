@@ -38,6 +38,7 @@ class TitleActivity : AppCompatActivity() {
     private lateinit var descriptionTextView: TextView
     private lateinit var bodyTextView: TextView
     private lateinit var likeButton: Button
+    private lateinit var saveTitleButton: Button
 
     // Firebase
     private lateinit var db: FirebaseFirestore
@@ -62,6 +63,7 @@ class TitleActivity : AppCompatActivity() {
         descriptionTextView = findViewById(R.id.titleDescriptionTextView)
         bodyTextView = findViewById(R.id.titleBodyTextView)
         likeButton = findViewById(R.id.likeButton)
+        saveTitleButton = findViewById(R.id.saveTitleButton)
 
         // Assign listeners
         authorAvatarImageView.setOnClickListener(onClickTitleAuthor)
@@ -79,8 +81,10 @@ class TitleActivity : AppCompatActivity() {
         super.onStart()
         loadTitle()
         checkIfLiked()
+        checkIfSaved()
     }
 
+    //region Load Title
     private fun loadTitle() {
        if (titleID != null) {
            val titleRef = db.collection("titles").document(titleID!!)
@@ -119,6 +123,7 @@ class TitleActivity : AppCompatActivity() {
             authorAvatarImageView.setImageResource(image)
         }
     }
+    //endregion
 
     //region Listeners
     private val onClickTitleAuthor = View.OnClickListener {
@@ -197,32 +202,31 @@ class TitleActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
+
+            } else if (likeDocID != null) {
+                // Title has already been liked -> Do unlike
+                db.collection("liked").document(likeDocID!!).delete()
+                    .addOnSuccessListener {
+                        likeDocID = null
+                    }
+
             } else {
+                // Like title
+                val likeDoc = hashMapOf(
+                    "userID" to currentUserID,
+                    "titleID" to titleID,
+                    "time" to Timestamp.now(),
+                    "title" to title!!.title,
+                    "description" to title!!.description,
+                    "authorID" to title!!.authorID,
+                    "authorName" to title!!.authorName,
+                    "authorAvatar" to title!!.authorAvatar
+                )
 
-                if (likeDocID != null) {
-                    // Title has already been liked -> Do unlike
-                    db.collection("liked").document(likeDocID!!).delete()
-                        .addOnSuccessListener {
-                            likeDocID = null
-                        }
-                } else {
-                    // Like title
-                    val likeDoc = hashMapOf(
-                        "userID" to currentUserID,
-                        "titleID" to titleID,
-                        "time" to Timestamp.now(),
-                        "title" to title!!.title,
-                        "description" to title!!.description,
-                        "authorID" to title!!.authorID,
-                        "authorName" to title!!.authorName,
-                        "authorAvatar" to title!!.authorAvatar
-                    )
-
-                    db.collection("liked").add(likeDoc)
-                        .addOnSuccessListener {
-                            likeDocID = it.id
-                        }
-                }
+                db.collection("liked").add(likeDoc)
+                    .addOnSuccessListener {
+                        likeDocID = it.id
+                    }
             }
         }
     }
@@ -237,7 +241,7 @@ class TitleActivity : AppCompatActivity() {
             _likeDocID = newValue
 
             if (newValue != null) {
-                likeButton.setBackgroundResource(R.drawable.simple_buttonl)
+                likeButton.setBackgroundResource(R.drawable.simple_button)
                 likeButton.text = getString(R.string.you_liked_it)
                 likeButton.setTextColor(ContextCompat.getColor(this, R.color.colorSimpleButtonText))
             } else {
@@ -256,10 +260,92 @@ class TitleActivity : AppCompatActivity() {
                 .whereEqualTo("titleID", titleID)
                 .get()
                 .addOnSuccessListener { documents ->
-                    likeDocID = documents.documents[0].id
+                    if (documents.documents.size > 0) {
+                        likeDocID = documents.documents[0].id
+                    }
                 }
         } else {
             likeDocID = null
+        }
+    }
+    //endregion
+
+    //region Save
+    fun onClickSaveFavoriteTitle(v: View) {
+        if (title != null && titleID != null) {
+
+            val currentUserID = auth.currentUser?.uid
+
+            if (currentUserID == null) {
+                // Offer to login
+                val intent = Intent(this, OfferToLoginActivity::class.java)
+                startActivity(intent)
+                finish()
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
+
+            } else if (saveDocID != null) {
+                // Title has already been saved
+                db.collection("saved").document(saveDocID!!).delete()
+                    .addOnSuccessListener {
+                        saveDocID = null
+                    }
+
+            } else {
+                // Save title
+                val saveDoc = hashMapOf(
+                    "userID" to currentUserID,
+                    "titleID" to titleID,
+                    "time" to Timestamp.now(),
+                    "title" to title!!.title,
+                    "description" to title!!.description,
+                    "authorID" to title!!.authorID,
+                    "authorName" to title!!.authorName,
+                    "authorAvatar" to title!!.authorAvatar
+                )
+
+                db.collection("saved").add(saveDoc)
+                    .addOnSuccessListener {
+                        saveDocID = it.id
+                    }
+            }
+        }
+    }
+
+    private var _saveDocID: String? = null
+
+    private var saveDocID: String?
+        get() {
+            return _saveDocID
+        }
+        set(newValue) {
+            _saveDocID = newValue
+
+            if (newValue != null) {
+                saveTitleButton.setBackgroundResource(R.drawable.simple_button)
+                saveTitleButton.text = getString(R.string.you_saved_it)
+                saveTitleButton.setTextColor(ContextCompat.getColor(this, R.color.colorSimpleButtonText))
+            } else {
+                saveTitleButton.setBackgroundResource(R.drawable.main_button)
+                saveTitleButton.text = getString(R.string.save)
+                saveTitleButton.setTextColor(ContextCompat.getColor(this, R.color.colorFontMainButton))
+            }
+        }
+
+    private fun checkIfSaved() {
+        val currentUserID = auth.currentUser?.uid
+
+        if (titleID != null && currentUserID != null) {
+            db.collection("saved")
+                .whereEqualTo("userID", currentUserID)
+                .whereEqualTo("titleID", titleID)
+                .get()
+                .addOnSuccessListener { documents ->
+                    if (documents.documents.size > 0) {
+                        saveDocID = documents.documents[0].id
+                    }
+                }
+        } else {
+            saveDocID = null
         }
     }
     //endregion
