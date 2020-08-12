@@ -11,6 +11,7 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -203,10 +204,14 @@ class UserActivity : AppCompatActivity() {
                 db.collection("following").document(followingDocID!!).delete()
                     .addOnSuccessListener {
                         followingDocID = null
+
+                        // Decrement followersCount
+                        db.collection("users").document(userID!!)
+                            .update("followersCount", FieldValue.increment(-1))
                     }
 
             } else if (userID != currentUserID) {
-
+                // Follow user
                 val followDoc = hashMapOf(
                     "userID" to userID,
                     "followerID" to currentUserID
@@ -215,6 +220,10 @@ class UserActivity : AppCompatActivity() {
                 db.collection("following").add(followDoc)
                     .addOnSuccessListener {
                         followingDocID = it.id
+
+                        // Increment followersCount
+                        db.collection("users").document(userID!!)
+                            .update("followersCount", FieldValue.increment(1))
                     }
             }
         }

@@ -205,9 +205,18 @@ class TitleActivity : AppCompatActivity() {
 
             } else if (likeDocID != null) {
                 // Title has already been liked -> Do unlike
+                // TODO - Make a transaction
                 db.collection("liked").document(likeDocID!!).delete()
                     .addOnSuccessListener {
                         likeDocID = null
+
+                        // Decrement likesCount in title document
+                        db.collection("titles").document(titleID!!)
+                            .update("likesCount", FieldValue.increment(-1))
+
+                        // Decrement likesCount in user document
+                        db.collection("users").document(title!!.authorID)
+                            .update("likesCount", FieldValue.increment(-1))
                     }
 
             } else {
@@ -223,9 +232,18 @@ class TitleActivity : AppCompatActivity() {
                     "authorAvatar" to title!!.authorAvatar
                 )
 
+                // TODO - Make a transaction
                 db.collection("liked").add(likeDoc)
                     .addOnSuccessListener {
                         likeDocID = it.id
+
+                        // Increment likesCount in title document
+                        db.collection("titles").document(titleID!!)
+                            .update("likesCount", FieldValue.increment(1))
+
+                        // Increment likesCount in user document
+                        db.collection("users").document(title!!.authorID)
+                            .update("likesCount", FieldValue.increment(1))
                     }
             }
         }
