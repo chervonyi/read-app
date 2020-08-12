@@ -11,6 +11,8 @@ import androidx.core.widget.NestedScrollView
 import com.google.android.material.appbar.AppBarLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -84,8 +86,12 @@ class TitleActivity : AppCompatActivity() {
                    .get().addOnSuccessListener { bodyDocument ->
                        val body = bodyDocument.get("text").toString()
                        updateTitleUI(title, body)
+
                    }
            }
+
+           // Increment readsCount
+           titleRef.update("readsCount", FieldValue.increment(1))
        }
     }
 
