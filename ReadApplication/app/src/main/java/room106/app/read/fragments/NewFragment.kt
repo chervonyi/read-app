@@ -42,7 +42,6 @@ class NewFragment: Fragment() {
     }
 
     private fun loadTitles() {
-
         val titlesRef = db.collection("titles")
             .whereEqualTo("status", "published")
             .orderBy("publicationTime", Query.Direction.DESCENDING)

@@ -42,7 +42,6 @@ class RecommendedFragment: Fragment() {
     }
 
     private fun loadTitles() {
-
         val titlesRef = db.collection("titles")
             .whereEqualTo("status", "published")
             .orderBy("likesCount", Query.Direction.DESCENDING)
