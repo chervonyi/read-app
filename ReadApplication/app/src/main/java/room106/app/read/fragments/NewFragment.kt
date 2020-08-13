@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import room106.app.read.R
@@ -36,17 +37,15 @@ class NewFragment: Fragment() {
         // Firebase
         db = Firebase.firestore
 
+        loadTitles()
         return v
     }
 
-    override fun onStart() {
-        super.onStart()
-        loadTitles()
-    }
-
     private fun loadTitles() {
-        // TODO - Add some limitation like: whereEqualTo.. order.. limits..
+
         val titlesRef = db.collection("titles")
+            .whereEqualTo("status", "published")
+            .orderBy("publicationTime", Query.Direction.DESCENDING)
 
         titlesLinearLayout.removeAllViews()
 

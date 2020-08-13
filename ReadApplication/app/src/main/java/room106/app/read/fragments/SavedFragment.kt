@@ -36,12 +36,9 @@ class SavedFragment: Fragment() {
         // Firebase
         db = Firebase.firestore
 
-        return v
-    }
-
-    override fun onStart() {
-        super.onStart()
         loadTitles()
+
+        return v
     }
 
     private fun loadTitles() {

@@ -40,12 +40,9 @@ class DraftFragment: Fragment() {
         db = Firebase.firestore
         auth = Firebase.auth
 
-        return v
-    }
-
-    override fun onStart() {
-        super.onStart()
         loadTitles()
+
+        return v
     }
 
     private fun loadTitles() {
