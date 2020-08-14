@@ -22,6 +22,7 @@ import com.google.firebase.ktx.Firebase
 import com.makeramen.roundedimageview.RoundedImageView
 import room106.app.read.R
 import room106.app.read.models.Title
+import room106.app.read.views.LikeButton
 import room106.app.read.views.MainButton
 
 
@@ -38,7 +39,7 @@ class TitleActivity : AppCompatActivity() {
     private lateinit var timeToReadTextView: TextView
     private lateinit var descriptionTextView: TextView
     private lateinit var bodyTextView: TextView
-    private lateinit var likeButton: Button
+    private lateinit var likeButton: LikeButton
     private lateinit var saveTitleButton: MainButton
 
     // Firebase
@@ -260,13 +261,11 @@ class TitleActivity : AppCompatActivity() {
             _likeDocID = newValue
 
             if (newValue != null) {
-                likeButton.setBackgroundResource(R.drawable.simple_button)
+                likeButton.isLiked = true
                 likeButton.text = getString(R.string.you_liked_it)
-                likeButton.setTextColor(ContextCompat.getColor(this, R.color.colorSimpleButtonText))
             } else {
-                likeButton.setBackgroundResource(R.drawable.like_button)
+                likeButton.isLiked = false
                 likeButton.text = getString(R.string.like)
-                likeButton.setTextColor(ContextCompat.getColor(this, R.color.colorFontMainButton))
             }
         }
 
