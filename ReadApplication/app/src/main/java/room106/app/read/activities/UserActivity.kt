@@ -20,6 +20,7 @@ import room106.app.read.R
 import room106.app.read.fragments.CurrentUserFragment
 import room106.app.read.fragments.OtherUserFragment
 import room106.app.read.models.User
+import room106.app.read.views.MainButton
 
 class UserActivity : AppCompatActivity() {
 
@@ -32,7 +33,7 @@ class UserActivity : AppCompatActivity() {
     private lateinit var userLikesCountTextView: TextView
     private lateinit var userTitlesFrameLayout: FrameLayout
     private lateinit var createNewTitleButton: Button
-    private lateinit var followButton: Button
+    private lateinit var followButton: MainButton
 
     // Firebase
     private lateinit var auth: FirebaseAuth
@@ -239,13 +240,11 @@ class UserActivity : AppCompatActivity() {
             _followingDocID = newValue
 
             if (newValue != null) {
-                followButton.setBackgroundResource(R.drawable.simple_button)
+                followButton.isFunctionActive = false
                 followButton.text = getString(R.string.you_following)
-                followButton.setTextColor(ContextCompat.getColor(this, R.color.colorSimpleButtonText))
             } else {
-                followButton.setBackgroundResource(R.drawable.main_button)
+                followButton.isFunctionActive = true
                 followButton.text = getString(R.string.follow)
-                followButton.setTextColor(ContextCompat.getColor(this, R.color.colorFontMainButton))
             }
         }
 

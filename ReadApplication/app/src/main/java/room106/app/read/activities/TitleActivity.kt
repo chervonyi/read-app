@@ -22,6 +22,7 @@ import com.google.firebase.ktx.Firebase
 import com.makeramen.roundedimageview.RoundedImageView
 import room106.app.read.R
 import room106.app.read.models.Title
+import room106.app.read.views.MainButton
 
 
 class TitleActivity : AppCompatActivity() {
@@ -38,7 +39,7 @@ class TitleActivity : AppCompatActivity() {
     private lateinit var descriptionTextView: TextView
     private lateinit var bodyTextView: TextView
     private lateinit var likeButton: Button
-    private lateinit var saveTitleButton: Button
+    private lateinit var saveTitleButton: MainButton
 
     // Firebase
     private lateinit var db: FirebaseFirestore
@@ -339,13 +340,11 @@ class TitleActivity : AppCompatActivity() {
             _saveDocID = newValue
 
             if (newValue != null) {
-                saveTitleButton.setBackgroundResource(R.drawable.simple_button)
+                saveTitleButton.isFunctionActive = false
                 saveTitleButton.text = getString(R.string.you_saved_it)
-                saveTitleButton.setTextColor(ContextCompat.getColor(this, R.color.colorSimpleButtonText))
             } else {
-                saveTitleButton.setBackgroundResource(R.drawable.main_button)
+                saveTitleButton.isFunctionActive = true
                 saveTitleButton.text = getString(R.string.save)
-                saveTitleButton.setTextColor(ContextCompat.getColor(this, R.color.colorFontMainButton))
             }
         }
 

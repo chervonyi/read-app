@@ -33,4 +33,22 @@ class MainButton: androidx.appcompat.widget.AppCompatButton {
             stateListAnimator = null
         }
     }
+
+    private var _isFunctionActive = false
+    var isFunctionActive: Boolean
+        get() {
+            return _isFunctionActive
+        }
+
+        set(newValue) {
+            _isFunctionActive = newValue
+
+            if (newValue) {
+                background = ContextCompat.getDrawable(context, R.drawable.main_button)
+                setTextColor(ContextCompat.getColor(context, R.color.colorFontMainButton))
+            } else {
+                background = ContextCompat.getDrawable(context, R.drawable.simple_button)
+                setTextColor(ContextCompat.getColor(context, R.color.colorSimpleButtonText))
+            }
+        }
 }
