@@ -84,20 +84,13 @@
 
         </RelativeLayout>
 
-        <Button
+        <room106.app.read.views.MainButton
             android:id="@+id/createAccountButton"
             android:layout_width="match_parent"
             android:layout_height="@dimen/itemHeight"
-            android:background="@drawable/main_button"
             android:text="@string/create_account"
-            android:textAllCaps="false"
-            android:textColor="@color/colorFontMainButton"
-            android:textSize="@dimen/buttonFontSize"
-            android:fontFamily="@font/cabin_semi_bold"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:focusable="false"
-            android:onClick="onClickCreateAccount"
-            android:enabled="false"/>
+            android:enabled="false"
+            android:onClick="onClickCreateAccount"/>
 
         <LinearLayout
             android:layout_width="match_parent"

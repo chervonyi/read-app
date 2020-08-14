@@ -64,19 +64,11 @@
                 android:inputType="textCapSentences|textMultiLine"
                 android:importantForAutofill="no" />
 
-            <Button
+            <room106.app.read.views.MainButton
                 android:id="@+id/saveTitleButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/itemHeight"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/main_button"
                 android:text="@string/save"
-                android:textAllCaps="false"
-                android:textColor="@color/colorFontMainButton"
-                android:textSize="@dimen/buttonFontSize"
-                android:fontFamily="@font/cabin_semi_bold"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:focusable="false"
                 android:onClick="onClickSave"/>
 
             <Button
