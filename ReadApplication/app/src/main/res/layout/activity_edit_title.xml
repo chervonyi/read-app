@@ -67,25 +67,18 @@
             <room106.app.read.views.MainButton
                 android:id="@+id/saveTitleButton"
                 android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
                 android:layout_height="@dimen/itemHeight"
                 android:text="@string/save"
                 android:onClick="onClickSave"/>
 
-            <Button
+            <room106.app.read.views.PublishButton
                 android:id="@+id/publishTitleButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/itemHeight"
                 android:layout_marginTop="14dp"
-                android:background="@drawable/content_panel"
                 android:text="@string/publish"
-                android:textAllCaps="false"
-                android:textColor="@color/colorFontPublishButton"
-                android:textSize="@dimen/buttonFontSize"
-                android:fontFamily="@font/cabin_semi_bold"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:focusable="false"
                 android:onClick="onClickPublish"/>
-
 
         </LinearLayout>
 
