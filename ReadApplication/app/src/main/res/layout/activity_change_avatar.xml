@@ -31,17 +31,11 @@
             android:layout_height="match_parent"
             android:layout_weight="1"/>
 
-        <Button
+        <room106.app.read.views.TransparentButton
             android:id="@+id/finishButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/finish"
-            android:textAllCaps="false"
-            android:fontFamily="@font/cabin_semi_bold"
-            android:textSize="@dimen/buttonFontSize"
-            android:textColor="@color/colorAccent"
-            android:background="@null"
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:onClick="onClickFinish"/>
 
     </LinearLayout>

@@ -58,20 +58,12 @@
             android:text="@string/sign_up"
             android:onClick="onClickSignUp"/>
 
-        <Button
+        <room106.app.read.views.TransparentButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/itemHeight"
             android:layout_marginTop="10dp"
             android:text="@string/log_in"
-            android:textAllCaps="false"
-            android:fontFamily="@font/cabin_semi_bold"
-            android:textSize="@dimen/buttonFontSize"
-            android:textColor="@color/colorAccent"
-            android:background="@null"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:focusable="false"
             android:onClick="onClickLogin"/>
-
     </LinearLayout>
 
 </RelativeLayout>
