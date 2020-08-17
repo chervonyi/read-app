@@ -59,7 +59,6 @@ class MainActivity : AppCompatActivity() {
     fun onClickAnonymousUser(v: View) {
         val intent = Intent(this, SignUpActivity::class.java)
         startActivity(intent)
-        finish()
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
 

@@ -12,6 +12,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -21,6 +22,7 @@ import room106.app.read.R
 class LoginActivity : AppCompatActivity() {
 
     // Views
+    private lateinit var toolBar: Toolbar
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var loginButton: Button
@@ -36,13 +38,16 @@ class LoginActivity : AppCompatActivity() {
         setContentView(R.layout.activity_login)
 
         // Connect views
+        toolBar = findViewById(R.id.toolBar)
         emailEditText = findViewById(R.id.emailEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
         loginButton = findViewById(R.id.loginButton)
         showPasswordButton = findViewById(R.id.showPasswordButton)
 
+        // Set listeners
         emailEditText.addTextChangedListener(loginFormWatcher)
         passwordEditText.addTextChangedListener(loginFormWatcher)
+        toolBar.setNavigationOnClickListener(onClickBackListener)
 
         // Firebase
         auth = Firebase.auth
@@ -113,6 +118,11 @@ class LoginActivity : AppCompatActivity() {
             passwordEditText.transformationMethod = PasswordTransformationMethod()
             passwordEditText.setSelection(cursorPosition)
         }
+    }
+
+    private val onClickBackListener = View.OnClickListener {
+        finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
     }
     //endregion
 

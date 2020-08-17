@@ -13,6 +13,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -25,6 +26,7 @@ import room106.app.read.models.User
 class SignUpActivity : AppCompatActivity() {
 
     // Views
+    private lateinit var toolBar: Toolbar
     private lateinit var nameEditText: EditText
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
@@ -42,15 +44,18 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up)
 
         // Connect views
+        toolBar = findViewById(R.id.toolBar)
         nameEditText = findViewById(R.id.nameEditText)
         emailEditText = findViewById(R.id.emailEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
         createAccountButton = findViewById(R.id.createAccountButton)
         showPasswordButton = findViewById(R.id.showPasswordButton)
 
+        // Set listeners
         nameEditText.addTextChangedListener(signUpFormWatcher)
         emailEditText.addTextChangedListener(signUpFormWatcher)
         passwordEditText.addTextChangedListener(signUpFormWatcher)
+        toolBar.setNavigationOnClickListener(onClickBackListener)
 
         // Firebase
         auth = Firebase.auth
@@ -118,6 +123,11 @@ class SignUpActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
 
+    private val onClickBackListener = View.OnClickListener {
+        finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
+    }
+
     fun onClickShowHidePassword(v: View) {
         isPasswordVisible = !isPasswordVisible
 
@@ -150,9 +160,7 @@ class SignUpActivity : AppCompatActivity() {
 
         return User(name, avatar, isPaid, timestamp, titlesCount, followersCount, likesCount )
     }
-    //endregion
 
-    //region Sign Up Form
     private val signUpFormWatcher = object: TextWatcher {
         override fun afterTextChanged(p0: Editable?) { }
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
