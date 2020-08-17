@@ -8,38 +8,16 @@
     android:orientation="vertical"
     android:background="@color/colorBackground">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:layout_height="?attr/actionBarSize"
+        app:navigationIcon="?attr/homeAsUpIndicator"
+        app:layout_scrollFlags="scroll"
+        app:theme="@style/ToolBarStyle"
+        app:menu="@menu/change_avatar_menu"
+        app:popupTheme="@style/AppTheme"/>
 
-        <ImageButton
-            android:id="@+id/backImageButton"
-            android:layout_width="@dimen/iconSize"
-            android:layout_height="@dimen/iconSize"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            android:padding="8dp"
-            android:src="@drawable/ic_back"
-            android:contentDescription="@string/button_back_content_description"
-            android:onClick="onClickBack"
-            android:visibility="invisible"/>
-
-        <Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-
-        <room106.app.read.views.TransparentButton
-            android:id="@+id/finishButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/finish"
-            android:onClick="onClickFinish"/>
-
-    </LinearLayout>
-    
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"

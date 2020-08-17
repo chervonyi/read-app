@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -17,13 +18,11 @@ import com.makeramen.roundedimageview.RoundedImageView
 import room106.app.read.R
 import room106.app.read.models.User
 
-
 class ChangeAvatarActivity : AppCompatActivity() {
 
     // Views
+    private lateinit var toolBar: Toolbar
     private lateinit var avatarsLinearLayout: LinearLayout
-    private lateinit var backImageButton: ImageButton
-    private lateinit var finishButton: Button
 
     // Firebase
     private lateinit var auth: FirebaseAuth
@@ -34,23 +33,21 @@ class ChangeAvatarActivity : AppCompatActivity() {
         setContentView(R.layout.activity_change_avatar)
 
         // Connect views
+        toolBar = findViewById(R.id.toolBar)
         avatarsLinearLayout = findViewById(R.id.avatarsLinearLayout)
-        backImageButton = findViewById(R.id.backImageButton)
-        finishButton = findViewById(R.id.finishButton)
 
-        if (intent.hasExtra("purpose")) {
-            val purpose = intent.getStringExtra("purpose")
+        // Connect listeners
+        toolBar.setOnMenuItemClickListener(onClickSubmitListener)
+        toolBar.setNavigationOnClickListener(onClickBackListener)
 
-            if (purpose == "sign_up") {
-                // Activity opened after SignUp
-                backImageButton.visibility = View.INVISIBLE
-                finishButton.visibility = View.VISIBLE
+        val purpose = intent.getStringExtra("purpose")
 
-            } else if (purpose == "change_avatar") {
-                // Activity opened after UserActivity
-                backImageButton.visibility = View.VISIBLE
-                finishButton.visibility = View.INVISIBLE
-            }
+        if (purpose == "sign_up") {
+            // Activity opened after SignUp -> Hide "Back" button
+            toolBar.navigationIcon = null
+        } else if (purpose == "change_avatar") {
+            // Activity opened after UserActivity -> Hide "Submit" button
+            toolBar.menu.findItem(R.id.changeAvatarMenuSubmit).isVisible = false
         }
 
         // Firebase
@@ -121,15 +118,28 @@ class ChangeAvatarActivity : AppCompatActivity() {
         }
     }
 
-    fun onClickBack(v: View) {
+    //region Tool bar
+    private val onClickBackListener = View.OnClickListener {
         finish()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
     }
 
-    fun onClickFinish(v: View) {
+    private val onClickSubmitListener = Toolbar.OnMenuItemClickListener  {
+        when (it.itemId) {
+            R.id.changeAvatarMenuSubmit -> {
+                onClickSubmit()
+                true
+            }
+
+            else -> false
+        }
+    }
+
+    private fun onClickSubmit() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
+    //endregion
 }
