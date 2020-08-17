@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import room106.app.read.R
@@ -15,6 +16,7 @@ import room106.app.read.R
 class ResetPasswordActivity : AppCompatActivity() {
 
     // Views
+    private lateinit var toolBar: Toolbar
     private lateinit var emailEditText: EditText
     private lateinit var resetPasswordButton: Button
 
@@ -22,10 +24,14 @@ class ResetPasswordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reset_password)
 
+        // Connect views
+        toolBar = findViewById(R.id.toolBar)
         emailEditText = findViewById(R.id.emailEditText)
         resetPasswordButton = findViewById(R.id.resetPasswordButton)
 
+        // Set listeners
         emailEditText.addTextChangedListener(formFormWatcher)
+        toolBar.setNavigationOnClickListener(onClickBackListener)
     }
 
     override fun onStart() {
@@ -43,7 +49,6 @@ class ResetPasswordActivity : AppCompatActivity() {
     }
 
     fun onClickSendResetPasswordEmail(v: View) {
-
         val email = emailEditText.text.toString()
 
         if (isEmailValid(email)) {
@@ -65,6 +70,11 @@ class ResetPasswordActivity : AppCompatActivity() {
         }
     }
 
+    private val onClickBackListener = View.OnClickListener {
+        finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
+    }
+
     private val formFormWatcher = object: TextWatcher {
         override fun afterTextChanged(p0: Editable?) { }
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
@@ -73,11 +83,6 @@ class ResetPasswordActivity : AppCompatActivity() {
             val email = emailEditText.text.toString()
             resetPasswordButton.isEnabled = isEmailValid(email)
         }
-    }
-
-    fun onClickBack(v: View) {
-        finish()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
     }
 
     private fun isEmailValid(email: String): Boolean {
