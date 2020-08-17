@@ -2,12 +2,14 @@ package room106.app.read.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import com.google.android.material.appbar.AppBarLayout
@@ -29,6 +31,7 @@ import room106.app.read.views.MainButton
 class TitleActivity : AppCompatActivity() {
 
     // Views
+    private lateinit var toolBar: Toolbar
     private lateinit var mainNestedScrollView: NestedScrollView
     private lateinit var appBarLayout: AppBarLayout
     private lateinit var headerTextView: TextView
@@ -54,6 +57,7 @@ class TitleActivity : AppCompatActivity() {
         setContentView(R.layout.activity_title)
 
         // Connect views
+        toolBar = findViewById(R.id.toolBar)
         mainNestedScrollView = findViewById(R.id.mainNestedScrollView)
         appBarLayout = findViewById(R.id.appBarLayout)
         headerTextView = findViewById(R.id.titleHeaderTextView)
@@ -70,6 +74,8 @@ class TitleActivity : AppCompatActivity() {
         // Assign listeners
         authorAvatarImageView.setOnClickListener(onClickTitleAuthor)
         authorTextView.setOnClickListener(onClickTitleAuthor)
+        toolBar.setOnMenuItemClickListener(onClickMenuListener)
+        toolBar.setNavigationOnClickListener(onClickBackListener)
 
         if (intent.hasExtra("title_id")) {
             titleID = intent.getStringExtra("title_id")
@@ -127,60 +133,21 @@ class TitleActivity : AppCompatActivity() {
     }
     //endregion
 
-    //region Listeners
-    private val onClickTitleAuthor = View.OnClickListener {
-        if (title != null) {
-            val intent = Intent(this, UserActivity::class.java)
-            intent.putExtra("user_id", title?.authorID)
-            startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
-        }
-    }
-
-    fun onClickBack(v: View) {
+    //region ToolBar
+    private val onClickBackListener = View.OnClickListener {
         finish()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
     }
 
-    fun onClickScrollTop(v: View) {
-        mainNestedScrollView.fullScroll(ScrollView.FOCUS_UP)
-        appBarLayout.setExpanded(true)
-    }
-
-    fun onClickMore(v: View) {
-        if (title != null && titleID != null) {
-            val currentUser = auth.currentUser
-
-            if (currentUser != null && currentUser.uid == title!!.authorID) {
-                // Show Current User menu
-                showCurrentUserMenu(v)
-            } else {
-                // Show simple menu
-                showSimpleMenu(v)
+    private val onClickMenuListener = Toolbar.OnMenuItemClickListener {
+        when (it.itemId) {
+            R.id.titleMenuEdit -> {
+                onClickEditTitle()
+                true
             }
+
+            else -> false
         }
-    }
-
-    private fun showCurrentUserMenu(v: View) {
-        val menu = PopupMenu(this, v)
-
-        menu.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.titleMenuEdit -> {
-                    onClickEditTitle()
-                    true
-                }
-
-                else -> false
-            }
-        }
-        menu.inflate(R.menu.title_current_user_author_menu)
-        menu.show()
-    }
-
-    private fun showSimpleMenu(v: View) {
-        // TODO - Show simple menu
-        // If there is no item in simple menu then Hide/Show menu button
     }
 
     private fun onClickEditTitle() {
@@ -189,7 +156,6 @@ class TitleActivity : AppCompatActivity() {
         startActivity(intent)
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
-
     //endregion
 
     //region Like
@@ -365,4 +331,18 @@ class TitleActivity : AppCompatActivity() {
         }
     }
     //endregion
+
+    private val onClickTitleAuthor = View.OnClickListener {
+        if (title != null) {
+            val intent = Intent(this, UserActivity::class.java)
+            intent.putExtra("user_id", title?.authorID)
+            startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
+        }
+    }
+
+    fun onClickScrollTop(v: View) {
+        mainNestedScrollView.fullScroll(ScrollView.FOCUS_UP)
+        appBarLayout.setExpanded(true)
+    }
 }
