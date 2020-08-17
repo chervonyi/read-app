@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.appcompat.widget.PopupMenu
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -26,6 +27,7 @@ class UserActivity : AppCompatActivity() {
 
     //region Fields
     // Views
+    private lateinit var toolBar: Toolbar
     private lateinit var userAvatarImageView: RoundedImageView
     private lateinit var userNameTextView: TextView
     private lateinit var userTitlesCountTextView: TextView
@@ -49,6 +51,7 @@ class UserActivity : AppCompatActivity() {
         setContentView(R.layout.activity_user)
 
         // Connect views
+        toolBar = findViewById(R.id.toolBar)
         userAvatarImageView = findViewById(R.id.userAvatarImageView)
         userNameTextView = findViewById(R.id.userNameTextView)
         userTitlesCountTextView = findViewById(R.id.userTitlesCountTextView)
@@ -57,6 +60,10 @@ class UserActivity : AppCompatActivity() {
         userTitlesFrameLayout = findViewById(R.id.userTitlesFrameLayout)
         createNewTitleButton = findViewById(R.id.createNewTitleButton)
         followButton = findViewById(R.id.followButton)
+
+        // Connect listeners
+        toolBar.setOnMenuItemClickListener(onClickMenuListener)
+        toolBar.setNavigationOnClickListener(onClickBackListener)
 
         auth = Firebase.auth
         db = Firebase.firestore
@@ -131,27 +138,21 @@ class UserActivity : AppCompatActivity() {
     }
     //endregion
 
-    //region Menu
-    fun onClickShowUserMenu(v: View) {
-        val menu = PopupMenu(this, v)
-
-        menu.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.currentUserMenuChangeAvatar -> {
-                    changeAvatar()
-                    true
-                }
-
-                R.id.currentUserMenuLogOut -> {
-                    logOutUser()
-                    true
-                }
-
-                else -> false
+    //region Toolbar
+    private val onClickMenuListener = Toolbar.OnMenuItemClickListener {
+        when (it.itemId) {
+            R.id.currentUserMenuChangeAvatar -> {
+                changeAvatar()
+                true
             }
+
+            R.id.currentUserMenuLogOut -> {
+                logOutUser()
+                true
+            }
+
+            else -> false
         }
-        menu.inflate(R.menu.current_user_menu)
-        menu.show()
     }
 
     private fun changeAvatar() {
@@ -172,20 +173,18 @@ class UserActivity : AppCompatActivity() {
         finish()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
     }
+
+    private val onClickBackListener = View.OnClickListener {
+        finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
+    }
     //endregion
 
-    //region Click Listeners
     fun onClickCreateNewTitle(v: View) {
         val intent = Intent(this, EditTitleActivity::class.java)
         startActivity(intent)
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
-
-    fun onClickBack(v: View) {
-        finish()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
-    }
-    //endregion
 
     //region Follow
     fun onClickFollow(v: View) {

@@ -12,7 +12,7 @@
         android:id="@+id/userTitlesFrameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="0dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <com.google.android.material.appbar.AppBarLayout
@@ -21,39 +21,15 @@
         android:background="@color/colorBackground"
         app:elevation="0dp">
 
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            app:layout_scrollFlags="scroll">
-
-            <ImageButton
-                android:layout_width="@dimen/iconSize"
-                android:layout_height="@dimen/iconSize"
-                android:background="@null"
-                android:scaleType="fitCenter"
-                android:padding="8dp"
-                android:src="@drawable/ic_back"
-                android:contentDescription="@string/button_back_content_description"
-                android:onClick="onClickBack"/>
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"/>
-
-            <ImageButton
-                android:layout_width="@dimen/iconSize"
-                android:layout_height="@dimen/iconSize"
-                android:background="@null"
-                android:src="@drawable/ic_more"
-                android:scaleType="fitCenter"
-                android:padding="8dp"
-                android:contentDescription="@string/button_more_content_description"
-                android:onClick="onClickShowUserMenu"/>
-
-        </LinearLayout>
+            android:layout_height="?attr/actionBarSize"
+            app:navigationIcon="?attr/homeAsUpIndicator"
+            app:menu="@menu/current_user_menu"
+            app:layout_scrollFlags="scroll"
+            app:theme="@style/ToolBarStyle"
+            app:popupTheme="@style/AppTheme"/>
 
         <LinearLayout
             android:layout_width="match_parent"
