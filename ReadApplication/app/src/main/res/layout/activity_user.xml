@@ -165,7 +165,7 @@
             <room106.app.read.views.MainButton
                 android:id="@+id/createNewTitleButton"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/itemHeight"
+                android:layout_height="@dimen/buttonHeight"
                 android:layout_marginTop="20dp"
                 android:text="@string/create_new_title_button"
                 android:onClick="onClickCreateNewTitle"/>
@@ -173,7 +173,7 @@
             <room106.app.read.views.MainButton
                 android:id="@+id/followButton"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/itemHeight"
+                android:layout_height="@dimen/buttonHeight"
                 android:layout_marginTop="20dp"
                 android:text="@string/follow"
                 android:onClick="onClickFollow"

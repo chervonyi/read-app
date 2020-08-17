@@ -136,7 +136,7 @@ class TitleActivity : AppCompatActivity() {
     //region ToolBar
     private val onClickBackListener = View.OnClickListener {
         finish()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
+//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
     }
 
     private val onClickMenuListener = Toolbar.OnMenuItemClickListener {
@@ -154,7 +154,7 @@ class TitleActivity : AppCompatActivity() {
         val intent = Intent(this, EditTitleActivity::class.java)
         intent.putExtra("title_id", titleID)
         startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
+//        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
     //endregion
 
@@ -169,7 +169,7 @@ class TitleActivity : AppCompatActivity() {
                 val intent = Intent(this, OfferToLoginActivity::class.java)
                 startActivity(intent)
                 finish()
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
+//                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
 
             } else if (likeDocID != null) {
                 // Title has already been liked -> Do unlike
@@ -265,7 +265,7 @@ class TitleActivity : AppCompatActivity() {
                 val intent = Intent(this, OfferToLoginActivity::class.java)
                 startActivity(intent)
                 finish()
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
+//                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
 
             } else if (saveDocID != null) {
                 // Title has already been saved
@@ -337,7 +337,7 @@ class TitleActivity : AppCompatActivity() {
             val intent = Intent(this, UserActivity::class.java)
             intent.putExtra("user_id", title?.authorID)
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
+//            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
         }
     }
 

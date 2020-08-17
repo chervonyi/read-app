@@ -60,7 +60,7 @@ class ResetPasswordActivity : AppCompatActivity() {
 
                     Handler().postDelayed({
                         finish()
-                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
+//                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
                     }, 1000)
                 }
                 .addOnFailureListener {
@@ -72,7 +72,7 @@ class ResetPasswordActivity : AppCompatActivity() {
 
     private val onClickBackListener = View.OnClickListener {
         finish()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
+//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
     }
 
     private val formFormWatcher = object: TextWatcher {

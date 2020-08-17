@@ -66,7 +66,7 @@ class SignUpActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
+//            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
         }
     }
 
@@ -95,7 +95,7 @@ class SignUpActivity : AppCompatActivity() {
                                 intent.putExtra("purpose", "sign_up")
                                 startActivity(intent)
                                 finish()
-                                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
+//                                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
                             }
                             .addOnFailureListener {
                                 Toast.makeText(this, getString(R.string.failed_to_register), Toast.LENGTH_LONG).show()
@@ -113,19 +113,19 @@ class SignUpActivity : AppCompatActivity() {
     fun onClickShowPrivacyPolicy(v: View) {
         val intent = Intent(this, PrivacyPolicyActivity::class.java)
         startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
+//        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
 
     fun onClickGoToLogin(v: View) {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         finish()
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
+//        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
 
     private val onClickBackListener = View.OnClickListener {
         finish()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
+//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
     }
 
     fun onClickShowHidePassword(v: View) {

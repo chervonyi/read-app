@@ -58,7 +58,7 @@ class NewFragment: Fragment() {
                     val intent = Intent(context, TitleActivity::class.java)
                     intent.putExtra("title_id", document.id)
                     context?.startActivity(intent)
-                    activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
+//                    activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
                 }
 
                 titlesLinearLayout.addView(titleView)

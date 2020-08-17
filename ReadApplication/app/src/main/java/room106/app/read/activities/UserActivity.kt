@@ -98,7 +98,7 @@ class UserActivity : AppCompatActivity() {
             ft.commit()
         } else {
             finish()
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
+//            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
         }
 
         checkIfFollowing()
@@ -161,7 +161,7 @@ class UserActivity : AppCompatActivity() {
         intent.putExtra("avatar_id", userData.avatar)
         intent.putExtra("purpose", "change_avatar")
         startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
+//        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
 
     private fun logOutUser() {
@@ -171,19 +171,19 @@ class UserActivity : AppCompatActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
+//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
     }
 
     private val onClickBackListener = View.OnClickListener {
         finish()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
+//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
     }
     //endregion
 
     fun onClickCreateNewTitle(v: View) {
         val intent = Intent(this, EditTitleActivity::class.java)
         startActivity(intent)
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
+//        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
 
     //region Follow
@@ -197,7 +197,7 @@ class UserActivity : AppCompatActivity() {
                 val intent = Intent(this, OfferToLoginActivity::class.java)
                 startActivity(intent)
                 finish()
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
+//                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
 
             } else if (followingDocID != null) {
                 // User has already followed this account

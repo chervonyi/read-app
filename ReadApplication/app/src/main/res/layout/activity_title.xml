@@ -176,7 +176,7 @@
             <room106.app.read.views.MainButton
                 android:id="@+id/saveTitleButton"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/itemHeight"
+                android:layout_height="@dimen/buttonHeight"
                 android:text="@string/save"
                 android:onClick="onClickSaveFavoriteTitle"/>
 
@@ -200,13 +200,13 @@
                     android:id="@+id/likeButton"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:layout_height="@dimen/itemHeight"
+                    android:layout_height="@dimen/buttonHeight"
                     android:text="@string/like"
                     android:onClick="onClickLike"/>
 
                 <ImageButton
-                    android:layout_width="@dimen/itemHeight"
-                    android:layout_height="@dimen/itemHeight"
+                    android:layout_width="@dimen/buttonHeight"
+                    android:layout_height="@dimen/buttonHeight"
                     android:layout_marginStart="@dimen/mainPadding"
                     android:src="@drawable/ic_arrow_up"
                     android:background="@drawable/content_panel"

@@ -45,7 +45,8 @@
             android:inputType="textEmailAddress"
             android:importantForAutofill="no"
             android:textSize="@dimen/editTextFontSize"
-            android:textColor="@color/colorFontMain"/>
+            android:textColor="@color/colorFontMain"
+            android:fontFamily="@font/cabin_regular"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -63,7 +64,8 @@
                 android:importantForAutofill="no"
                 android:maxLength="@integer/passwordMaxLength"
                 android:textSize="@dimen/editTextFontSize"
-                android:textColor="@color/colorFontMain" />
+                android:textColor="@color/colorFontMain"
+                android:fontFamily="@font/cabin_regular" />
 
             <ImageButton
                 android:id="@+id/showPasswordButton"
@@ -82,7 +84,7 @@
         <room106.app.read.views.MainButton
             android:id="@+id/loginButton"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/itemHeight"
+            android:layout_height="@dimen/buttonHeight"
             android:text="@string/log_in_button"
             android:enabled="false"
             android:onClick="onClickLogIn"/>

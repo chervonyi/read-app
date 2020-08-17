@@ -3,6 +3,7 @@ package room106.app.read.views
 import android.content.Context
 import android.util.AttributeSet
 import android.util.TypedValue
+import android.view.Gravity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import room106.app.read.R
@@ -31,6 +32,7 @@ class LikeButton: androidx.appcompat.widget.AppCompatButton {
             typeface = ResourcesCompat.getFont(context, R.font.cabin_semi_bold)
             isFocusable = false
             stateListAnimator = null
+            includeFontPadding = false
         }
     }
 

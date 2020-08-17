@@ -3,18 +3,18 @@
 
     <!--    FONTS    -->
     <dimen name="headerFontSize">22sp</dimen>
-    <dimen name="mainFontSize">20sp</dimen>
+    <dimen name="mainFontSize">18sp</dimen>
     <dimen name="editTextFontSize">17sp</dimen>
-    <dimen name="buttonFontSize">18sp</dimen>
+    <dimen name="buttonFontSize">17sp</dimen>
     <dimen name="hintFontSize">16sp</dimen>
     <dimen name="tabFontSize">16sp</dimen>
     <dimen name="titlePanelHeaderFontSize">20sp</dimen>
     <dimen name="titlePanelAuthorFontSize">16sp</dimen>
     <dimen name="titlePanelDescriptionFontSize">16sp</dimen>
-    <dimen name="titleHeaderFontSize">24sp</dimen>
-    <dimen name="titleAuthorFontSize">18sp</dimen>
-    <dimen name="titleDescriptionFontSize">18sp</dimen>
-    <dimen name="titleBodyFontSize">18sp</dimen>
+    <dimen name="titleHeaderFontSize">22sp</dimen>
+    <dimen name="titleAuthorFontSize">17sp</dimen>
+    <dimen name="titleDescriptionFontSize">17sp</dimen>
+    <dimen name="titleBodyFontSize">17sp</dimen>
 
     <dimen name="iconSize">50dp</dimen>
     <dimen name="avatarSize">70dp</dimen>
@@ -26,10 +26,13 @@
     <dimen name="avatarListDivider">30dp</dimen>
     <dimen name="selectedAvatarBorderWidth">3dp</dimen>
 
-    <dimen name="mainPadding">20dp</dimen>
+    <dimen name="mainPadding">18dp</dimen>
     <dimen name="headerPadding">10dp</dimen>
-    <dimen name="cornerRadius">6dp</dimen>
+    <dimen name="cornerRadius">8dp</dimen>
     <dimen name="itemHeight">50dp</dimen>
+    <dimen name="buttonHeight">44dp</dimen>
+    <dimen name="form_divider_size">18dp</dimen>
+
 
     <integer name="nameMaxLength">30</integer>
     <integer name="emailMaxLength">30</integer>

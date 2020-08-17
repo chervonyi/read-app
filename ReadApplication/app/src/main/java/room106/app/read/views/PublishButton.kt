@@ -31,6 +31,7 @@ class PublishButton: androidx.appcompat.widget.AppCompatButton {
             typeface = ResourcesCompat.getFont(context, R.font.cabin_semi_bold)
             isFocusable = false
             stateListAnimator = null
+            includeFontPadding = false
         }
     }
 }

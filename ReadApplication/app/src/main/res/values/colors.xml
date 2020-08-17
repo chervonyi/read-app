@@ -9,12 +9,11 @@
     <color name="colorAvatarBorder">#484848</color>
 
     <!--    FONTS     -->
-    <color name="colorFontMain">#484848</color>
-    <color name="colorFontBody">#535353</color>
-    <color name="colorFontSub">#7C7C7C</color>
+    <color name="colorFontMain">#252525</color>
+    <color name="colorFontBody">#252525</color>
+    <color name="colorFontSub">#373737</color>
     <color name="colorFontMainButton">#FFF</color>
     <color name="colorFontPublishButton">#8993A2</color>
-
 
     <!--    User Stats Panel   -->
     <color name="colorPanelBackground">#F4F6F8</color>

@@ -68,14 +68,14 @@
                 android:id="@+id/saveTitleButton"
                 android:layout_width="match_parent"
                 android:layout_marginTop="20dp"
-                android:layout_height="@dimen/itemHeight"
+                android:layout_height="@dimen/buttonHeight"
                 android:text="@string/save"
                 android:onClick="onClickSave"/>
 
             <room106.app.read.views.PublishButton
                 android:id="@+id/publishTitleButton"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/itemHeight"
+                android:layout_height="@dimen/buttonHeight"
                 android:layout_marginTop="14dp"
                 android:text="@string/publish"
                 android:onClick="onClickPublish"/>

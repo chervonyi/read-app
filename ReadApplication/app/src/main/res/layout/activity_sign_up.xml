@@ -45,7 +45,8 @@
             android:maxLength="@integer/nameMaxLength"
             android:importantForAutofill="no"
             android:textSize="@dimen/editTextFontSize"
-            android:textColor="@color/colorFontMain"/>
+            android:textColor="@color/colorFontMain"
+            android:fontFamily="@font/cabin_regular"/>
 
         <EditText
             android:id="@+id/emailEditText"
@@ -59,7 +60,8 @@
             android:maxLength="@integer/emailMaxLength"
             android:importantForAutofill="no"
             android:textSize="@dimen/editTextFontSize"
-            android:textColor="@color/colorFontMain"/>
+            android:textColor="@color/colorFontMain"
+            android:fontFamily="@font/cabin_regular"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -77,7 +79,8 @@
                 android:maxLength="@integer/passwordMaxLength"
                 android:importantForAutofill="no"
                 android:textSize="@dimen/editTextFontSize"
-                android:textColor="@color/colorFontMain" />
+                android:textColor="@color/colorFontMain"
+                android:fontFamily="@font/cabin_regular" />
 
             <ImageButton
                 android:id="@+id/showPasswordButton"
@@ -96,7 +99,7 @@
         <room106.app.read.views.MainButton
             android:id="@+id/createAccountButton"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/itemHeight"
+            android:layout_height="@dimen/buttonHeight"
             android:text="@string/create_account"
             android:enabled="false"
             android:onClick="onClickCreateAccount"/>
