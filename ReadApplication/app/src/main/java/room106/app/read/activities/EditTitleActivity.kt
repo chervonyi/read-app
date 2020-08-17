@@ -11,6 +11,7 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
@@ -28,6 +29,7 @@ import java.util.*
 class EditTitleActivity : AppCompatActivity() {
 
     // Views
+    private lateinit var toolBar: Toolbar
     private lateinit var titleEditText: EditText
     private lateinit var descriptionEditText: EditText
     private lateinit var bodyEditText: EditText
@@ -46,6 +48,7 @@ class EditTitleActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit_title)
 
         // Connect views
+        toolBar = findViewById(R.id.toolBar)
         titleEditText = findViewById(R.id.titleEditText)
         descriptionEditText = findViewById(R.id.descriptionEditText)
         bodyEditText = findViewById(R.id.bodyEditText)
@@ -62,6 +65,7 @@ class EditTitleActivity : AppCompatActivity() {
         titleEditText.addTextChangedListener(titleDataWatcher)
         descriptionEditText.addTextChangedListener(titleDataWatcher)
         bodyEditText.addTextChangedListener(titleDataWatcher)
+        toolBar.setNavigationOnClickListener(onClickBackListener)
 
         // Firebase
         auth = Firebase.auth
@@ -215,11 +219,7 @@ class EditTitleActivity : AppCompatActivity() {
         }
     }
 
-    fun onClickMore(v: View) {
-        // TODO - Implement
-    }
-
-    fun onClickBack(v: View) {
+    private val onClickBackListener = View.OnClickListener {
         finish()
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
     }
@@ -275,8 +275,4 @@ class EditTitleActivity : AppCompatActivity() {
         }
     }
     //endregion
-
-    companion object {
-        const val TAG = "EditTitleActivity"
-    }
 }
