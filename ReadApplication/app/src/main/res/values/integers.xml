@@ -39,7 +39,7 @@
     <integer name="passwordMaxLength">30</integer>
 
     <!--    MIN & MAX     -->
-    <integer name="titleMinLength">5</integer>
+    <integer name="titleMinLength">2</integer>
     <integer name="titleMaxLength">100</integer>
     <integer name="descriptionMinLength">10</integer>
     <integer name="descriptionMaxLength">500</integer>

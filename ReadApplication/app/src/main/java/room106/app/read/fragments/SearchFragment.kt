@@ -1,6 +1,8 @@
 package room106.app.read.fragments
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +12,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import room106.app.read.R
+import room106.app.read.activities.TitleActivity
+import room106.app.read.models.Title
 import room106.app.read.views.TitleView
+import java.util.*
 
 class SearchFragment: Fragment() {
 
@@ -33,13 +38,35 @@ class SearchFragment: Fragment() {
         // Firebase
         db = Firebase.firestore
 
-        test()
         return v
     }
 
-    private fun test() {
-        // TODO - Remove later
-        val titleView = TitleView(context, "Test", "Test", "Test", 1)
-        titlesLinearLayout.addView(titleView)
+    fun updateTitlesList(searchQuery: String) {
+        titlesLinearLayout.removeAllViews()
+
+       if (searchQuery.isNotEmpty()) {
+           val query = searchQuery.toLowerCase(Locale.getDefault())
+           val words = query.split(" ")
+
+           if (words.isNotEmpty()) {
+               val searchRef = db.collection("titles")
+                   .whereArrayContainsAny("flags", words)
+
+               searchRef.get().addOnSuccessListener { documents ->
+                   for (document in documents) {
+                       val title = document.toObject(Title::class.java)
+                       val titleView = TitleView(context, title, document.id)
+
+                       titleView.setOnClickListener {
+                           val intent = Intent(context, TitleActivity::class.java)
+                           intent.putExtra("title_id", document.id)
+                           context?.startActivity(intent)
+                       }
+
+                       titlesLinearLayout.addView(titleView)
+                   }
+               }
+           }
+       }
     }
 }

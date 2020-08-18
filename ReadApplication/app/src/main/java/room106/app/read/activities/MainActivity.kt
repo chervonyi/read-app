@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var searchFragment: SearchFragment
 
     private var userIsLoggedIn = false
+    private var isSearchActive = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,6 +67,7 @@ class MainActivity : AppCompatActivity() {
         // Attach listeners
         searchView.setOnSearchClickListener(onClickSearchListener)
         searchView.setOnCloseListener(onClickCloseSearchListener)
+        searchView.setOnQueryTextListener(onQueryTextListener)
     }
 
     override fun onStart() {
@@ -114,15 +116,19 @@ class MainActivity : AppCompatActivity() {
             val avatarName = "ic_avatar_${userData.avatar}"
             val image = resources.getIdentifier(avatarName, "drawable", packageName)
             userAccountImageButton.setImageResource(image)
-            userAccountImageButton.visibility = View.VISIBLE
-            anonymousUserImageButton.visibility = View.INVISIBLE
 
+            if (!isSearchActive) {
+                userAccountImageButton.visibility = View.VISIBLE
+                anonymousUserImageButton.visibility = View.INVISIBLE
+            }
         } else {
             // User Logged Out
             userIsLoggedIn = false
 
-            userAccountImageButton.visibility = View.INVISIBLE
-            anonymousUserImageButton.visibility = View.VISIBLE
+            if (!isSearchActive) {
+                userAccountImageButton.visibility = View.INVISIBLE
+                anonymousUserImageButton.visibility = View.VISIBLE
+            }
         }
     }
     //endregion
@@ -132,6 +138,8 @@ class MainActivity : AppCompatActivity() {
         val ft = supportFragmentManager.beginTransaction()
         ft.replace(R.id.frameLayout, searchFragment)
         ft.commit()
+
+        isSearchActive = true
 
         // Hide header buttons
         anonymousUserImageButton.visibility = View.INVISIBLE
@@ -144,6 +152,8 @@ class MainActivity : AppCompatActivity() {
         ft.replace(R.id.frameLayout, mainTabsFragment)
         ft.commit()
 
+        isSearchActive = false
+
         if (userIsLoggedIn) {
             userAccountImageButton.visibility = View.VISIBLE
         } else {
@@ -151,5 +161,18 @@ class MainActivity : AppCompatActivity() {
         }
 
         false
+    }
+
+    private val onQueryTextListener = object: SearchView.OnQueryTextListener {
+        override fun onQueryTextSubmit(query: String?): Boolean { return false }
+
+        override fun onQueryTextChange(newText: String?): Boolean {
+
+            if (newText != null) {
+                searchFragment.updateTitlesList(newText)
+            }
+            return false
+        }
+
     }
 }
