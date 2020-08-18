@@ -41,7 +41,7 @@ class EditTitleActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
 
     private var titleID: String? = null
-    private var titleStatus: String? = null
+    private var isPublished = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,7 +96,7 @@ class EditTitleActivity : AppCompatActivity() {
                 .addOnSuccessListener {document ->
                     val title = document.toObject(Title::class.java)
 
-                    titleStatus = title?.status
+                    isPublished = title?.status == "published"
 
                     document.reference.collection("body").document("text")
                         .get().addOnSuccessListener { bodyDocument ->
@@ -164,7 +164,7 @@ class EditTitleActivity : AppCompatActivity() {
                                 .set(bodyObject).addOnSuccessListener {
                                     titleID = titleDocument.id
                                     saveTitleButton.text = getString(R.string.saved)
-                                    titleStatus = "draft"
+                                    isPublished = false
                                     checkFields()
                                 }
                         }
@@ -208,12 +208,23 @@ class EditTitleActivity : AppCompatActivity() {
 
     fun onClickPublish(v: View) {
         if (titleID != null) {
+            updateExistingTitle()
+
             val titleRef = db.collection("titles").document(titleID!!)
 
+            // Make search flags
+            val title = titleEditText.text.toString().toLowerCase(Locale.getDefault())
+            val words = title.split(" ")
+
+            if (words.isNotEmpty()) {
+                titleRef.update("flags", words)
+            }
+
+            // Change title status
             titleRef.update("status", "published")
                 .addOnSuccessListener {
                     Toast.makeText(this, getString(R.string.published), Toast.LENGTH_SHORT).show()
-                    titleStatus = "published"
+                    isPublished = true
                     checkFields()
                 }
         }
@@ -240,7 +251,7 @@ class EditTitleActivity : AppCompatActivity() {
                 isDescriptionValid() &&
                 isBodyValid() &&
                 titleID != null &&
-                titleStatus == "draft"
+                !isPublished
     }
 
     private fun isTitleValid(): Boolean {
