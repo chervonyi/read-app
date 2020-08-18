@@ -8,8 +8,8 @@
     android:background="@color/colorBackground"
     tools:context=".activities.MainActivity">
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
+    <FrameLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
@@ -23,14 +23,17 @@
        <RelativeLayout
            android:layout_width="match_parent"
            android:layout_height="?attr/actionBarSize"
-           android:paddingStart="6dp"
-           android:paddingEnd="@dimen/mainPadding"
+           android:paddingStart="@dimen/headerPadding"
+           android:paddingEnd="@dimen/headerPadding"
            app:layout_scrollFlags="scroll|enterAlways">
 
            <androidx.appcompat.widget.SearchView
+               android:id="@+id/searchView"
                android:layout_width="match_parent"
                android:layout_height="match_parent"
-               app:searchIcon="@drawable/ic_search"/>
+               app:searchIcon="@drawable/ic_search"
+               android:queryBackground="@android:color/transparent"
+               style="@style/SearchView"/>
 
            <com.makeramen.roundedimageview.RoundedImageView
                android:id="@+id/userAccountImageButton"
@@ -57,38 +60,6 @@
                android:contentDescription="@string/anonymous_user_button_content_description" />
 
        </RelativeLayout>
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/titleTypesTabLayout"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:paddingBottom="10dp"
-            app:tabTextAppearance="@style/CustomTabStyle"
-            app:tabIndicator="@drawable/tab_indicator"
-            app:tabMode="auto"
-            app:tabIndicatorHeight="10dp"
-            style="@style/CustomTabLayoutStyle">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tab_new" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tab_recommended" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tab_top" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/tab_followed" />
-        </com.google.android.material.tabs.TabLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 

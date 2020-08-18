@@ -3,9 +3,12 @@ package room106.app.read.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.SearchView
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.google.firebase.auth.FirebaseAuth
@@ -17,37 +20,52 @@ import com.google.firebase.ktx.Firebase
 import com.makeramen.roundedimageview.RoundedImageView
 import room106.app.read.R
 import room106.app.read.TitleTypesFragmentPageAdapter
+import room106.app.read.fragments.CurrentUserFragment
+import room106.app.read.fragments.MainTabsFragment
+import room106.app.read.fragments.SearchFragment
 import room106.app.read.models.User
 
 class MainActivity : AppCompatActivity() {
 
     // Views
+    private lateinit var searchView: SearchView
     private lateinit var userAccountImageButton: RoundedImageView
     private lateinit var anonymousUserImageButton: ImageView
-    private lateinit var titleTypesTabLayout: TabLayout
-    private lateinit var viewPager: ViewPager
 
     // Firebase
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
+
+    // Fragments
+    private lateinit var mainTabsFragment: MainTabsFragment
+    private lateinit var searchFragment: SearchFragment
+
+    private var userIsLoggedIn = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         // Connect views
+        searchView = findViewById(R.id.searchView)
         userAccountImageButton = findViewById(R.id.userAccountImageButton)
         anonymousUserImageButton = findViewById(R.id.anonymousUserImageButton)
-        titleTypesTabLayout = findViewById(R.id.titleTypesTabLayout)
-        viewPager = findViewById(R.id.viewPager)
 
-        // Prepare tab
-        titleTypesTabLayout.addOnTabSelectedListener(onTabSelectedListener)
-        viewPager.adapter = TitleTypesFragmentPageAdapter(supportFragmentManager)
-        viewPager.addOnPageChangeListener(onPageChangeListener)
+        // Prepare fragments
+        mainTabsFragment = MainTabsFragment()
+        searchFragment = SearchFragment()
 
         auth = Firebase.auth
         db = Firebase.firestore
+
+        // Set MainTabsFragment on start
+        val ft = supportFragmentManager.beginTransaction()
+        ft.replace(R.id.frameLayout, mainTabsFragment)
+        ft.commit()
+
+        // Attach listeners
+        searchView.setOnSearchClickListener(onClickSearchListener)
+        searchView.setOnCloseListener(onClickCloseSearchListener)
     }
 
     override fun onStart() {
@@ -90,6 +108,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateUserUI(user: FirebaseUser?, userData: User?) {
         if (user != null && userData != null) {
             // User Logged In
+            userIsLoggedIn = true
 
             // Set avatar
             val avatarName = "ic_avatar_${userData.avatar}"
@@ -100,36 +119,37 @@ class MainActivity : AppCompatActivity() {
 
         } else {
             // User Logged Out
+            userIsLoggedIn = false
+
             userAccountImageButton.visibility = View.INVISIBLE
             anonymousUserImageButton.visibility = View.VISIBLE
         }
     }
     //endregion
 
-    //region Tab Listeners
-    private val onTabSelectedListener = object : TabLayout.OnTabSelectedListener {
-        override fun onTabReselected(p0: TabLayout.Tab?) { }
+    private val onClickSearchListener = View.OnClickListener {
+        // Show SearchFragment
+        val ft = supportFragmentManager.beginTransaction()
+        ft.replace(R.id.frameLayout, searchFragment)
+        ft.commit()
 
-        override fun onTabUnselected(p0: TabLayout.Tab?) { }
-
-        override fun onTabSelected(p0: TabLayout.Tab?) {
-            viewPager.currentItem = p0!!.position
-        }
+        // Hide header buttons
+        anonymousUserImageButton.visibility = View.INVISIBLE
+        userAccountImageButton.visibility = View.INVISIBLE
     }
 
-    private val onPageChangeListener = object : ViewPager.OnPageChangeListener {
-        override fun onPageScrollStateChanged(state: Int) { }
+    private val onClickCloseSearchListener = SearchView.OnCloseListener {
+        // Show MainTabsFragment
+        val ft = supportFragmentManager.beginTransaction()
+        ft.replace(R.id.frameLayout, mainTabsFragment)
+        ft.commit()
 
-        override fun onPageScrolled(
-            position: Int,
-            positionOffset: Float,
-            positionOffsetPixels: Int
-        ) { }
-
-        override fun onPageSelected(position: Int) {
-            val tab = titleTypesTabLayout.getTabAt(position)
-            tab?.select()
+        if (userIsLoggedIn) {
+            userAccountImageButton.visibility = View.VISIBLE
+        } else {
+            anonymousUserImageButton.visibility = View.VISIBLE
         }
+
+        false
     }
-    //endregion
 }
