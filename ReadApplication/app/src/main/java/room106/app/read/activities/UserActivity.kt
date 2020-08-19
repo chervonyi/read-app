@@ -181,7 +181,8 @@ class UserActivity : AppCompatActivity() {
     }
 
     private fun onClickChangePassword() {
-        // TODO - Implement
+        val intent = Intent(this, ChangePasswordActivity::class.java)
+        startActivity(intent)
     }
 
     private fun logOutUser() {
