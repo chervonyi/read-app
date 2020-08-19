@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.OfferToLoginActivity"></activity>
+        <activity android:name=".activities.ChangeNameActivity"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".activities.OfferToLoginActivity" />
         <activity android:name=".activities.EditTitleActivity" />
         <activity android:name=".activities.TitleActivity" />
         <activity android:name=".activities.ResetPasswordActivity" />

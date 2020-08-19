@@ -17,6 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.makeramen.roundedimageview.RoundedImageView
+import kotlinx.android.synthetic.main.activity_change_name.*
 import room106.app.read.R
 import room106.app.read.fragments.CurrentUserFragment
 import room106.app.read.fragments.OtherUserFragment
@@ -41,7 +42,7 @@ class UserActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
 
-    private lateinit var userData: User
+    private var userData: User? = null
     private var userID: String? = null
     //endregion
 
@@ -142,7 +143,17 @@ class UserActivity : AppCompatActivity() {
     private val onClickMenuListener = Toolbar.OnMenuItemClickListener {
         when (it.itemId) {
             R.id.currentUserMenuChangeAvatar -> {
-                changeAvatar()
+                onClickChangeAvatar()
+                true
+            }
+
+            R.id.currentUserMenuChangeName -> {
+                onClickChangeName()
+                true
+            }
+
+            R.id.currentUserMenuChangePassword -> {
+                onClickChangePassword()
                 true
             }
 
@@ -155,13 +166,22 @@ class UserActivity : AppCompatActivity() {
         }
     }
 
-    private fun changeAvatar() {
+    private fun onClickChangeAvatar() {
         // Go to ChangeAvatarActivity
         val intent = Intent(this, ChangeAvatarActivity::class.java)
-        intent.putExtra("avatar_id", userData.avatar)
+        intent.putExtra("avatar_id", userData?.avatar)
         intent.putExtra("purpose", "change_avatar")
         startActivity(intent)
-//        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
+    }
+
+    private fun onClickChangeName() {
+        val intent = Intent(this, ChangeNameActivity::class.java)
+        intent.putExtra("name", userData?.name)
+        startActivity(intent)
+    }
+
+    private fun onClickChangePassword() {
+        // TODO - Implement
     }
 
     private fun logOutUser() {

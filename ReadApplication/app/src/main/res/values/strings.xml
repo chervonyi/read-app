@@ -79,4 +79,7 @@
     <string name="you_liked_it">You liked it!</string>
     <string name="you_saved_it">You saved it!</string>
     <string name="you_following">Following</string>
+    <string name="change_name">Change Name</string>
+    <string name="name">Name</string>
+    <string name="change_password">Change password</string>
 </resources>

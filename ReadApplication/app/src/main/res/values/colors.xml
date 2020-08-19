@@ -33,6 +33,6 @@
 
     <color name="colorPrimary">#7D79E8</color>
     <color name="colorPrimaryDisable">#B6B5EF</color>
-    <color name="colorPrimaryDark">#7D79E8</color>
+    <color name="colorPrimaryDark">#F4F6F8</color>
     <color name="colorAccent">#7D79E8</color>
 </resources>
