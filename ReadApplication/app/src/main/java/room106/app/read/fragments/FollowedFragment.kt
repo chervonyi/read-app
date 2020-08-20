@@ -2,10 +2,13 @@ package room106.app.read.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import android.widget.LinearLayout
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -21,11 +24,19 @@ import room106.app.read.views.TitleView
 class FollowedFragment: Fragment() {
 
     // Views
+    private lateinit var scrollView: NestedScrollView
     private lateinit var titlesLinearLayout: LinearLayout
 
     // Firebase
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
+    private var nextTitlesQuery: Query? = null
+
+    private var isVisibleToUser = false
+    private var allTitlesLoaded = false
+    private var isLoading = false
+
+    private var followedUsersID = ArrayList<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,17 +46,23 @@ class FollowedFragment: Fragment() {
         val v = inflater.inflate(R.layout.fragment_titles_list, container, false)
 
         // Connect Views
+        scrollView = v.findViewById(R.id.scrollView)
         titlesLinearLayout = v.findViewById(R.id.titlesLinearLayout)
+
+        // Attach listeners
+        scrollView.viewTreeObserver.addOnScrollChangedListener(onScrollBottomReachListener)
 
         // Firebase
         auth = Firebase.auth
         db = Firebase.firestore
 
-        loadTitles()
+        allTitlesLoaded = false
+        loadFollowedUsersIDs()
+
         return v
     }
 
-    private fun loadTitles() {
+    private fun loadFollowedUsersIDs() {
         val currentUserID = auth.currentUser?.uid ?: return
 
         // Get usersID that current user is following
@@ -61,35 +78,81 @@ class FollowedFragment: Fragment() {
                     }
                 }
 
-                getFollowedAuthorsTitles(usersID)
+                followedUsersID = usersID
+                titlesLinearLayout.removeAllViews()
+                loadNextTitles()
             }
     }
 
-    private fun getFollowedAuthorsTitles(usersID: List<String>) {
-        titlesLinearLayout.removeAllViews()
+    private fun loadNextTitles() {
+        if (followedUsersID.isNotEmpty()) {
 
-        if (usersID.isNotEmpty()) {
-            val titlesRef = db.collection("titles")
-                .whereEqualTo("status", "published")
-                .whereIn("authorID", usersID)
-                .orderBy("publicationTime", Query.Direction.DESCENDING)
+            if (nextTitlesQuery == null) {
+                nextTitlesQuery = db.collection("titles")
+                    .whereEqualTo("status", "published")
+                    .whereIn("authorID", followedUsersID)
+                    .orderBy("publicationTime", Query.Direction.DESCENDING)
+                    .limit(TITLES_LIMIT)
+            }
 
             // Execute query
-            titlesRef.get().addOnSuccessListener { documents ->
-                for (document in documents) {
-                    val title = document.toObject(Title::class.java)
-                    val titleView = TitleView(context, title, document.id)
+            nextTitlesQuery!!.get()
+                .addOnSuccessListener { documents ->
+                    if (documents.size() > 0) {
+                        for (document in documents) {
+                            val title = document.toObject(Title::class.java)
+                            val titleView = TitleView(context, title, document.id)
 
-                    titleView.setOnClickListener {
-                        val intent = Intent(context, TitleActivity::class.java)
-                        intent.putExtra("title_id", document.id)
-                        context?.startActivity(intent)
-//                        activity?.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
+                            titleView.setOnClickListener {
+                                val intent = Intent(context, TitleActivity::class.java)
+                                intent.putExtra("title_id", document.id)
+                                context?.startActivity(intent)
+                            }
+
+                            titlesLinearLayout.addView(titleView)
+                        }
+
+                        // Prepare query for next N titles
+                        val lastVisibleDocument = documents.documents[documents.size() - 1]
+                        nextTitlesQuery = db.collection("titles")
+                            .whereEqualTo("status", "published")
+                            .whereIn("authorID", followedUsersID)
+                            .orderBy("publicationTime", Query.Direction.DESCENDING)
+                            .startAfter(lastVisibleDocument)
+                            .limit(TITLES_LIMIT)
+                    } else {
+                        allTitlesLoaded = true
+                        Log.d("ScrollView", "All titles in 'Followed' tab have been loaded")
                     }
+                }
+                .addOnCompleteListener {
+                    isLoading = false
+                }
+        }
+    }
 
-                    titlesLinearLayout.addView(titleView)
+    private val onScrollBottomReachListener = ViewTreeObserver.OnScrollChangedListener {
+        if (isVisibleToUser) {
+            // User scrolling this scrollView
+
+            if (!scrollView.canScrollVertically(1)) {
+                // User reach the bottom
+
+                if (!allTitlesLoaded && !isLoading) {
+                    // Not all titles has been loaded AND is not loading right now
+                    isLoading = true
+                    Log.d("ScrollView", "Loading next titles in FollowedFragment")
+                    loadNextTitles()
                 }
             }
         }
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        this.isVisibleToUser = isVisibleToUser
+    }
+
+    companion object {
+        const val TITLES_LIMIT: Long = 3
     }
 }
