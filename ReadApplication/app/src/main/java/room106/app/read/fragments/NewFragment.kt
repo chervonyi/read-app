@@ -32,6 +32,7 @@ class NewFragment: Fragment() {
 
     private var isVisibleToUser = false
     private var allTitlesLoaded = false
+    private var isLoading = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,12 +54,11 @@ class NewFragment: Fragment() {
         allTitlesLoaded = false
         titlesLinearLayout.removeAllViews()
         loadNextTitles()
+
         return v
     }
 
     private fun loadNextTitles() {
-        if (allTitlesLoaded) { return }
-
         if (nextTitlesQuery == null) {
             nextTitlesQuery = db.collection("titles")
                 .whereEqualTo("status", "published")
@@ -67,31 +67,52 @@ class NewFragment: Fragment() {
         }
 
         // Execute query
-        nextTitlesQuery!!.get().addOnSuccessListener { documents ->
-            if (documents.size() > 0) {
-                for (document in documents) {
-                    val title = document.toObject(Title::class.java)
-                    val titleView = TitleView(context, title, document.id)
+        nextTitlesQuery!!.get()
+            .addOnSuccessListener { documents ->
+                if (documents.size() > 0) {
+                    for (document in documents) {
+                        val title = document.toObject(Title::class.java)
+                        val titleView = TitleView(context, title, document.id)
 
-                    titleView.setOnClickListener {
-                        val intent = Intent(context, TitleActivity::class.java)
-                        intent.putExtra("title_id", document.id)
-                        context?.startActivity(intent)
+                        titleView.setOnClickListener {
+                            val intent = Intent(context, TitleActivity::class.java)
+                            intent.putExtra("title_id", document.id)
+                            context?.startActivity(intent)
+                        }
+
+                        titlesLinearLayout.addView(titleView)
                     }
 
-                    titlesLinearLayout.addView(titleView)
+                    // Prepare query for next N titles
+                    val lastVisibleDocument = documents.documents[documents.size() - 1]
+                    nextTitlesQuery = db.collection("titles")
+                        .whereEqualTo("status", "published")
+                        .orderBy("publicationTime", Query.Direction.DESCENDING)
+                        .startAfter(lastVisibleDocument)
+                        .limit(TITLES_LIMIT)
+                } else {
+                    allTitlesLoaded = true
+                    Log.d("ScrollView", "All titles in 'NEW' tab have been loaded")
                 }
+            }
+            .addOnCompleteListener {
+                isLoading = false
+            }
+    }
 
-                // Prepare query for next N titles
-                val lastVisibleDocument = documents.documents[documents.size() - 1]
-                nextTitlesQuery = db.collection("titles")
-                    .whereEqualTo("status", "published")
-                    .orderBy("publicationTime", Query.Direction.DESCENDING)
-                    .startAfter(lastVisibleDocument)
-                    .limit(TITLES_LIMIT)
-            } else {
-                allTitlesLoaded = true
-                Log.d("ScrollView", "ALL TITLES LOADED!")
+    private val onScrollBottomReachListener = ViewTreeObserver.OnScrollChangedListener {
+        if (isVisibleToUser) {
+            // User scrolling this scrollView
+
+            if (!scrollView.canScrollVertically(1)) {
+                // User reach the bottom
+
+                if (!allTitlesLoaded && !isLoading) {
+                    // Not all titles has been loaded AND is not loading right now
+                    isLoading = true
+                    Log.d("ScrollView", "Loading next titles in NewFragment")
+                    loadNextTitles()
+                }
             }
         }
     }
@@ -100,17 +121,7 @@ class NewFragment: Fragment() {
         this.isVisibleToUser = isVisibleToUser
     }
 
-    private val onScrollBottomReachListener = ViewTreeObserver.OnScrollChangedListener {
-        if (!scrollView.canScrollVertically(1) && isVisibleToUser && !allTitlesLoaded) {
-            Log.d("ScrollView", "BOTTOM!")
-            loadNextTitles()
-        } else {
-            Log.d("ScrollView", "Up!")
-        }
-    }
-
     companion object {
         const val TITLES_LIMIT: Long = 3
     }
-
 }
