@@ -29,7 +29,7 @@ class RecommendedFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val v = inflater.inflate(R.layout.fragment_titles_list, container, false)
+        val v = inflater.inflate(R.layout.fragment_titles_list_recommended, container, false)
 
         // Connect Views
         titlesLinearLayout = v.findViewById(R.id.titlesLinearLayout)

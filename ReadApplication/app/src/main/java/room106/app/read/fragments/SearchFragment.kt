@@ -20,7 +20,7 @@ import java.util.*
 class SearchFragment: Fragment() {
 
     // Views
-    private lateinit var titlesLinearLayout: LinearLayout
+    private var titlesLinearLayout: LinearLayout? = null
 
     // Firebase
     private lateinit var db: FirebaseFirestore
@@ -42,7 +42,9 @@ class SearchFragment: Fragment() {
     }
 
     fun updateTitlesList(searchQuery: String) {
-        titlesLinearLayout.removeAllViews()
+        if (titlesLinearLayout == null) { return }
+
+        titlesLinearLayout?.removeAllViews()
 
        if (searchQuery.isNotEmpty()) {
            val query = searchQuery.toLowerCase(Locale.getDefault())
@@ -63,7 +65,7 @@ class SearchFragment: Fragment() {
                            context?.startActivity(intent)
                        }
 
-                       titlesLinearLayout.addView(titleView)
+                       titlesLinearLayout?.addView(titleView)
                    }
                }
            }
