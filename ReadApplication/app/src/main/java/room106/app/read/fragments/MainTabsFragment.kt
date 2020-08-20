@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import room106.app.read.R
@@ -31,6 +32,7 @@ class MainTabsFragment: Fragment() {
         titleTypesTabLayout.addOnTabSelectedListener(onTabSelectedListener)
         viewPager.adapter = TitleTypesFragmentPageAdapter(childFragmentManager)
         viewPager.addOnPageChangeListener(onPageChangeListener)
+        viewPager.offscreenPageLimit = 3
 
         return v
     }

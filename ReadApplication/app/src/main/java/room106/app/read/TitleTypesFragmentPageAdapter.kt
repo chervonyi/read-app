@@ -3,12 +3,14 @@ package room106.app.read
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 import room106.app.read.fragments.FollowedFragment
 import room106.app.read.fragments.NewFragment
 import room106.app.read.fragments.RecommendedFragment
 import room106.app.read.fragments.TopFragment
 
-class TitleTypesFragmentPageAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+class TitleTypesFragmentPageAdapter(fm: FragmentManager) :
+    FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {
         return when(position) {
