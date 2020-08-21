@@ -2,6 +2,8 @@
 <resources>
 
     <color name="colorBackground">#FFF</color>
+    <color name="colorSkeleton1">#F4F6F8</color>
+    <color name="colorSkeleton2">#E7EBEF</color>
     <color name="colorEditTextBackground">#F8F8F8</color>
 
     <color name="colorIcons">#484848</color>

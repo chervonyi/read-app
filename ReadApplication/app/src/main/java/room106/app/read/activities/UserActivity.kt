@@ -3,6 +3,7 @@ package room106.app.read.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
@@ -23,6 +24,7 @@ import room106.app.read.fragments.CurrentUserFragment
 import room106.app.read.fragments.OtherUserFragment
 import room106.app.read.models.User
 import room106.app.read.views.MainButton
+import room106.app.read.views.UserStatsPanelView
 
 class UserActivity : AppCompatActivity() {
 
@@ -30,10 +32,9 @@ class UserActivity : AppCompatActivity() {
     // Views
     private lateinit var toolBar: Toolbar
     private lateinit var userAvatarImageView: RoundedImageView
+    private lateinit var userNameSkeleton: View
     private lateinit var userNameTextView: TextView
-    private lateinit var userTitlesCountTextView: TextView
-    private lateinit var userFollowersCountTextView: TextView
-    private lateinit var userLikesCountTextView: TextView
+    private lateinit var userStatsPanel: UserStatsPanelView
     private lateinit var userTitlesFrameLayout: FrameLayout
     private lateinit var createNewTitleButton: Button
     private lateinit var followButton: MainButton
@@ -54,13 +55,12 @@ class UserActivity : AppCompatActivity() {
         // Connect views
         toolBar = findViewById(R.id.toolBar)
         userAvatarImageView = findViewById(R.id.userAvatarImageView)
+        userNameSkeleton = findViewById(R.id.userNameSkeleton)
         userNameTextView = findViewById(R.id.userNameTextView)
-        userTitlesCountTextView = findViewById(R.id.userTitlesCountTextView)
-        userFollowersCountTextView = findViewById(R.id.userFollowersCountTextView)
-        userLikesCountTextView = findViewById(R.id.userLikesCountTextView)
         userTitlesFrameLayout = findViewById(R.id.userTitlesFrameLayout)
         createNewTitleButton = findViewById(R.id.createNewTitleButton)
         followButton = findViewById(R.id.followButton)
+        userStatsPanel = findViewById(R.id.userStatsPanel)
 
         // Connect listeners
         toolBar.setOnMenuItemClickListener(onClickMenuListener)
@@ -115,7 +115,11 @@ class UserActivity : AppCompatActivity() {
 
                 if (user != null) {
                     userData = user
-                    updateUserUI(user)
+
+                    Handler().postDelayed({
+                        updateUserUI(user)
+                    }, 3000)
+
                 }
             }
 
@@ -131,10 +135,10 @@ class UserActivity : AppCompatActivity() {
         userAvatarImageView.setImageResource(image)
 
         // Set other user info
-        userNameTextView.text =             userData.name
-        userTitlesCountTextView.text =      userData.titlesCount.toString()
-        userFollowersCountTextView.text =   userData.followersCount.toString()
-        userLikesCountTextView.text =       userData.likesCount.toString()
+        userNameTextView.text = userData.name
+        userNameTextView.visibility = View.VISIBLE
+        userNameSkeleton.visibility = View.GONE
+        userStatsPanel.attachData(userData.titlesCount, userData.followersCount, userData.likesCount)
     }
     //endregion
 
