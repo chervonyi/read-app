@@ -2,9 +2,11 @@ package room106.app.read.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -26,6 +28,7 @@ import room106.app.read.R
 import room106.app.read.models.Title
 import room106.app.read.views.LikeButton
 import room106.app.read.views.MainButton
+import room106.app.read.views.TitleStatsPanelView
 
 
 class TitleActivity : AppCompatActivity() {
@@ -37,13 +40,16 @@ class TitleActivity : AppCompatActivity() {
     private lateinit var headerTextView: TextView
     private lateinit var authorAvatarImageView: RoundedImageView
     private lateinit var authorTextView: TextView
-    private lateinit var readsCountTextView: TextView
-    private lateinit var likesCountTextView: TextView
-    private lateinit var timeToReadTextView: TextView
     private lateinit var descriptionTextView: TextView
     private lateinit var bodyTextView: TextView
     private lateinit var likeButton: LikeButton
     private lateinit var saveTitleButton: MainButton
+    private lateinit var titleStatsPanel: TitleStatsPanelView
+
+    private lateinit var titleHeaderSkeleton: View
+    private lateinit var titleAuthorSkeleton: View
+    private lateinit var titleDescriptionSkeleton: LinearLayout
+    private lateinit var titleBodySkeleton: LinearLayout
 
     // Firebase
     private lateinit var db: FirebaseFirestore
@@ -59,19 +65,21 @@ class TitleActivity : AppCompatActivity() {
         setContentView(R.layout.activity_title)
 
         // Connect views
-        toolBar = findViewById(R.id.toolBar)
-        mainNestedScrollView = findViewById(R.id.mainNestedScrollView)
-        appBarLayout = findViewById(R.id.appBarLayout)
-        headerTextView = findViewById(R.id.titleHeaderTextView)
-        authorAvatarImageView = findViewById(R.id.titleAuthorAvatarImageView)
-        authorTextView = findViewById(R.id.titleAuthorTextView)
-        readsCountTextView = findViewById(R.id.titleReadsCountTextView)
-        likesCountTextView = findViewById(R.id.titleLikesCountTextView)
-        timeToReadTextView = findViewById(R.id.titleTimeToReadTextView)
-        descriptionTextView = findViewById(R.id.titleDescriptionTextView)
-        bodyTextView = findViewById(R.id.titleBodyTextView)
-        likeButton = findViewById(R.id.likeButton)
-        saveTitleButton = findViewById(R.id.saveTitleButton)
+        toolBar =                   findViewById(R.id.toolBar)
+        mainNestedScrollView =      findViewById(R.id.mainNestedScrollView)
+        appBarLayout =              findViewById(R.id.appBarLayout)
+        headerTextView =            findViewById(R.id.titleHeaderTextView)
+        authorAvatarImageView =     findViewById(R.id.titleAuthorAvatarImageView)
+        authorTextView =            findViewById(R.id.titleAuthorTextView)
+        descriptionTextView =       findViewById(R.id.titleDescriptionTextView)
+        bodyTextView =              findViewById(R.id.titleBodyTextView)
+        likeButton =                findViewById(R.id.likeButton)
+        saveTitleButton =           findViewById(R.id.saveTitleButton)
+        titleStatsPanel =           findViewById(R.id.titleStatsPanel)
+        titleHeaderSkeleton =       findViewById(R.id.titleHeaderSkeleton)
+        titleAuthorSkeleton =       findViewById(R.id.titleAuthorSkeleton)
+        titleDescriptionSkeleton =  findViewById(R.id.titleDescriptionSkeleton)
+        titleBodySkeleton =         findViewById(R.id.titleBodySkeleton)
 
         // Assign listeners
         authorAvatarImageView.setOnClickListener(onClickTitleAuthor)
@@ -105,8 +113,10 @@ class TitleActivity : AppCompatActivity() {
                document.reference.collection("body").document("text")
                    .get().addOnSuccessListener { bodyDocument ->
                        val body = bodyDocument.get("text").toString()
-                       updateTitleUI(title, body)
-
+                       Handler().postDelayed({
+                           updateTitleUI(title, body)
+                           // TODO - remove delay
+                       }, 3000)
                    }
            }
 
@@ -119,23 +129,34 @@ class TitleActivity : AppCompatActivity() {
         this.title = title
 
         if (title != null) {
+            // Assign data
             headerTextView.text = title.title
             authorTextView.text = title.authorName
             descriptionTextView.text = title.description
-            readsCountTextView.text = title.readsCount.toString()
-            likesCountTextView.text = title.likesCount.toString()
             bodyTextView.text = body
 
-            val timeToRead = body.length / CHARACTERS_PER_MINUTE
-            timeToReadTextView.text = if (timeToRead > 0) {
-                timeToRead.toString()
-            } else {
-                "1"
+            var timeToRead = body.length / CHARACTERS_PER_MINUTE
+            if (timeToRead <= 0) {
+                timeToRead =  1
             }
 
             val avatarName = "ic_avatar_${title.authorAvatar}"
             val image = resources.getIdentifier(avatarName, "drawable", packageName)
             authorAvatarImageView.setImageResource(image)
+
+            titleStatsPanel.attachData(title.readsCount, title.likesCount, timeToRead)
+
+            // Hide skeleton
+            titleHeaderSkeleton.visibility = View.GONE
+            titleAuthorSkeleton.visibility = View.GONE
+            titleDescriptionSkeleton.visibility = View.GONE
+            titleBodySkeleton.visibility = View.GONE
+
+            // Show data panels
+            headerTextView.visibility = View.VISIBLE
+            authorTextView.visibility = View.VISIBLE
+            descriptionTextView.visibility = View.VISIBLE
+            bodyTextView.visibility = View.VISIBLE
         }
     }
     //endregion

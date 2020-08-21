@@ -53,14 +53,14 @@ class UserActivity : AppCompatActivity() {
         setContentView(R.layout.activity_user)
 
         // Connect views
-        toolBar = findViewById(R.id.toolBar)
-        userAvatarImageView = findViewById(R.id.userAvatarImageView)
-        userNameSkeleton = findViewById(R.id.userNameSkeleton)
-        userNameTextView = findViewById(R.id.userNameTextView)
-        userTitlesFrameLayout = findViewById(R.id.userTitlesFrameLayout)
-        createNewTitleButton = findViewById(R.id.createNewTitleButton)
-        followButton = findViewById(R.id.followButton)
-        userStatsPanel = findViewById(R.id.userStatsPanel)
+        toolBar =                   findViewById(R.id.toolBar)
+        userAvatarImageView =       findViewById(R.id.userAvatarImageView)
+        userNameSkeleton =          findViewById(R.id.userNameSkeleton)
+        userNameTextView =          findViewById(R.id.userNameTextView)
+        userTitlesFrameLayout =     findViewById(R.id.userTitlesFrameLayout)
+        createNewTitleButton =      findViewById(R.id.createNewTitleButton)
+        followButton =              findViewById(R.id.followButton)
+        userStatsPanel =            findViewById(R.id.userStatsPanel)
 
         // Connect listeners
         toolBar.setOnMenuItemClickListener(onClickMenuListener)

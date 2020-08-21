@@ -9,7 +9,7 @@
     android:gravity="center">
 
     <LinearLayout
-        android:id="@+id/titlesCountSkeleton"
+        android:id="@+id/readsCountSkeleton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -30,7 +30,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/titlesCountLinearLayout"
+        android:id="@+id/readsCountLinearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -39,10 +39,10 @@
         android:visibility="gone">
 
         <TextView
-            android:id="@+id/titlesCountTextView"
+            android:id="@+id/readsCountTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/titles_count_tmp"
+            android:text="@string/_12k"
             android:textSize="22sp"
             android:textColor="@color/colorFontUserStatsNumbers"
             android:fontFamily="@font/cabin_bold"/>
@@ -50,63 +50,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/user_stats_titles"
-            android:textSize="16sp"
-            android:textColor="@color/colorFontUserStatsNumbers"
-            android:fontFamily="@font/cabin_regular"/>
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:background="@color/colorUserStatsDivider"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"/>
-
-    <LinearLayout
-        android:id="@+id/followersCountSkeleton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center">
-
-        <View
-            android:layout_width="@dimen/skeletonRow2"
-            android:layout_height="@dimen/skeletonRow2"
-            android:background="@drawable/skeleton_2"/>
-
-        <View
-            android:layout_width="70dp"
-            android:layout_height="@dimen/skeletonRow5"
-            android:layout_marginTop="6dp"
-            android:background="@drawable/skeleton_2"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/followersCountLinearLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/followersCountTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/followers_count_tmp"
-            android:textSize="22sp"
-            android:textColor="@color/colorFontUserStatsNumbers"
-            android:fontFamily="@font/cabin_bold"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/user_stats_followers"
+            android:text="@string/title_stats_reads"
             android:textSize="16sp"
             android:textColor="@color/colorFontUserStatsNumbers"
             android:fontFamily="@font/cabin_regular"/>
@@ -154,7 +98,7 @@
             android:id="@+id/likesCountTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/likes_count_tmp"
+            android:text="@string/followers_count_tmp"
             android:textSize="22sp"
             android:textColor="@color/colorFontUserStatsNumbers"
             android:fontFamily="@font/cabin_bold"/>
@@ -162,7 +106,63 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/user_stats_likes"
+            android:text="@string/title_stats_likes"
+            android:textSize="16sp"
+            android:textColor="@color/colorFontUserStatsNumbers"
+            android:fontFamily="@font/cabin_regular"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/colorUserStatsDivider"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"/>
+
+    <LinearLayout
+        android:id="@+id/timeToReadSkeleton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <View
+            android:layout_width="@dimen/skeletonRow2"
+            android:layout_height="@dimen/skeletonRow2"
+            android:background="@drawable/skeleton_2"/>
+
+        <View
+            android:layout_width="70dp"
+            android:layout_height="@dimen/skeletonRow5"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/skeleton_2"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/timeToReadLinearLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/timeToReadTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/time_to_read_tmp"
+            android:textSize="22sp"
+            android:textColor="@color/colorFontUserStatsNumbers"
+            android:fontFamily="@font/cabin_bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/time_to_read_min"
             android:textSize="16sp"
             android:textColor="@color/colorFontUserStatsNumbers"
             android:fontFamily="@font/cabin_regular"/>

@@ -28,28 +28,46 @@
             android:showDividers="middle">
 
             <TextView
+                android:id="@+id/titleHeaderSkeleton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="100dp"
+                android:background="@drawable/skeleton_1"
+                android:textSize="@dimen/titleHeaderFontSize"
+                android:fontFamily="@font/cabin_semi_bold"/>
+
+            <TextView
                 android:id="@+id/titleHeaderTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/tmp_title_panel_header"
                 android:textSize="@dimen/titleHeaderFontSize"
                 android:textColor="@color/colorFontMain"
-                android:fontFamily="@font/cabin_semi_bold"/>
+                android:fontFamily="@font/cabin_semi_bold"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center">
+                android:gravity="center_vertical">
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/titleAuthorAvatarImageView"
                     android:layout_width="@dimen/avatarSmallSize"
                     android:layout_height="@dimen/avatarSmallSize"
-                    android:background="@drawable/anonymous_user"
+                    android:background="@drawable/user_tiny_avatar_skeleton"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_avatar_1"
                     app:riv_corner_radius="@dimen/tinyUserIconCorners"/>
+
+                <TextView
+                    android:id="@+id/titleAuthorSkeleton"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/skeleton_1"
+                    android:textSize="@dimen/titleAuthorFontSize"
+                    android:fontFamily="@font/cabin_semi_bold"/>
 
                 <TextView
                     android:id="@+id/titleAuthorTextView"
@@ -59,108 +77,34 @@
                     android:text="@string/tmp_title_panel_author"
                     android:textSize="@dimen/titleAuthorFontSize"
                     android:textColor="@color/colorFontMain"
-                    android:fontFamily="@font/cabin_semi_bold"/>
+                    android:fontFamily="@font/cabin_semi_bold"
+                    android:visibility="gone"/>
 
             </LinearLayout>
 
+            <room106.app.read.views.TitleStatsPanelView
+                android:id="@+id/titleStatsPanel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
             <LinearLayout
+                android:id="@+id/titleDescriptionSkeleton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="14dp"
-                android:background="@drawable/content_panel">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/titleReadsCountTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/_12k"
-                        android:textSize="22sp"
-                        android:textColor="@color/colorFontUserStatsNumbers"
-                        android:fontFamily="@font/cabin_bold"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/title_stats_reads"
-                        android:textSize="16sp"
-                        android:textColor="@color/colorFontUserStatsNumbers"
-                        android:fontFamily="@font/cabin_regular"/>
-
-                </LinearLayout>
+                android:orientation="vertical"
+                android:divider="@drawable/skeleton_text_divider"
+                android:showDividers="middle">
 
                 <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorUserStatsDivider"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"/>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/titleLikesCountTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/followers_count_tmp"
-                        android:textSize="22sp"
-                        android:textColor="@color/colorFontUserStatsNumbers"
-                        android:fontFamily="@font/cabin_bold"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/title_stats_likes"
-                        android:textSize="16sp"
-                        android:textColor="@color/colorFontUserStatsNumbers"
-                        android:fontFamily="@font/cabin_regular"/>
-
-                </LinearLayout>
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/skeletonRow4"
+                    android:background="@drawable/skeleton_1"/>
 
                 <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorUserStatsDivider"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"/>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <TextView
-                        android:id="@+id/titleTimeToReadTextView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/time_to_read_tmp"
-                        android:textSize="22sp"
-                        android:textColor="@color/colorFontUserStatsNumbers"
-                        android:fontFamily="@font/cabin_bold"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/time_to_read_min"
-                        android:textSize="16sp"
-                        android:textColor="@color/colorFontUserStatsNumbers"
-                        android:fontFamily="@font/cabin_regular"/>
-
-                </LinearLayout>
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/skeletonRow4"
+                    android:layout_marginEnd="40dp"
+                    android:background="@drawable/skeleton_1"/>
 
             </LinearLayout>
 
@@ -171,7 +115,8 @@
                 android:text="@string/tmp_title_panel_body"
                 android:textSize="@dimen/titleDescriptionFontSize"
                 android:textColor="@color/colorFontBody"
-                android:fontFamily="@font/cabin_regular"/>
+                android:fontFamily="@font/cabin_regular"
+                android:visibility="gone"/>
 
             <room106.app.read.views.MainButton
                 android:id="@+id/saveTitleButton"
@@ -179,6 +124,75 @@
                 android:layout_height="@dimen/buttonHeight"
                 android:text="@string/save"
                 android:onClick="onClickSaveFavoriteTitle"/>
+
+            <LinearLayout
+                android:id="@+id/titleBodySkeleton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:divider="@drawable/skeleton_text_divider"
+                android:showDividers="middle">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/skeletonRow4"
+                    android:layout_marginEnd="30dp"
+                    android:background="@drawable/skeleton_1"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/skeletonRow4"
+                    android:background="@drawable/skeleton_1"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/skeletonRow4"
+                    android:layout_marginEnd="100dp"
+                    android:background="@drawable/skeleton_1"/>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/skeletonRow4"
+                    android:layout_marginEnd="30dp"
+                    android:background="@drawable/skeleton_1"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/skeletonRow4"
+                    android:background="@drawable/skeleton_1"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/skeletonRow4"
+                    android:layout_marginEnd="100dp"
+                    android:background="@drawable/skeleton_1"/>
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/skeletonRow4"
+                    android:layout_marginEnd="30dp"
+                    android:background="@drawable/skeleton_1"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/skeletonRow4"
+                    android:background="@drawable/skeleton_1"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/skeletonRow4"
+                    android:layout_marginEnd="100dp"
+                    android:background="@drawable/skeleton_1"/>
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/titleBodyTextView"
@@ -188,7 +202,8 @@
                 android:textSize="@dimen/titleDescriptionFontSize"
                 android:textColor="@color/colorFontBody"
                 android:fontFamily="@font/cabin_regular"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginBottom="20dp"
+                android:visibility="gone"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

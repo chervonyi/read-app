@@ -38,7 +38,10 @@
     <dimen name="skeletonCornerRadius">5dp</dimen>
     <dimen name="skeletonRow1">40dp</dimen>
     <dimen name="skeletonRow2">32dp</dimen>
-    <dimen name="skeletonRow3">18dp</dimen>
+    <dimen name="skeletonRow3">28dp</dimen>
+    <dimen name="skeletonRow4">22dp</dimen>
+    <dimen name="skeletonRow5">18dp</dimen>
+    <dimen name="skeletonTextDivider">10dp</dimen>
 
 
     <integer name="nameMaxLength">30</integer>
