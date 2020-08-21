@@ -79,13 +79,11 @@ class MainActivity : AppCompatActivity() {
     fun onClickAnonymousUser(v: View) {
         val intent = Intent(this, SignUpActivity::class.java)
         startActivity(intent)
-//        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
 
     fun onClickUserAccount(v: View) {
         val intent = Intent(this, UserActivity::class.java)
         startActivity(intent)
-//        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
 
     private fun readUserData() {

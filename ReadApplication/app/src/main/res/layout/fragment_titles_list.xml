@@ -17,6 +17,24 @@
         android:paddingEnd="@dimen/mainPadding"
         android:paddingBottom="@dimen/mainPadding"
         android:divider="@drawable/divider_form"
-        android:showDividers="middle"/>
+        android:showDividers="middle">
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/title_skeleton_layout"/>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/title_skeleton_layout"/>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            layout="@layout/title_skeleton_layout"/>
+
+    </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>
+

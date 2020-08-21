@@ -2,6 +2,7 @@ package room106.app.read.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -32,6 +33,7 @@ class TopFragment: Fragment() {
     private var isVisibleToUser = false
     private var allTitlesLoaded = false
     private var isLoading = false
+    private var listContainsSkeleton = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,8 +53,12 @@ class TopFragment: Fragment() {
         db = Firebase.firestore
 
         allTitlesLoaded = false
-        titlesLinearLayout.removeAllViews()
-        loadNextTitles()
+        listContainsSkeleton = true
+
+        // TODO - Remove delay
+        Handler().postDelayed({
+            loadNextTitles()
+        }, 5000)
 
         return v
     }
@@ -69,6 +75,13 @@ class TopFragment: Fragment() {
         nextTitlesQuery!!.get()
             .addOnSuccessListener { documents ->
                 if (documents.size() > 0) {
+
+                    // Remove skeleton views
+                    if (listContainsSkeleton) {
+                        titlesLinearLayout.removeAllViews()
+                        listContainsSkeleton = false
+                    }
+
                     for (document in documents) {
                         val title = document.toObject(Title::class.java)
                         val titleView = TitleView(context, title, document.id)

@@ -2,6 +2,7 @@ package room106.app.read.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -35,6 +36,7 @@ class FollowedFragment: Fragment() {
     private var isVisibleToUser = false
     private var allTitlesLoaded = false
     private var isLoading = false
+    private var listContainsSkeleton = true
 
     private var followedUsersID = ArrayList<String>()
 
@@ -57,7 +59,12 @@ class FollowedFragment: Fragment() {
         db = Firebase.firestore
 
         allTitlesLoaded = false
-        loadFollowedUsersIDs()
+        listContainsSkeleton = true
+
+        // TODO - Remove delay
+        Handler().postDelayed({
+            loadFollowedUsersIDs()
+        }, 5000)
 
         return v
     }
@@ -79,7 +86,6 @@ class FollowedFragment: Fragment() {
                 }
 
                 followedUsersID = usersID
-                titlesLinearLayout.removeAllViews()
                 loadNextTitles()
             }
     }
@@ -99,6 +105,13 @@ class FollowedFragment: Fragment() {
             nextTitlesQuery!!.get()
                 .addOnSuccessListener { documents ->
                     if (documents.size() > 0) {
+
+                        // Remove skeleton views
+                        if (listContainsSkeleton) {
+                            titlesLinearLayout.removeAllViews()
+                            listContainsSkeleton = false
+                        }
+
                         for (document in documents) {
                             val title = document.toObject(Title::class.java)
                             val titleView = TitleView(context, title, document.id)

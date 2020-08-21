@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/content_panel"
+    android:padding="@dimen/mainPadding">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/titlePanelHeaderFontSize"
+        android:fontFamily="@font/cabin_semi_bold"
+        android:background="@drawable/skeleton_2"
+        android:layout_marginEnd="70dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_width="@dimen/avatarTinySize"
+            android:layout_height="@dimen/avatarTinySize"
+            android:background="@drawable/user_tiny_avatar_skeleton2"
+            android:scaleType="centerCrop"
+            app:riv_corner_radius="@dimen/tinyUserIconCorners"/>
+
+        <TextView
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textSize="@dimen/titlePanelAuthorFontSize"
+            android:fontFamily="@font/cabin_semi_bold"
+            android:background="@drawable/skeleton_2"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
+        android:divider="@drawable/skeleton_text_divider"
+        android:showDividers="middle">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/skeletonRow5"
+            android:background="@drawable/skeleton_2"
+            android:layout_marginEnd="20dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/skeletonRow5"
+            android:layout_marginEnd="60dp"
+            android:background="@drawable/skeleton_2"/>
+
+    </LinearLayout>
+
+</LinearLayout>
