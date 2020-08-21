@@ -2,6 +2,7 @@ package room106.app.read.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
@@ -36,6 +37,10 @@ class EditTitleActivity : AppCompatActivity() {
     private lateinit var saveTitleButton: Button
     private lateinit var publishTitleButton: Button
 
+    private lateinit var titleSkeleton: View
+    private lateinit var descriptionSkeleton: View
+    private lateinit var bodySkeleton: View
+
     // Firebase
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
@@ -48,12 +53,15 @@ class EditTitleActivity : AppCompatActivity() {
         setContentView(R.layout.activity_edit_title)
 
         // Connect views
-        toolBar = findViewById(R.id.toolBar)
-        titleEditText = findViewById(R.id.titleEditText)
-        descriptionEditText = findViewById(R.id.descriptionEditText)
-        bodyEditText = findViewById(R.id.bodyEditText)
-        saveTitleButton = findViewById(R.id.saveTitleButton)
-        publishTitleButton = findViewById(R.id.publishTitleButton)
+        toolBar =               findViewById(R.id.toolBar)
+        titleEditText =         findViewById(R.id.titleEditText)
+        descriptionEditText =   findViewById(R.id.descriptionEditText)
+        bodyEditText =          findViewById(R.id.bodyEditText)
+        saveTitleButton =       findViewById(R.id.saveTitleButton)
+        publishTitleButton =    findViewById(R.id.publishTitleButton)
+        titleSkeleton =         findViewById(R.id.titleSkeleton)
+        descriptionSkeleton =   findViewById(R.id.descriptionSkeleton)
+        bodySkeleton =          findViewById(R.id.bodySkeleton)
 
         // Set "Done" button on keyboard
         titleEditText.imeOptions = EditorInfo.IME_ACTION_DONE
@@ -101,13 +109,18 @@ class EditTitleActivity : AppCompatActivity() {
                     document.reference.collection("body").document("text")
                         .get().addOnSuccessListener { bodyDocument ->
                             val body = bodyDocument.get("text").toString()
-                            updateTitleUI(title, body)
+                            // TODO - Remove delay
+                            Handler().postDelayed({
+                                updateTitleUI(title, body)
+                            }, 3000)
+
                         }
                 }
         }
     }
 
     private fun updateTitleUI(title: Title?, body: String) {
+        // Set data
         if (title != null) {
             titleEditText.setText(title.title)
             descriptionEditText.setText(title.description)
@@ -117,6 +130,16 @@ class EditTitleActivity : AppCompatActivity() {
             descriptionEditText.setText("")
             bodyEditText.setText("")
         }
+
+        // Hide skeleton
+        titleSkeleton.visibility = View.GONE
+        descriptionSkeleton.visibility = View.GONE
+        bodySkeleton.visibility = View.GONE
+
+        // Show data views
+        titleEditText.visibility = View.VISIBLE
+        descriptionEditText.visibility = View.VISIBLE
+        bodyEditText.visibility = View.VISIBLE
     }
     //endregion
 

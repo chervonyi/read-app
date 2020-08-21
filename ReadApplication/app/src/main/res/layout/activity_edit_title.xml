@@ -23,46 +23,169 @@
             android:orientation="vertical"
             android:padding="@dimen/mainPadding">
 
-            <EditText
-                android:id="@+id/titleEditText"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/title_hint"
-                android:gravity="top"
-                android:minLines="2"
-                android:maxLines="3"
-                android:textSize="@dimen/headerFontSize"
-                android:fontFamily="@font/cabin_semi_bold"
-                android:textColor="@color/colorFontMain"
-                android:inputType="textCapSentences|textMultiLine"
-                android:importantForAutofill="no"/>
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/descriptionEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/description_hint"
-                android:gravity="top"
-                android:minLines="4"
-                android:maxLines="5"
-                android:textSize="@dimen/mainFontSize"
-                android:fontFamily="@font/cabin_regular"
-                android:textColor="@color/colorFontMain"
-                android:inputType="textCapSentences|textMultiLine"
-                android:importantForAutofill="no" />
+                <EditText
+                    android:id="@+id/titleEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/title_hint"
+                    android:gravity="top"
+                    android:minLines="2"
+                    android:maxLines="3"
+                    android:textSize="@dimen/headerFontSize"
+                    android:fontFamily="@font/cabin_semi_bold"
+                    android:textColor="@color/colorFontMain"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:importantForAutofill="no"
+                    android:visibility="invisible"/>
 
-            <EditText
-                android:id="@+id/bodyEditText"
+                <View
+                    android:id="@+id/titleSkeleton"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/skeletonRow2"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="60dp"
+                    android:background="@drawable/skeleton_1"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/text_hint"
-                android:gravity="top"
-                android:minLines="4"
-                android:textSize="@dimen/mainFontSize"
-                android:fontFamily="@font/cabin_regular"
-                android:textColor="@color/colorFontMain"
-                android:inputType="textCapSentences|textMultiLine"
-                android:importantForAutofill="no" />
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/descriptionEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/description_hint"
+                    android:gravity="top"
+                    android:minLines="4"
+                    android:maxLines="5"
+                    android:textSize="@dimen/mainFontSize"
+                    android:fontFamily="@font/cabin_regular"
+                    android:textColor="@color/colorFontMain"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:importantForAutofill="no"
+                    android:visibility="invisible"/>
+
+                <LinearLayout
+                    android:id="@+id/descriptionSkeleton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:orientation="vertical"
+                    android:divider="@drawable/skeleton_text_divider"
+                    android:showDividers="middle">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/skeletonRow4"
+                        android:background="@drawable/skeleton_1"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/skeletonRow4"
+                        android:layout_marginEnd="40dp"
+                        android:background="@drawable/skeleton_1"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/bodyEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/text_hint"
+                    android:gravity="top"
+                    android:minLines="4"
+                    android:textSize="@dimen/mainFontSize"
+                    android:fontFamily="@font/cabin_regular"
+                    android:textColor="@color/colorFontMain"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:importantForAutofill="no"
+                    android:visibility="invisible"/>
+
+                <LinearLayout
+                    android:id="@+id/bodySkeleton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:orientation="vertical"
+                    android:divider="@drawable/skeleton_text_divider"
+                    android:showDividers="middle">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/skeletonRow4"
+                        android:layout_marginEnd="30dp"
+                        android:background="@drawable/skeleton_1"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/skeletonRow4"
+                        android:background="@drawable/skeleton_1"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/skeletonRow4"
+                        android:layout_marginEnd="100dp"
+                        android:background="@drawable/skeleton_1"/>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/skeletonRow4"
+                        android:layout_marginEnd="30dp"
+                        android:background="@drawable/skeleton_1"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/skeletonRow4"
+                        android:background="@drawable/skeleton_1"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/skeletonRow4"
+                        android:layout_marginEnd="100dp"
+                        android:background="@drawable/skeleton_1"/>
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/skeletonRow4"
+                        android:layout_marginEnd="30dp"
+                        android:background="@drawable/skeleton_1"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/skeletonRow4"
+                        android:background="@drawable/skeleton_1"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/skeletonRow4"
+                        android:layout_marginEnd="100dp"
+                        android:background="@drawable/skeleton_1"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+
 
             <room106.app.read.views.MainButton
                 android:id="@+id/saveTitleButton"
