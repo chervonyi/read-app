@@ -30,6 +30,7 @@ class CurrentUserFragment: Fragment() {
         currentUserTabLayout.addOnTabSelectedListener(onTabSelectedListener)
         viewPager.adapter = CurrentUserFragmentPageAdapter(childFragmentManager)
         viewPager.addOnPageChangeListener(onPageChangeListener)
+        viewPager.offscreenPageLimit = 3
 
         return v
     }
