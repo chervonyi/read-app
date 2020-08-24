@@ -104,7 +104,6 @@ class LikedFragment: Fragment() {
                         .orderBy("time", Query.Direction.DESCENDING)
                         .startAfter(lastVisibleDocument)
                         .limit(NewFragment.TITLES_LIMIT)
-
                 } else {
                     allTitlesLoaded = true
                     Log.d("ScrollView", "All titles in 'LIKED' tab have been loaded")
