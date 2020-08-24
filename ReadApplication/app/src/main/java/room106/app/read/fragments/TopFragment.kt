@@ -74,13 +74,9 @@ class TopFragment: Fragment() {
         // Execute query
         nextTitlesQuery!!.get()
             .addOnSuccessListener { documents ->
-                if (documents.size() > 0) {
+                removeSkeletonScreens()
 
-                    // Remove skeleton views
-                    if (listContainsSkeleton) {
-                        titlesLinearLayout.removeAllViews()
-                        listContainsSkeleton = false
-                    }
+                if (documents.size() > 0) {
 
                     for (document in documents) {
                         val title = document.toObject(Title::class.java)
@@ -131,6 +127,13 @@ class TopFragment: Fragment() {
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         this.isVisibleToUser = isVisibleToUser
+    }
+
+    private fun removeSkeletonScreens() {
+        if (listContainsSkeleton) {
+            titlesLinearLayout.removeAllViews()
+            listContainsSkeleton = false
+        }
     }
 
     companion object {

@@ -76,13 +76,9 @@ class OtherUserFragment(private val userID: String) : Fragment() {
         // Execute query
         nextTitlesQuery!!.get()
             .addOnSuccessListener { documents ->
-                if (documents.size() > 0) {
+                removeSkeletonScreens()
 
-                    // Remove skeleton views
-                    if (listContainsSkeleton) {
-                        titlesLinearLayout.removeAllViews()
-                        listContainsSkeleton = false
-                    }
+                if (documents.size() > 0) {
 
                     for (document in documents) {
                         val title = document.toObject(Title::class.java)
@@ -124,6 +120,13 @@ class OtherUserFragment(private val userID: String) : Fragment() {
                 Log.d("ScrollView", "Loading next titles in OtherUserFragment")
                 loadNextTitles()
             }
+        }
+    }
+
+    private fun removeSkeletonScreens() {
+        if (listContainsSkeleton) {
+            titlesLinearLayout.removeAllViews()
+            listContainsSkeleton = false
         }
     }
 }
