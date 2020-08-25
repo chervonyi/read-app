@@ -38,6 +38,8 @@ class SearchFragment: Fragment() {
         // Firebase
         db = Firebase.firestore
 
+        titlesLinearLayout?.removeAllViews()
+
         return v
     }
 

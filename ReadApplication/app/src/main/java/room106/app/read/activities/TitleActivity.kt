@@ -28,6 +28,7 @@ import room106.app.read.R
 import room106.app.read.models.Title
 import room106.app.read.views.LikeButton
 import room106.app.read.views.MainButton
+import room106.app.read.views.TitleBodyLinearLayout
 import room106.app.read.views.TitleStatsPanelView
 
 
@@ -41,7 +42,7 @@ class TitleActivity : AppCompatActivity() {
     private lateinit var authorAvatarImageView: RoundedImageView
     private lateinit var authorTextView: TextView
     private lateinit var descriptionTextView: TextView
-    private lateinit var bodyTextView: TextView
+    private lateinit var titleBodyLinearLayout: TitleBodyLinearLayout
     private lateinit var likeButton: LikeButton
     private lateinit var saveTitleButton: MainButton
     private lateinit var titleStatsPanel: TitleStatsPanelView
@@ -72,7 +73,6 @@ class TitleActivity : AppCompatActivity() {
         authorAvatarImageView =     findViewById(R.id.titleAuthorAvatarImageView)
         authorTextView =            findViewById(R.id.titleAuthorTextView)
         descriptionTextView =       findViewById(R.id.titleDescriptionTextView)
-        bodyTextView =              findViewById(R.id.titleBodyTextView)
         likeButton =                findViewById(R.id.likeButton)
         saveTitleButton =           findViewById(R.id.saveTitleButton)
         titleStatsPanel =           findViewById(R.id.titleStatsPanel)
@@ -80,6 +80,7 @@ class TitleActivity : AppCompatActivity() {
         titleAuthorSkeleton =       findViewById(R.id.titleAuthorSkeleton)
         titleDescriptionSkeleton =  findViewById(R.id.titleDescriptionSkeleton)
         titleBodySkeleton =         findViewById(R.id.titleBodySkeleton)
+        titleBodyLinearLayout =     findViewById(R.id.titleBodyLinearLayout)
 
         // Assign listeners
         authorAvatarImageView.setOnClickListener(onClickTitleAuthor)
@@ -133,7 +134,7 @@ class TitleActivity : AppCompatActivity() {
             headerTextView.text = title.title
             authorTextView.text = title.authorName
             descriptionTextView.text = title.description
-            bodyTextView.text = body
+            titleBodyLinearLayout.setBodyText(body)
 
             var timeToRead = body.length / CHARACTERS_PER_MINUTE
             if (timeToRead <= 0) {
@@ -156,7 +157,7 @@ class TitleActivity : AppCompatActivity() {
             headerTextView.visibility = View.VISIBLE
             authorTextView.visibility = View.VISIBLE
             descriptionTextView.visibility = View.VISIBLE
-            bodyTextView.visibility = View.VISIBLE
+            titleBodyLinearLayout.visibility = View.VISIBLE
         }
     }
     //endregion

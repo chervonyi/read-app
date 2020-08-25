@@ -194,14 +194,10 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/titleBodyTextView"
+            <room106.app.read.views.TitleBodyLinearLayout
+                android:id="@+id/titleBodyLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/long_text"
-                android:textSize="@dimen/titleDescriptionFontSize"
-                android:textColor="@color/colorFontBody"
-                android:fontFamily="@font/cabin_regular"
                 android:layout_marginBottom="20dp"
                 android:visibility="gone"/>
 
