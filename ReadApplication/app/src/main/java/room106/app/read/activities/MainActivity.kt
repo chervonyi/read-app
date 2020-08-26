@@ -1,16 +1,12 @@
 package room106.app.read.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.FrameLayout
 import android.widget.ImageView
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.viewpager.widget.ViewPager
-import com.google.android.material.tabs.TabLayout
+import com.google.android.gms.ads.MobileAds
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -19,11 +15,10 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.makeramen.roundedimageview.RoundedImageView
 import room106.app.read.R
-import room106.app.read.TitleTypesFragmentPageAdapter
-import room106.app.read.fragments.CurrentUserFragment
 import room106.app.read.fragments.MainTabsFragment
 import room106.app.read.fragments.SearchFragment
 import room106.app.read.models.User
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -46,6 +41,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        MobileAds.initialize(this) {}
 
         // Connect views
         searchView = findViewById(R.id.searchView)
@@ -173,4 +170,5 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
 }

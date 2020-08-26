@@ -16,6 +16,8 @@
     <color name="colorFontSub">#373737</color>
     <color name="colorFontMainButton">#FFF</color>
     <color name="colorFontPublishButton">#8993A2</color>
+    <color name="colorFontAdvertisement1">#696D73</color>
+    <color name="colorFontAdvertisement2">#969CA5</color>
 
     <!--    User Stats Panel   -->
     <color name="colorPanelBackground">#F4F6F8</color>

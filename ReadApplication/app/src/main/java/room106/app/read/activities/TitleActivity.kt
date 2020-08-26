@@ -114,10 +114,7 @@ class TitleActivity : AppCompatActivity() {
                document.reference.collection("body").document("text")
                    .get().addOnSuccessListener { bodyDocument ->
                        val body = bodyDocument.get("text").toString()
-                       Handler().postDelayed({
-                           updateTitleUI(title, body)
-                           // TODO - remove delay
-                       }, 3000)
+                       updateTitleUI(title, body)
                    }
            }
 
@@ -362,12 +359,16 @@ class TitleActivity : AppCompatActivity() {
             val intent = Intent(this, UserActivity::class.java)
             intent.putExtra("user_id", title?.authorID)
             startActivity(intent)
-//            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
         }
     }
 
     fun onClickScrollTop(v: View) {
         mainNestedScrollView.fullScroll(ScrollView.FOCUS_UP)
         appBarLayout.setExpanded(true)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        titleBodyLinearLayout.destroyAds()
     }
 }

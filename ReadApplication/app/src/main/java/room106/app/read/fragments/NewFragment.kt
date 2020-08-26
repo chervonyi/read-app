@@ -56,10 +56,7 @@ class NewFragment: Fragment() {
         allTitlesLoaded = false
         listContainsSkeleton = true
 
-        // TODO - Remove delay
-        Handler().postDelayed({
-            loadNextTitles()
-        }, 5000)
+        loadNextTitles()
 
         return v
     }
