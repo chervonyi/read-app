@@ -5,13 +5,14 @@ import android.util.AttributeSet
 import android.util.Log
 import android.widget.*
 import androidx.core.content.ContextCompat
+import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdLoader
 import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.formats.*
 import room106.app.read.R
 import java.util.*
 import java.util.regex.Pattern
-
 
 class TitleBodyLinearLayout: LinearLayout {
 
@@ -31,13 +32,17 @@ class TitleBodyLinearLayout: LinearLayout {
     }
     //endregion
 
+    // AdMob
+    // TODO - Replace test appID with real appID
     private var appID = "ca-app-pub-3940256099942544/2247696110"
     private var adLoader: AdLoader? = null
-    private val chapterLength = 500
-    private var indexes: Queue<Int>? = null
-    private var nativeAdsList = ArrayList<UnifiedNativeAd>()
     private var isDestroyed = false
 
+    // Ads
+    private var nativeAdsContainers = LinkedList<NativeAdContainerView>()
+    private var nativeAdsList = ArrayList<UnifiedNativeAd>()
+
+    private val chapterLength = 500
     private fun initializeView(context: Context?) {
         orientation = VERTICAL
         if (context != null) {
@@ -52,15 +57,11 @@ class TitleBodyLinearLayout: LinearLayout {
         val sentences = body.split(regex)
 
         var chapter = ""
-        indexes = LinkedList<Int>()
-        var index = 1
 
         for (sentence in sentences) {
-            Log.d("TitleBodyLinearLayout", "-$sentence\n")
             if (chapter.length >= chapterLength) {
                 appendChapter(chapter)
-                indexes!!.add(index)
-                index += 2
+                appendAdContainer()
                 chapter = ""
             }
 
@@ -78,16 +79,21 @@ class TitleBodyLinearLayout: LinearLayout {
         }
     }
 
+    private fun appendAdContainer() {
+        val adContainer = NativeAdContainerView(context)
+        nativeAdsContainers.add(adContainer)
+        addView(adContainer)
+    }
+
     private fun loadAds() {
-        val adsCount = childCount - 1
-        Log.d("AdMob", "loadAds. childCount: $childCount. adsCount: $adsCount")
-        adLoader!!.loadAds(AdRequest.Builder().build(), adsCount)
+        Log.d("AdMob", "loadAds. childCount: $childCount. adsCount: ${nativeAdsContainers.size}")
+        adLoader!!.loadAds(AdRequest.Builder().build(), nativeAdsContainers.size)
     }
 
     private fun initializeAdLoader(context: Context): AdLoader {
         return AdLoader.Builder(context, appID)
             .forUnifiedNativeAd { ad: UnifiedNativeAd ->
-
+                Log.d("AdMob", "forUnifiedNativeAd")
                 if (isDestroyed) {
                     ad.destroy()
                     return@forUnifiedNativeAd
@@ -98,24 +104,43 @@ class TitleBodyLinearLayout: LinearLayout {
                         as UnifiedNativeAdView
                 displayUnifiedNativeAd(ad, adView)
             }
+            .withAdListener(object : AdListener() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    // Failed to load ads -> remove Ads Containers
+                    Log.d("AdMob", "ERROR: ${adError.code}")
+                    removeEmptyContainer()
+                }
+            })
             .build()
     }
 
     private fun displayUnifiedNativeAd(nativeAd: UnifiedNativeAd, adView: UnifiedNativeAdView) {
-        Log.d("AdMob", "displayUnifiedNativeAd!")
-
         val headlineView = adView.findViewById<TextView>(R.id.ad_headline)
-        headlineView.text = nativeAd.headline
+        if (nativeAd.headline == null) {
+            headlineView.visibility = INVISIBLE
+        } else {
+            headlineView.text = nativeAd.headline
+            headlineView.visibility = VISIBLE
+        }
         adView.headlineView = headlineView
 
         val bodyView = adView.findViewById<TextView>(R.id.ad_body)
-        bodyView.text = nativeAd.body
+        if (nativeAd.body == null) {
+            bodyView.visibility = INVISIBLE
+        } else {
+            bodyView.text = nativeAd.body
+            bodyView.visibility = VISIBLE
+        }
         adView.bodyView = bodyView
 
         val iconView = adView.findViewById<ImageView>(R.id.ad_icon)
-        val icon: NativeAd.Image = nativeAd.icon
-        iconView.setImageDrawable(icon.drawable)
-        iconView.visibility = VISIBLE
+        if (nativeAd.icon == null) {
+            iconView.visibility = INVISIBLE
+        } else {
+            val icon: NativeAd.Image = nativeAd.icon
+            iconView.setImageDrawable(icon.drawable)
+            iconView.visibility = VISIBLE
+        }
         adView.iconView = iconView
 
         val starRatingView = adView.findViewById<RatingBar>(R.id.ad_stars)
@@ -148,11 +173,12 @@ class TitleBodyLinearLayout: LinearLayout {
         // Assign native ad object to the native view.
         adView.setNativeAd(nativeAd)
 
-        // Add view in appropriate place between chapters
-        val currentIndex = indexes?.remove()
-        if (currentIndex != null) {
-            addView(adView, currentIndex)
-        }
+        // Add view in appropriate placeholder between chapters
+        try {
+            val currentContainer = nativeAdsContainers.remove()
+            currentContainer.removeSkeleton()
+            currentContainer.addView(adView)
+        } catch (exp: NoSuchElementException) {}
     }
 
     fun destroyAds() {
@@ -161,5 +187,15 @@ class TitleBodyLinearLayout: LinearLayout {
             Log.d("AdMob", "Destroy ad")
             nativeAd.destroy()
         }
+    }
+
+    private fun removeEmptyContainer() {
+        try {
+            while (nativeAdsContainers.size > 0) {
+                Log.d("AdMob", "Remove empty ad container")
+                val container = nativeAdsContainers.remove()
+                removeView(container)
+            }
+        } catch (exp: NoSuchElementException) {}
     }
 }

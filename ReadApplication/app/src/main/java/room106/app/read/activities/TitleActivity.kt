@@ -94,13 +94,12 @@ class TitleActivity : AppCompatActivity() {
 
         db = Firebase.firestore
         auth = Firebase.auth
-    }
 
-    override fun onStart() {
-        super.onStart()
+        // onStart???
         loadTitle()
         checkIfLiked()
         checkIfSaved()
+        titleBodyLinearLayout.removeAllViews()
     }
 
     //region Load Title
