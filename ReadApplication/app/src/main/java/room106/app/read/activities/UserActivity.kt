@@ -15,13 +15,15 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.makeramen.roundedimageview.RoundedImageView
 import kotlinx.android.synthetic.main.activity_change_name.*
 import room106.app.read.R
+import room106.app.read.TitleTypesFragmentPageAdapter
 import room106.app.read.fragments.CurrentUserFragment
-import room106.app.read.fragments.OtherUserFragment
+import room106.app.read.fragments.TitlesListTabFragment
 import room106.app.read.models.User
 import room106.app.read.views.MainButton
 import room106.app.read.views.UserStatsPanelView
@@ -75,6 +77,11 @@ class UserActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
+        loadAppropriatePanels()
+        checkIfFollowing()
+    }
+
+    private fun loadAppropriatePanels() {
         val ft = supportFragmentManager.beginTransaction()
 
         if (auth.currentUser != null && (userID == null || userID == auth.currentUser?.uid)) {
@@ -94,15 +101,23 @@ class UserActivity : AppCompatActivity() {
             createNewTitleButton.visibility = View.GONE
             followButton.visibility = View.VISIBLE
 
-            // Set appropriate bottom panel
-            ft.replace(R.id.userTitlesFrameLayout, OtherUserFragment(userID!!))
+            val otherUserFragment = TitlesListTabFragment()
+            otherUserFragment.query = db.collection("titles")
+                .whereEqualTo("authorID", userID!!)
+                .whereEqualTo("status", "published")
+                .orderBy("publicationTime", Query.Direction.DESCENDING)
+                .limit(TitleTypesFragmentPageAdapter.TITLES_LIMIT)
+
+            // Disable flag "isVisibleToUser" which designed only for Tabs
+            otherUserFragment.disableUserVisibleFlag()
+
+            ft.replace(R.id.userTitlesFrameLayout, otherUserFragment)
             ft.commit()
         } else {
             finish()
         }
-
-        checkIfFollowing()
     }
+
     //endregion
 
     //region User Data

@@ -124,4 +124,8 @@ class TitlesListTabFragment: Fragment() {
             listContainsSkeleton = false
         }
     }
+
+    fun disableUserVisibleFlag() {
+        isVisibleToUser = true
+    }
 }
