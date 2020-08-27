@@ -36,7 +36,6 @@ class FollowedFragment: Fragment() {
     private var isVisibleToUser = false
     private var allTitlesLoaded = false
     private var isLoading = false
-    private var listContainsSkeleton = true
 
     private var followedUsersID = ArrayList<String>()
 
@@ -58,15 +57,15 @@ class FollowedFragment: Fragment() {
         auth = Firebase.auth
         db = Firebase.firestore
 
-        allTitlesLoaded = false
-        listContainsSkeleton = true
-
-        // TODO - Remove delay
-        Handler().postDelayed({
-            loadFollowedUsersIDs()
-        }, 5000)
-
         return v
+    }
+
+    override fun onStart() {
+        super.onStart()
+        skeletonIsShown = true
+        allTitlesLoaded = false
+        nextTitlesQuery = null
+        loadFollowedUsersIDs()
     }
 
     private fun loadFollowedUsersIDs() {
@@ -93,7 +92,10 @@ class FollowedFragment: Fragment() {
     private fun loadNextTitles() {
         if (followedUsersID.isNotEmpty()) {
 
+            var initialLoad = false
+
             if (nextTitlesQuery == null) {
+                initialLoad = true
                 nextTitlesQuery = db.collection("titles")
                     .whereEqualTo("status", "published")
                     .whereIn("authorID", followedUsersID)
@@ -104,10 +106,13 @@ class FollowedFragment: Fragment() {
             // Execute query
             nextTitlesQuery!!.get()
                 .addOnSuccessListener { documents ->
-                    removeSkeletonScreens()
+
+                    if (initialLoad) {
+                        skeletonIsShown = false
+                        initialLoad = false
+                    }
 
                     if (documents.size() > 0) {
-
                         for (document in documents) {
                             val title = document.toObject(Title::class.java)
                             val titleView = TitleView(context, title, document.id)
@@ -137,6 +142,8 @@ class FollowedFragment: Fragment() {
                 .addOnCompleteListener {
                     isLoading = false
                 }
+        } else {
+            skeletonIsShown = false
         }
     }
 
@@ -161,12 +168,24 @@ class FollowedFragment: Fragment() {
         this.isVisibleToUser = isVisibleToUser
     }
 
-    private fun removeSkeletonScreens() {
-        if (listContainsSkeleton) {
-            titlesLinearLayout.removeAllViews()
-            listContainsSkeleton = false
+    private var _skeletonIsShown = true
+    var skeletonIsShown: Boolean
+        get() {
+            return _skeletonIsShown
         }
-    }
+        set(value) {
+            _skeletonIsShown = value
+            titlesLinearLayout.removeAllViews()
+
+            if (_skeletonIsShown) {
+                // Add 3 skeleton titles
+                for (i in 1..3) {
+                    val skeletonView = LayoutInflater.from(context)
+                        .inflate(R.layout.title_skeleton_layout, titlesLinearLayout, false)
+                    titlesLinearLayout.addView(skeletonView)
+                }
+            }
+        }
 
     companion object {
         const val TITLES_LIMIT: Long = 3
