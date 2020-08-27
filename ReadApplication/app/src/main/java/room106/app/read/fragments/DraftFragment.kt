@@ -18,6 +18,7 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import room106.app.read.R
+import room106.app.read.TitleTypesFragmentPageAdapter
 import room106.app.read.activities.TitleActivity
 import room106.app.read.models.Title
 import room106.app.read.views.TitleView
@@ -75,7 +76,7 @@ class DraftFragment: Fragment() {
                 .whereEqualTo("authorID", currentUser.uid)
                 .whereEqualTo("status", "draft")
                 .orderBy("publicationTime", Query.Direction.DESCENDING)
-                .limit(NewFragment.TITLES_LIMIT)
+                .limit(TitleTypesFragmentPageAdapter.TITLES_LIMIT)
         }
 
         // Execute query
@@ -105,7 +106,7 @@ class DraftFragment: Fragment() {
                         .whereEqualTo("status", "draft")
                         .orderBy("publicationTime", Query.Direction.DESCENDING)
                         .startAfter(lastVisibleDocument)
-                        .limit(NewFragment.TITLES_LIMIT)
+                        .limit(TitleTypesFragmentPageAdapter.TITLES_LIMIT)
                 } else {
                     allTitlesLoaded = true
                     Log.d("ScrollView", "All titles in 'DRAFT' tab have been loaded")

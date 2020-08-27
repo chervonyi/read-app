@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import com.google.firebase.firestore.FirebaseFirestore
@@ -20,7 +21,7 @@ import room106.app.read.activities.TitleActivity
 import room106.app.read.models.Title
 import room106.app.read.views.TitleView
 
-class TopFragment: Fragment() {
+class TitlesListTabFragment: Fragment() {
 
     // Views
     private lateinit var scrollView: NestedScrollView
@@ -28,7 +29,7 @@ class TopFragment: Fragment() {
 
     // Firebase
     private lateinit var db: FirebaseFirestore
-    private var nextTitlesQuery: Query? = null
+    var query: Query? = null
 
     private var isVisibleToUser = false
     private var allTitlesLoaded = false
@@ -55,24 +56,16 @@ class TopFragment: Fragment() {
         allTitlesLoaded = false
         listContainsSkeleton = true
 
-        // TODO - Remove delay
-        Handler().postDelayed({
-            loadNextTitles()
-        }, 5000)
+        loadNextTitles()
 
         return v
     }
 
     private fun loadNextTitles() {
-        if (nextTitlesQuery == null) {
-            nextTitlesQuery = db.collection("titles")
-                .whereEqualTo("status", "published")
-                .orderBy("readsCount", Query.Direction.DESCENDING)
-                .limit(TITLES_LIMIT)
-        }
+        if (query == null) { return }
 
         // Execute query
-        nextTitlesQuery!!.get()
+        query!!.get()
             .addOnSuccessListener { documents ->
                 removeSkeletonScreens()
 
@@ -93,14 +86,10 @@ class TopFragment: Fragment() {
 
                     // Prepare query for next N titles
                     val lastVisibleDocument = documents.documents[documents.size() - 1]
-                    nextTitlesQuery = db.collection("titles")
-                        .whereEqualTo("status", "published")
-                        .orderBy("readsCount", Query.Direction.DESCENDING)
-                        .startAfter(lastVisibleDocument)
-                        .limit(TITLES_LIMIT)
+                    query = query!!.startAfter(lastVisibleDocument)
                 } else {
                     allTitlesLoaded = true
-                    Log.d("ScrollView", "All titles in 'Top' tab have been loaded")
+                    Log.d("ScrollView", "All titles in 'TitlesListTabFragment' tab have been loaded")
                 }
             }
             .addOnCompleteListener {
@@ -118,7 +107,7 @@ class TopFragment: Fragment() {
                 if (!allTitlesLoaded && !isLoading) {
                     // Not all titles has been loaded AND is not loading right now
                     isLoading = true
-                    Log.d("ScrollView", "Loading next titles in TopFragment")
+                    Log.d("ScrollView", "Loading next titles in TitlesListTabFragment")
                     loadNextTitles()
                 }
             }

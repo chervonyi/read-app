@@ -18,6 +18,7 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import room106.app.read.R
+import room106.app.read.TitleTypesFragmentPageAdapter
 import room106.app.read.activities.TitleActivity
 import room106.app.read.models.Title
 import room106.app.read.views.TitleView
@@ -70,7 +71,7 @@ class OtherUserFragment(private val userID: String) : Fragment() {
             nextTitlesQuery = db.collection("titles")
                 .whereEqualTo("authorID", userID)
                 .whereEqualTo("status", "published")
-                .limit(NewFragment.TITLES_LIMIT)
+                .limit(TitleTypesFragmentPageAdapter.TITLES_LIMIT)
         }
 
         // Execute query
@@ -99,7 +100,7 @@ class OtherUserFragment(private val userID: String) : Fragment() {
                         .whereEqualTo("authorID", userID)
                         .whereEqualTo("status", "published")
                         .startAfter(lastVisibleDocument)
-                        .limit(NewFragment.TITLES_LIMIT)
+                        .limit(TitleTypesFragmentPageAdapter.TITLES_LIMIT)
                 } else {
                     allTitlesLoaded = true
                     Log.d("ScrollView", "All titles in 'NEW' tab have been loaded")

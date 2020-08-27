@@ -18,6 +18,7 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import room106.app.read.R
+import room106.app.read.TitleTypesFragmentPageAdapter
 import room106.app.read.activities.TitleActivity
 import room106.app.read.models.LikedTitle
 import room106.app.read.models.Title
@@ -75,7 +76,7 @@ class LikedFragment: Fragment() {
             nextTitlesQuery = db.collection("liked")
                 .whereEqualTo("userID", currentUserID)
                 .orderBy("time", Query.Direction.DESCENDING)
-                .limit(NewFragment.TITLES_LIMIT)
+                .limit(TitleTypesFragmentPageAdapter.TITLES_LIMIT)
         }
 
         // Execute query
@@ -103,7 +104,7 @@ class LikedFragment: Fragment() {
                         .whereEqualTo("userID", currentUserID)
                         .orderBy("time", Query.Direction.DESCENDING)
                         .startAfter(lastVisibleDocument)
-                        .limit(NewFragment.TITLES_LIMIT)
+                        .limit(TitleTypesFragmentPageAdapter.TITLES_LIMIT)
                 } else {
                     allTitlesLoaded = true
                     Log.d("ScrollView", "All titles in 'LIKED' tab have been loaded")
