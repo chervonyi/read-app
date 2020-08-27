@@ -124,8 +124,4 @@ class TitlesListTabFragment: Fragment() {
             listContainsSkeleton = false
         }
     }
-
-    companion object {
-        const val TITLES_LIMIT: Long = 3
-    }
 }
