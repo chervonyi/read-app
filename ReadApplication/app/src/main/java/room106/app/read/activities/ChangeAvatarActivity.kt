@@ -116,31 +116,46 @@ class ChangeAvatarActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
 
         if (currentUser != null && selectedAvatar in 0..14) {
-            // User document ref:
-            val userRef = db.collection("users").document(currentUser.uid)
+            // Because of the limitation of 500 maximum writes per batch
+            // I had to remove batched write and replace it with simple query/updates.
+            // With batched writes I had a save from errors(won't update anything),
+            // but when it's going on well (most cases), it could update only 500 docs.
+            // Now, if everything going well (most cases) it'll update ALL titles.
+            // Problems is when it's failed, it won't update some documents (1:1000 cases)
+            // But user can anytime update avatar once more again.
 
-            // All titles written by this user
+            // Update user document
+            val userRef = db.collection("users").document(currentUser.uid)
+            userRef.update("avatar", selectedAvatar)
+
+            // Update all titles written by this user
             val userTitlesRef = db.collection("titles")
                 .whereEqualTo("authorID", currentUser.uid)
                 .orderBy("publicationTime", Query.Direction.DESCENDING)
-                .limit(495)
 
-            val userTitles = ArrayList<DocumentReference>()
-            userTitlesRef.get().addOnSuccessListener { documents ->
-
-                // Grab all titles written by this user
-                for (document in documents) {
-                    userTitles.add(document.reference)
+            userTitlesRef.get().addOnSuccessListener { titlesDocuments ->
+                for (document in titlesDocuments) {
+                    document.reference.update("authorAvatar", selectedAvatar)
                 }
+            }
 
-                db.runBatch {batch ->
-                    // Update user's document
-                    batch.update(userRef, "avatar", selectedAvatar)
+            // Update all titles written by this user that have been liked by someone
+            val likedTitlesRef = db.collection("liked")
+                .whereEqualTo("authorID", currentUser.uid)
 
-                    // Update the last 500 titles written by this user that contain "authorAvatar" field
-                    for (titleRef in userTitles) {
-                        batch.update(titleRef, "authorAvatar", selectedAvatar)
-                    }
+            likedTitlesRef.get().addOnSuccessListener { titlesDocuments ->
+                for (document in titlesDocuments) {
+                    document.reference.update("authorAvatar", selectedAvatar)
+                }
+            }
+
+            // Update all titles written by this user that have been saved by someone
+            val savedTitlesRef = db.collection("saved")
+                .whereEqualTo("authorID", currentUser.uid)
+
+            savedTitlesRef.get().addOnSuccessListener { titlesDocuments ->
+                for (document in titlesDocuments) {
+                    document.reference.update("authorAvatar", selectedAvatar)
                 }
             }
         }
