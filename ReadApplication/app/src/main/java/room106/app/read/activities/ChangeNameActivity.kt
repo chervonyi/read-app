@@ -11,7 +11,9 @@ import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import room106.app.read.R
@@ -60,11 +62,34 @@ class ChangeNameActivity : AppCompatActivity() {
         if (checkTypedName()) {
             val typedName = nameEditText.text.toString()
 
-            db.collection("users").document(currentUserID)
-                .update("name", typedName)
-                .addOnSuccessListener {
+            val userRef = db.collection("users").document(currentUserID)
+
+            // All titles written by this user
+            val userTitlesRef = db.collection("titles")
+                .whereEqualTo("authorID", currentUserID)
+                .orderBy("publicationTime", Query.Direction.DESCENDING)
+                .limit(495)
+
+            val userTitles = ArrayList<DocumentReference>()
+            userTitlesRef.get().addOnSuccessListener { documents ->
+
+                // Grab all titles written by this user
+                for (document in documents) {
+                    userTitles.add(document.reference)
+                }
+
+                db.runBatch { batch ->
+                    // Update user's document
+                    batch.update(userRef, "name", typedName)
+
+                    // Update the last 500 titles written by this user containing "authorName" field
+                    for (titleRef in userTitles) {
+                        batch.update(titleRef, "authorName", typedName)
+                    }
+                } .addOnSuccessListener {
                     Toast.makeText(this, R.string.saved, Toast.LENGTH_LONG).show()
                 }
+            }
         }
     }
 

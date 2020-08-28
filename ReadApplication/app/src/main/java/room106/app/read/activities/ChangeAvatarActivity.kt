@@ -123,11 +123,12 @@ class ChangeAvatarActivity : AppCompatActivity() {
             val userTitlesRef = db.collection("titles")
                 .whereEqualTo("authorID", currentUser.uid)
                 .orderBy("publicationTime", Query.Direction.DESCENDING)
+                .limit(495)
 
             val userTitles = ArrayList<DocumentReference>()
             userTitlesRef.get().addOnSuccessListener { documents ->
 
-                // Grab all title written by this user
+                // Grab all titles written by this user
                 for (document in documents) {
                     userTitles.add(document.reference)
                 }
