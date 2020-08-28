@@ -11,7 +11,10 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.makeramen.roundedimageview.RoundedImageView
@@ -113,15 +116,38 @@ class ChangeAvatarActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
 
         if (currentUser != null && selectedAvatar in 0..14) {
+            // User document ref:
             val userRef = db.collection("users").document(currentUser.uid)
-            userRef.update("avatar", selectedAvatar)
+
+            // All titles written by this user
+            val userTitlesRef = db.collection("titles")
+                .whereEqualTo("authorID", currentUser.uid)
+                .orderBy("publicationTime", Query.Direction.DESCENDING)
+
+            val userTitles = ArrayList<DocumentReference>()
+            userTitlesRef.get().addOnSuccessListener { documents ->
+
+                // Grab all title written by this user
+                for (document in documents) {
+                    userTitles.add(document.reference)
+                }
+
+                db.runBatch {batch ->
+                    // Update user's document
+                    batch.update(userRef, "avatar", selectedAvatar)
+
+                    // Update the last 500 titles written by this user that contain "authorAvatar" field
+                    for (titleRef in userTitles) {
+                        batch.update(titleRef, "authorAvatar", selectedAvatar)
+                    }
+                }
+            }
         }
     }
 
     //region Tool bar
     private val onClickBackListener = View.OnClickListener {
         finish()
-//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
     }
 
     private val onClickSubmitListener = Toolbar.OnMenuItemClickListener  {
@@ -139,7 +165,6 @@ class ChangeAvatarActivity : AppCompatActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
-//        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
     //endregion
 }

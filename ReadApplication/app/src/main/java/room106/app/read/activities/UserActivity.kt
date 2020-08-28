@@ -131,9 +131,11 @@ class UserActivity : AppCompatActivity() {
                 if (user != null) {
                     userData = user
 
-                    Handler().postDelayed({
-                        updateUserUI(user)
-                    }, 3000)
+                    // TODO - Remove Delay
+//                    Handler().postDelayed({
+//                        updateUserUI(user)
+//                    }, 3000)
+                    updateUserUI(user)
 
                 }
             }

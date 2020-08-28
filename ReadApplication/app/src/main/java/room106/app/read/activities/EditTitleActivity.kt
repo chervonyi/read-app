@@ -244,6 +244,7 @@ class EditTitleActivity : AppCompatActivity() {
             }
 
             // Change title status
+            // TODO - Update also publication time!
             titleRef.update("status", "published")
                 .addOnSuccessListener {
                     Toast.makeText(this, getString(R.string.published), Toast.LENGTH_SHORT).show()
@@ -255,7 +256,6 @@ class EditTitleActivity : AppCompatActivity() {
 
     private val onClickBackListener = View.OnClickListener {
         finish()
-//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
     }
     //endregion
 
