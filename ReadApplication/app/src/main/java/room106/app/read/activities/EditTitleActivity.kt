@@ -2,11 +2,9 @@ package room106.app.read.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
@@ -18,8 +16,8 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import room106.app.read.R
@@ -110,10 +108,10 @@ class EditTitleActivity : AppCompatActivity() {
                         .get().addOnSuccessListener { bodyDocument ->
                             val body = bodyDocument.get("text").toString()
                             // TODO - Remove delay
-                            Handler().postDelayed({
-                                updateTitleUI(title, body)
-                            }, 3000)
-
+//                            Handler().postDelayed({
+//                                updateTitleUI(title, body)
+//                            }, 3000)
+                            updateTitleUI(title, body)
                         }
                 }
         }
@@ -198,34 +196,51 @@ class EditTitleActivity : AppCompatActivity() {
 
     private fun updateExistingTitle() {
         if (titleID != null) {
-            val newTitle = titleEditText.text.toString()
-            val newDescription = descriptionEditText.text.toString()
-            val newBody = bodyEditText.text.toString()
+            val updates = mapOf(
+                "title" to titleEditText.text.toString(),
+                "description" to descriptionEditText.text.toString()
+            )
 
             val titleRef = db.collection("titles").document(titleID!!)
             val bodyRef = titleRef.collection("body").document("text")
 
-            var titleUpdated = false
-            var bodyUpdated = false
+            // Update title document
+            titleRef.update(updates).addOnSuccessListener(savingSuccessListener)
 
-            titleRef.update(mapOf(
-                "title" to newTitle,
-                "description" to newDescription
-            )).addOnSuccessListener {
-                titleUpdated = true
+            // Update body text in subcollection
+            bodyRef.update("text", bodyEditText.text.toString())
+                .addOnSuccessListener(savingSuccessListener)
 
-                if (bodyUpdated) {
-                    saveTitleButton.text = getString(R.string.saved)
-                }
+            if (isPublished) {
+                // Update this title data in "liked" collection
+                val likedTitlesRef = db.collection("liked")
+                    .whereEqualTo("titleID", titleID)
+
+                // Update this title data in "saved" collection
+                val savedTitlesRef = db.collection("saved")
+                    .whereEqualTo("titleID", titleID)
+
+                executeUpdateTitleData(likedTitlesRef, updates)
+                executeUpdateTitleData(savedTitlesRef, updates)
             }
+        }
+    }
 
-            bodyRef.update("text", newBody).addOnSuccessListener {
-                bodyUpdated = true
-
-                if (titleUpdated) {
-                    saveTitleButton.text = getString(R.string.saved)
-                }
+    private fun executeUpdateTitleData(query: Query, updates: Map<String, String>) {
+        query.get().addOnSuccessListener { documents ->
+            documents.forEach { document ->
+                document.reference.update(updates)
             }
+        }
+    }
+
+    private var savingParts = 0
+    private val savingSuccessListener = OnSuccessListener<Void> {
+        savingParts += 1
+
+        if (savingParts == 2) {
+            savingParts = 0
+            saveTitleButton.text = getString(R.string.saved)
         }
     }
 
