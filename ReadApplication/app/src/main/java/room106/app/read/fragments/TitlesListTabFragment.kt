@@ -35,6 +35,7 @@ class TitlesListTabFragment: Fragment() {
     private var allTitlesLoaded = false
     private var isLoading = false
     private var listContainsSkeleton = true
+    var isSavedTabType = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -77,7 +78,15 @@ class TitlesListTabFragment: Fragment() {
 
                         titleView.setOnClickListener {
                             val intent = Intent(context, TitleActivity::class.java)
-                            intent.putExtra("title_id", document.id)
+
+                            if (isSavedTabType) {
+                                val titleID = document["titleID"]
+                                if (titleID is String) {
+                                    intent.putExtra("title_id", titleID)
+                                }
+                            } else {
+                                intent.putExtra("title_id", document.id)
+                            }
                             context?.startActivity(intent)
                         }
 

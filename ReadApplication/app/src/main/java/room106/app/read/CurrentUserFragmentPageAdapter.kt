@@ -40,6 +40,7 @@ class CurrentUserFragmentPageAdapter(fm: FragmentManager) : FragmentPagerAdapter
                     .whereEqualTo("userID", currentUser.uid)
                     .orderBy("time", Query.Direction.DESCENDING)
                     .limit(TITLES_LIMIT)
+                likedFragment.isSavedTabType = true
                 likedFragment
             }
             3 -> {
@@ -48,6 +49,7 @@ class CurrentUserFragmentPageAdapter(fm: FragmentManager) : FragmentPagerAdapter
                     .whereEqualTo("userID", currentUser.uid)
                     .orderBy("time", Query.Direction.DESCENDING)
                     .limit(TITLES_LIMIT)
+                savedFragment.isSavedTabType = true
                 savedFragment
             }
             else -> TitlesListTabFragment()
