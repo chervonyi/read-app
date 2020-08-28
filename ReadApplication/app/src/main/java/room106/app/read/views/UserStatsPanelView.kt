@@ -6,6 +6,10 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import room106.app.read.R
+import java.text.DecimalFormat
+import kotlin.math.floor
+import kotlin.math.log10
+import kotlin.math.pow
 
 class UserStatsPanelView: LinearLayout {
 
@@ -52,9 +56,9 @@ class UserStatsPanelView: LinearLayout {
 
     fun attachData(titlesCount: Int, followersCount: Int, likesCount: Int) {
         // Set data
-        titlesCountTextView.text = titlesCount.toString()
-        followersCountTextView.text = followersCount.toString()
-        likesCountTextView.text = likesCount.toString()
+        titlesCountTextView.text = formatNumber(titlesCount)
+        followersCountTextView.text = formatNumber(followersCount)
+        likesCountTextView.text = formatNumber(likesCount)
 
         // Hide skeleton panels
         titlesCountSkeleton.visibility = View.GONE
@@ -65,5 +69,20 @@ class UserStatsPanelView: LinearLayout {
         titlesCountLinearLayout.visibility = View.VISIBLE
         followersCountLinearLayout.visibility = View.VISIBLE
         likesCountLinearLayout.visibility = View.VISIBLE
+    }
+
+    private fun formatNumber(number: Int): String {
+        // Replaces 18271 with "18.2k"
+
+        val suffix = charArrayOf(' ', 'k', 'm', 'b')
+        val value = floor(log10(number.toDouble())).toInt()
+        val base = value / 3
+
+        return if (value >= 3 && base < suffix.size) {
+            DecimalFormat("##.#").format(number / 10.0.pow(base * 3.toDouble())) +
+                    suffix[base]
+        } else {
+            DecimalFormat("#,##0").format(number)
+        }
     }
 }
