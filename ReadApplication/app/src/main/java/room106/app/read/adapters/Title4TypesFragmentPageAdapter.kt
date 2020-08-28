@@ -1,15 +1,14 @@
-package room106.app.read
+package room106.app.read.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import androidx.fragment.app.FragmentStatePagerAdapter
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import room106.app.read.fragments.*
 
-class TitleTypesFragmentPageAdapter(fm: FragmentManager) :
+class Title4TypesFragmentPageAdapter(fm: FragmentManager) :
     FragmentPagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment {

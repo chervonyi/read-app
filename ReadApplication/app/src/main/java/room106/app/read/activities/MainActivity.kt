@@ -65,6 +65,7 @@ class MainActivity : AppCompatActivity() {
         searchView.setOnSearchClickListener(onClickSearchListener)
         searchView.setOnCloseListener(onClickCloseSearchListener)
         searchView.setOnQueryTextListener(onQueryTextListener)
+
     }
 
     override fun onStart() {
@@ -100,6 +101,8 @@ class MainActivity : AppCompatActivity() {
         } else {
             updateUserUI(null, null)
         }
+
+        mainTabsFragment.isUserLoggedIn = user != null
     }
 
     private fun updateUserUI(user: FirebaseUser?, userData: User?) {

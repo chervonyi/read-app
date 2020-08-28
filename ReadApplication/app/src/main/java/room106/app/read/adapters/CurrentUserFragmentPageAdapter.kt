@@ -1,4 +1,4 @@
-package room106.app.read
+package room106.app.read.adapters
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

@@ -3,14 +3,11 @@ package room106.app.read.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.TextView
-import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldValue
@@ -19,9 +16,8 @@ import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.makeramen.roundedimageview.RoundedImageView
-import kotlinx.android.synthetic.main.activity_change_name.*
 import room106.app.read.R
-import room106.app.read.TitleTypesFragmentPageAdapter
+import room106.app.read.adapters.Title4TypesFragmentPageAdapter
 import room106.app.read.fragments.CurrentUserFragment
 import room106.app.read.fragments.TitlesListTabFragment
 import room106.app.read.models.User
@@ -106,7 +102,7 @@ class UserActivity : AppCompatActivity() {
                 .whereEqualTo("authorID", userID!!)
                 .whereEqualTo("status", "published")
                 .orderBy("publicationTime", Query.Direction.DESCENDING)
-                .limit(TitleTypesFragmentPageAdapter.TITLES_LIMIT)
+                .limit(Title4TypesFragmentPageAdapter.TITLES_LIMIT)
 
             // Disable flag "isVisibleToUser" which designed only for Tabs
             otherUserFragment.disableUserVisibleFlag()

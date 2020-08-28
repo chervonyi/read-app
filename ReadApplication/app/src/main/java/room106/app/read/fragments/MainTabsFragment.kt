@@ -1,21 +1,23 @@
 package room106.app.read.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import room106.app.read.R
-import room106.app.read.TitleTypesFragmentPageAdapter
+import room106.app.read.adapters.Title3TypesFragmentPageAdapter
+import room106.app.read.adapters.Title4TypesFragmentPageAdapter
 
 class MainTabsFragment: Fragment() {
 
     // Views
     private lateinit var titleTypesTabLayout: TabLayout
     private lateinit var viewPager: ViewPager
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,14 +30,34 @@ class MainTabsFragment: Fragment() {
         titleTypesTabLayout = v.findViewById(R.id.titleTypesTabLayout)
         viewPager = v.findViewById(R.id.viewPager)
 
-        // Prepare tab
+        // Prepare tabs
+        titleTypesTabLayout.addTab(titleTypesTabLayout.newTab().setText(getString(R.string.tab_new)))
+        titleTypesTabLayout.addTab(titleTypesTabLayout.newTab().setText(getString(R.string.tab_recommended)))
+        titleTypesTabLayout.addTab(titleTypesTabLayout.newTab().setText(getString(R.string.tab_top)))
+//        titleTypesTabLayout.addTab(titleTypesTabLayout.newTab().setText(getString(R.string.tab_followed)))
+
         titleTypesTabLayout.addOnTabSelectedListener(onTabSelectedListener)
-        viewPager.adapter = TitleTypesFragmentPageAdapter(childFragmentManager)
+        viewPager.adapter = Title3TypesFragmentPageAdapter(childFragmentManager)
         viewPager.addOnPageChangeListener(onPageChangeListener)
         viewPager.offscreenPageLimit = 3
 
         return v
     }
+
+    private var _isUserLoggedIn = true
+    var isUserLoggedIn: Boolean
+        get() = _isUserLoggedIn
+        set(value) {
+            _isUserLoggedIn = value
+
+            if (value && titleTypesTabLayout.tabCount == 3)  {
+                titleTypesTabLayout.addTab(titleTypesTabLayout.newTab().setText(getString(R.string.tab_followed)))
+                viewPager.adapter = Title4TypesFragmentPageAdapter(childFragmentManager)
+            } else if (!value && titleTypesTabLayout.tabCount == 4){
+                titleTypesTabLayout.removeTabAt(3)
+                viewPager.adapter = Title3TypesFragmentPageAdapter(childFragmentManager)
+            }
+        }
 
     //region Tab Listeners
     private val onTabSelectedListener = object : TabLayout.OnTabSelectedListener {

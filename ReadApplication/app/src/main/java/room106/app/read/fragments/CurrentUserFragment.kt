@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
-import room106.app.read.CurrentUserFragmentPageAdapter
+import room106.app.read.adapters.CurrentUserFragmentPageAdapter
 import room106.app.read.R
 
 class CurrentUserFragment: Fragment() {
