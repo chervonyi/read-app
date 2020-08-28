@@ -62,33 +62,40 @@ class ChangeNameActivity : AppCompatActivity() {
         if (checkTypedName()) {
             val typedName = nameEditText.text.toString()
 
+            // Update user document
             val userRef = db.collection("users").document(currentUserID)
+            userRef.update("name", typedName)
 
-            // All titles written by this user
+            // Update all titles written by this user
             val userTitlesRef = db.collection("titles")
                 .whereEqualTo("authorID", currentUserID)
                 .orderBy("publicationTime", Query.Direction.DESCENDING)
-                .limit(495)
 
-            val userTitles = ArrayList<DocumentReference>()
-            userTitlesRef.get().addOnSuccessListener { documents ->
+            // Update all titles written by this user that have been liked by someone
+            val likedTitlesRef = db.collection("liked")
+                .whereEqualTo("authorID", currentUserID)
 
-                // Grab all titles written by this user
-                for (document in documents) {
-                    userTitles.add(document.reference)
-                }
 
-                db.runBatch { batch ->
-                    // Update user's document
-                    batch.update(userRef, "name", typedName)
+            // Update all titles written by this user that have been saved by someone
+            val savedTitlesRef = db.collection("saved")
+                .whereEqualTo("authorID", currentUserID)
 
-                    // Update the last 500 titles written by this user containing "authorName" field
-                    for (titleRef in userTitles) {
-                        batch.update(titleRef, "authorName", typedName)
-                    }
-                } .addOnSuccessListener {
-                    Toast.makeText(this, R.string.saved, Toast.LENGTH_LONG).show()
-                }
+            executeUpdateNameQuery(userTitlesRef, typedName)
+            executeUpdateNameQuery(likedTitlesRef, typedName)
+            executeUpdateNameQuery(savedTitlesRef, typedName)
+        }
+    }
+
+    private var executedQueriesNum = 0
+    private fun executeUpdateNameQuery(query: Query, typedName: String) {
+
+        query.get().addOnSuccessListener { documents ->
+            for (document in documents) {
+                document.reference.update("authorName", typedName)
+            }
+            executedQueriesNum += 1
+            if (executedQueriesNum == 3) {
+                Toast.makeText(this, R.string.saved, Toast.LENGTH_LONG).show()
             }
         }
     }

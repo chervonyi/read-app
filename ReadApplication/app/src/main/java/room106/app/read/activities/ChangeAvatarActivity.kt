@@ -128,35 +128,30 @@ class ChangeAvatarActivity : AppCompatActivity() {
             val userRef = db.collection("users").document(currentUser.uid)
             userRef.update("avatar", selectedAvatar)
 
-            // Update all titles written by this user
+            // Update all titles written by this use
             val userTitlesRef = db.collection("titles")
                 .whereEqualTo("authorID", currentUser.uid)
                 .orderBy("publicationTime", Query.Direction.DESCENDING)
-
-            userTitlesRef.get().addOnSuccessListener { titlesDocuments ->
-                for (document in titlesDocuments) {
-                    document.reference.update("authorAvatar", selectedAvatar)
-                }
-            }
 
             // Update all titles written by this user that have been liked by someone
             val likedTitlesRef = db.collection("liked")
                 .whereEqualTo("authorID", currentUser.uid)
 
-            likedTitlesRef.get().addOnSuccessListener { titlesDocuments ->
-                for (document in titlesDocuments) {
-                    document.reference.update("authorAvatar", selectedAvatar)
-                }
-            }
-
             // Update all titles written by this user that have been saved by someone
             val savedTitlesRef = db.collection("saved")
                 .whereEqualTo("authorID", currentUser.uid)
 
-            savedTitlesRef.get().addOnSuccessListener { titlesDocuments ->
-                for (document in titlesDocuments) {
-                    document.reference.update("authorAvatar", selectedAvatar)
-                }
+            // Execute queries
+            executeUpdateAvatarQuery(userTitlesRef, selectedAvatar)
+            executeUpdateAvatarQuery(likedTitlesRef, selectedAvatar)
+            executeUpdateAvatarQuery(savedTitlesRef, selectedAvatar)
+        }
+    }
+
+    private fun executeUpdateAvatarQuery(query: Query, selectedAvatar: Int) {
+        query.get().addOnSuccessListener { documents ->
+            for (document in documents) {
+                document.reference.update("authorAvatar", selectedAvatar)
             }
         }
     }
