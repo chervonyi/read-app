@@ -28,9 +28,11 @@ class UserStatsPanelView: LinearLayout {
     constructor(context: Context?) : super(context) {
         initializeView(context)
     }
+
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
         initializeView(context)
     }
+
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
         context,
         attrs,
@@ -43,15 +45,17 @@ class UserStatsPanelView: LinearLayout {
         View.inflate(context, R.layout.user_stat_panel_layout, this)
 
         // Connect views
-        titlesCountSkeleton =           findViewById(R.id.titlesCountSkeleton)
-        followersCountSkeleton =        findViewById(R.id.followersCountSkeleton)
-        likesCountSkeleton =            findViewById(R.id.likesCountSkeleton)
-        titlesCountLinearLayout =       findViewById(R.id.titlesCountLinearLayout)
-        followersCountLinearLayout =    findViewById(R.id.followersCountLinearLayout)
-        likesCountLinearLayout =        findViewById(R.id.likesCountLinearLayout)
-        titlesCountTextView =           findViewById(R.id.titlesCountTextView)
-        followersCountTextView =        findViewById(R.id.followersCountTextView)
-        likesCountTextView =            findViewById(R.id.likesCountTextView)
+        titlesCountSkeleton = findViewById(R.id.titlesCountSkeleton)
+        followersCountSkeleton = findViewById(R.id.followersCountSkeleton)
+        likesCountSkeleton = findViewById(R.id.likesCountSkeleton)
+        titlesCountLinearLayout = findViewById(R.id.titlesCountLinearLayout)
+        followersCountLinearLayout = findViewById(R.id.followersCountLinearLayout)
+        likesCountLinearLayout = findViewById(R.id.likesCountLinearLayout)
+        titlesCountTextView = findViewById(R.id.titlesCountTextView)
+        followersCountTextView = findViewById(R.id.followersCountTextView)
+        likesCountTextView = findViewById(R.id.likesCountTextView)
+
+        skeletonIsShown = true
     }
 
     fun attachData(titlesCount: Int, followersCount: Int, likesCount: Int) {
@@ -60,15 +64,7 @@ class UserStatsPanelView: LinearLayout {
         followersCountTextView.text = formatNumber(followersCount)
         likesCountTextView.text = formatNumber(likesCount)
 
-        // Hide skeleton panels
-        titlesCountSkeleton.visibility = View.GONE
-        followersCountSkeleton.visibility = View.GONE
-        likesCountSkeleton.visibility = View.GONE
-
-        // Show data panels
-        titlesCountLinearLayout.visibility = View.VISIBLE
-        followersCountLinearLayout.visibility = View.VISIBLE
-        likesCountLinearLayout.visibility = View.VISIBLE
+        skeletonIsShown = false
     }
 
     private fun formatNumber(number: Int): String {
@@ -84,5 +80,29 @@ class UserStatsPanelView: LinearLayout {
         } else {
             DecimalFormat("#,##0").format(number)
         }
+    }
+
+    private var _skeletonIsShown = false
+    var skeletonIsShown: Boolean
+        get() = _skeletonIsShown
+        set(value) {
+
+            if (value) {
+                manageVisibility(View.VISIBLE, View.GONE)
+            } else {
+                manageVisibility(View.GONE, View.VISIBLE)
+            }
+        }
+
+    private fun manageVisibility(skeletonPanelsVisibility: Int, dataPanelsVisibility: Int) {
+        // Skeleton panels
+        titlesCountSkeleton.visibility =    skeletonPanelsVisibility
+        followersCountSkeleton.visibility = skeletonPanelsVisibility
+        likesCountSkeleton.visibility =     skeletonPanelsVisibility
+
+        // Data panels
+        titlesCountLinearLayout.visibility =    dataPanelsVisibility
+        followersCountLinearLayout.visibility = dataPanelsVisibility
+        likesCountLinearLayout.visibility =     dataPanelsVisibility
     }
 }

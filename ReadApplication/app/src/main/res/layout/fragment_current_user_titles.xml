@@ -17,12 +17,11 @@
             android:id="@+id/currentUserTabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:paddingBottom="10dp"
             app:tabTextAppearance="@style/CustomTabStyle"
-            app:tabIndicator="@drawable/tab_indicator"
+            app:tabIndicator="@drawable/selected_tab"
             app:tabMode="auto"
-            app:tabIndicatorHeight="10dp"
+            app:tabIndicatorGravity="center"
             style="@style/CustomTabLayoutStyle">
 
             <com.google.android.material.tabs.TabItem

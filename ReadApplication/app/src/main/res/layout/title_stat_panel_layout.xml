@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/title_stats_reads"
                 android:textSize="@dimen/statsPanelTitleFontSize"
-                android:textColor="@color/colorFontUserStatsNumbers"/>
+                android:textColor="@color/colorFontUserStatsTitles"/>
 
         </LinearLayout>
 
@@ -118,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/title_stats_likes"
                 android:textSize="@dimen/statsPanelTitleFontSize"
-                android:textColor="@color/colorFontUserStatsNumbers"/>
+                android:textColor="@color/colorFontUserStatsTitles"/>
 
         </LinearLayout>
 
@@ -173,7 +173,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/time_to_read"
                 android:textSize="@dimen/statsPanelTitleFontSize"
-                android:textColor="@color/colorFontUserStatsNumbers"
+                android:textColor="@color/colorFontUserStatsTitles"
                 android:fontFamily="@font/cabin_regular"/>
 
         </LinearLayout>
