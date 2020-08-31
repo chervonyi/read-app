@@ -1,6 +1,7 @@
 package room106.app.read.views
 
 import android.content.Context
+import android.graphics.Typeface
 import android.util.AttributeSet
 import android.util.TypedValue
 import androidx.core.content.ContextCompat
@@ -24,11 +25,11 @@ class PublishButton: androidx.appcompat.widget.AppCompatButton {
 
     private fun initView(context: Context?) {
         if (context != null) {
-            background = ContextCompat.getDrawable(context, R.drawable.simple_button)
-            setTextColor(ContextCompat.getColor(context, R.color.colorFontPublishButton))
+            background = null
+            setTextColor(ContextCompat.getColor(context, R.color.colorButton))
             setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.buttonFontSize))
             isAllCaps = false
-            typeface = ResourcesCompat.getFont(context, R.font.cabin_semi_bold)
+            typeface = Typeface.DEFAULT_BOLD
             isFocusable = false
             stateListAnimator = null
             includeFontPadding = false

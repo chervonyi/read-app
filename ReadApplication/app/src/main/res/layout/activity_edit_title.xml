@@ -33,14 +33,15 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/title_hint"
                     android:gravity="top"
-                    android:minLines="2"
+                    android:minLines="1"
                     android:maxLines="3"
-                    android:textSize="@dimen/headerFontSize"
-                    android:fontFamily="@font/cabin_semi_bold"
-                    android:textColor="@color/colorFontMain"
+                    android:textSize="@dimen/titleHeaderFontSize"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorFontTitleHeader"
+                    android:padding="18dp"
+                    android:background="@drawable/edit_text_background"
                     android:inputType="textCapSentences|textMultiLine"
-                    android:importantForAutofill="no"
-                    android:visibility="invisible"/>
+                    android:importantForAutofill="no"/>
 
                 <View
                     android:id="@+id/titleSkeleton"
@@ -48,13 +49,15 @@
                     android:layout_height="@dimen/skeletonRow2"
                     android:layout_marginTop="12dp"
                     android:layout_marginEnd="60dp"
-                    android:background="@drawable/skeleton_1"/>
+                    android:background="@drawable/skeleton_1"
+                    android:visibility="gone"/>
 
             </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
 
                 <EditText
                     android:id="@+id/descriptionEditText"
@@ -64,12 +67,13 @@
                     android:gravity="top"
                     android:minLines="4"
                     android:maxLines="5"
-                    android:textSize="@dimen/mainFontSize"
-                    android:fontFamily="@font/cabin_regular"
+                    android:textSize="@dimen/titleDescriptionFontSize"
+                    android:padding="18dp"
+                    android:background="@drawable/edit_text_background"
+                    android:lineSpacingExtra="@dimen/textLineSpacing"
                     android:textColor="@color/colorFontMain"
                     android:inputType="textCapSentences|textMultiLine"
-                    android:importantForAutofill="no"
-                    android:visibility="invisible"/>
+                    android:importantForAutofill="no"/>
 
                 <LinearLayout
                     android:id="@+id/descriptionSkeleton"
@@ -78,7 +82,8 @@
                     android:layout_marginTop="14dp"
                     android:orientation="vertical"
                     android:divider="@drawable/skeleton_text_divider"
-                    android:showDividers="middle">
+                    android:showDividers="middle"
+                    android:visibility="gone">
 
                     <View
                         android:layout_width="match_parent"
@@ -106,12 +111,14 @@
                     android:hint="@string/text_hint"
                     android:gravity="top"
                     android:minLines="4"
-                    android:textSize="@dimen/mainFontSize"
-                    android:fontFamily="@font/cabin_regular"
+                    android:textSize="@dimen/titleDescriptionFontSize"
+                    android:padding="18dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/edit_text_background"
+                    android:lineSpacingExtra="@dimen/textLineSpacing"
                     android:textColor="@color/colorFontMain"
                     android:inputType="textCapSentences|textMultiLine"
-                    android:importantForAutofill="no"
-                    android:visibility="invisible"/>
+                    android:importantForAutofill="no"/>
 
                 <LinearLayout
                     android:id="@+id/bodySkeleton"
@@ -120,7 +127,8 @@
                     android:layout_marginTop="30dp"
                     android:orientation="vertical"
                     android:divider="@drawable/skeleton_text_divider"
-                    android:showDividers="middle">
+                    android:showDividers="middle"
+                    android:visibility="gone">
 
                     <View
                         android:layout_width="match_parent"
@@ -220,7 +228,8 @@
             app:navigationIcon="?attr/homeAsUpIndicator"
             app:layout_scrollFlags="scroll|enterAlways"
             app:theme="@style/ToolBarStyle"
-            app:popupTheme="@style/AppTheme"/>
+            app:popupTheme="@style/AppTheme"
+            android:background="@color/colorBackground"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 
