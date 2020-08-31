@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
@@ -29,6 +30,13 @@ class MainTabsFragment: Fragment() {
         // Connect views
         titleTypesTabLayout = v.findViewById(R.id.titleTypesTabLayout)
         viewPager = v.findViewById(R.id.viewPager)
+
+        // Style tabLayout
+        if (context != null) {
+            titleTypesTabLayout.setTabTextColors(
+                ContextCompat.getColor(context!!, R.color.colorTab),
+                ContextCompat.getColor(context!!, R.color.colorTabSupporting))
+        }
 
         // Prepare tabs
         titleTypesTabLayout.addTab(titleTypesTabLayout.newTab().setText(getString(R.string.tab_new)))

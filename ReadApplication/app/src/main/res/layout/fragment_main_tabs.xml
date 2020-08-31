@@ -2,18 +2,20 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_marginTop="10dp"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/titleTypesTabLayout"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:paddingBottom="10dp"
         app:tabTextAppearance="@style/CustomTabStyle"
-        app:tabIndicator="@drawable/tab_indicator"
+        app:tabIndicator="@drawable/selected_tab"
         app:tabMode="auto"
-        app:tabIndicatorHeight="10dp"
+        app:tabIndicatorGravity="center"
         style="@style/CustomTabLayoutStyle"/>
 
     <androidx.viewpager.widget.ViewPager

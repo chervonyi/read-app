@@ -8,9 +8,9 @@
     <dimen name="buttonFontSize">17sp</dimen>
     <dimen name="hintFontSize">16sp</dimen>
     <dimen name="tabFontSize">16sp</dimen>
-    <dimen name="titlePanelHeaderFontSize">20sp</dimen>
-    <dimen name="titlePanelAuthorFontSize">16sp</dimen>
-    <dimen name="titlePanelDescriptionFontSize">16sp</dimen>
+    <dimen name="titlePanelHeaderFontSize">18sp</dimen>
+    <dimen name="titlePanelAuthorFontSize">15sp</dimen>
+    <dimen name="titlePanelDescriptionFontSize">14sp</dimen>
     <dimen name="titleHeaderFontSize">22sp</dimen>
     <dimen name="titleAuthorFontSize">17sp</dimen>
     <dimen name="titleDescriptionFontSize">17sp</dimen>
@@ -20,19 +20,21 @@
     <dimen name="avatarSize">70dp</dimen>
     <dimen name="avatarSmallSize">40dp</dimen>
     <dimen name="avatarTinySize">35dp</dimen>
-    <dimen name="smallUserIconCorners">10dp</dimen>
-    <dimen name="tinyUserIconCorners">8dp</dimen>
-    <dimen name="avatarCornersRadius">20dp</dimen>
+    <dimen name="smallUserIconCorners">50dp</dimen>
+    <dimen name="tinyUserIconCorners">50dp</dimen>
+    <dimen name="avatarCornersRadius">100dp</dimen>
     <dimen name="avatarListDivider">30dp</dimen>
     <dimen name="selectedAvatarBorderWidth">3dp</dimen>
 
     <dimen name="mainPadding">18dp</dimen>
     <dimen name="headerPadding">10dp</dimen>
-    <dimen name="cornerRadius">8dp</dimen>
+    <dimen name="cornerRadius">10dp</dimen>
     <dimen name="itemHeight">50dp</dimen>
     <dimen name="buttonHeight">44dp</dimen>
     <dimen name="form_divider_size">18dp</dimen>
     <dimen name="statsPanelHeight">80dp</dimen>
+    <dimen name="tabHeight">40dp</dimen>
+    <dimen name="tabIndicatorHeight">35dp</dimen>
 
 
     <dimen name="skeletonCornerRadius">2dp</dimen>

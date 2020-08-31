@@ -1,7 +1,7 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-<!--        <item name="android:windowFullscreen">true</item>-->
+    <style name="AppTheme" parent="carbon_Theme.Light.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
         <!-- Customize your theme here. -->
         <item name="android:windowLightStatusBar">true</item>
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -9,19 +9,15 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-
     <style name="CustomTabStyle" parent="TextAppearance.Design.Tab">
         <item name="textAllCaps">false</item>
         <item name="android:textSize">@dimen/tabFontSize</item>
-        <item name="android:textColor">@color/colorFontMain</item>
-        <item name="android:fontFamily">@font/cabin_semi_bold</item>
     </style>
 
-
     <style name="CustomTabLayoutStyle" parent="Widget.Design.TabLayout">
-<!--        <item name="tabIndicatorHeight">0dp</item>-->
-        <item name="tabIndicatorColor">@color/colorFontMain</item>
+        <item name="tabIndicatorColor">@color/colorTab</item>
         <item name="tabRippleColor">@null</item>
+        <item name="tabIndicatorHeight">@dimen/tabIndicatorHeight</item>
     </style>
 
     <style name="ToolBarStyle" parent="Theme.AppCompat.NoActionBar">

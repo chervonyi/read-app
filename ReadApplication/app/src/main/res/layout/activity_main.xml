@@ -31,7 +31,6 @@
                android:id="@+id/searchView"
                android:layout_width="match_parent"
                android:layout_height="match_parent"
-               app:searchIcon="@drawable/ic_search"
                android:queryBackground="@android:color/transparent"
                style="@style/SearchView"/>
 
