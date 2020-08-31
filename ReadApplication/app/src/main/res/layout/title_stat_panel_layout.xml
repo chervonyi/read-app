@@ -1,172 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<carbon.widget.LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="@dimen/statsPanelHeight"
-    android:background="@drawable/content_panel"
-    android:paddingStart="15dp"
-    android:paddingEnd="15dp"
-    android:gravity="center">
+    android:padding="5dp">
 
-    <LinearLayout
-        android:id="@+id/readsCountSkeleton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center">
-
-        <View
-            android:layout_width="@dimen/skeletonRow2"
-            android:layout_height="@dimen/skeletonRow2"
-            android:background="@drawable/skeleton_2"/>
-
-        <View
-            android:layout_width="70dp"
-            android:layout_height="@dimen/skeletonRow5"
-            android:layout_marginTop="6dp"
-            android:background="@drawable/skeleton_2"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/readsCountLinearLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/readsCountTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/_12k"
-            android:textSize="22sp"
-            android:textColor="@color/colorFontUserStatsNumbers"
-            android:fontFamily="@font/cabin_bold"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/title_stats_reads"
-            android:textSize="16sp"
-            android:textColor="@color/colorFontUserStatsNumbers"
-            android:fontFamily="@font/cabin_regular"/>
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="1dp"
+    <carbon.widget.LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorUserStatsDivider"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"/>
-
-    <LinearLayout
-        android:id="@+id/likesCountSkeleton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center">
-
-        <View
-            android:layout_width="@dimen/skeletonRow2"
-            android:layout_height="@dimen/skeletonRow2"
-            android:background="@drawable/skeleton_2"/>
-
-        <View
-            android:layout_width="70dp"
-            android:layout_height="@dimen/skeletonRow5"
-            android:layout_marginTop="6dp"
-            android:background="@drawable/skeleton_2"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/likesCountLinearLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
+        android:orientation="horizontal"
+        android:background="@drawable/content_panel"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
         android:gravity="center"
-        android:visibility="gone">
+        app:carbon_elevation="@dimen/elevation"
+        app:carbon_elevationShadowColor="@color/colorPanelShadowColor"
+        app:carbon_cornerRadius="@dimen/cornerRadius">
 
-        <TextView
-            android:id="@+id/likesCountTextView"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/readsCountSkeleton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/followers_count_tmp"
-            android:textSize="22sp"
-            android:textColor="@color/colorFontUserStatsNumbers"
-            android:fontFamily="@font/cabin_bold"/>
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone">
 
-        <TextView
-            android:layout_width="wrap_content"
+            <View
+                android:layout_width="@dimen/skeletonRow2"
+                android:layout_height="@dimen/skeletonRow2"
+                android:background="@drawable/skeleton_2"/>
+
+            <View
+                android:layout_width="70dp"
+                android:layout_height="@dimen/skeletonRow5"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/skeleton_2"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/readsCountLinearLayout"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/title_stats_likes"
-            android:textSize="16sp"
-            android:textColor="@color/colorFontUserStatsNumbers"
-            android:fontFamily="@font/cabin_regular"/>
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/readsCountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/_12k"
+                android:textSize="@dimen/statsPanelNumberFontSize"
+                android:textColor="@color/colorFontUserStatsNumbers"
+                android:textStyle="bold"/>
 
-    <View
-        android:layout_width="1dp"
-        android:layout_height="match_parent"
-        android:background="@color/colorUserStatsDivider"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_stats_reads"
+                android:textSize="@dimen/statsPanelTitleFontSize"
+                android:textColor="@color/colorFontUserStatsNumbers"/>
 
-    <LinearLayout
-        android:id="@+id/timeToReadSkeleton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center">
+        </LinearLayout>
 
         <View
-            android:layout_width="@dimen/skeletonRow2"
-            android:layout_height="@dimen/skeletonRow2"
-            android:background="@drawable/skeleton_2"/>
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorUserStatsDivider"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"/>
+
+        <LinearLayout
+            android:id="@+id/likesCountSkeleton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <View
+                android:layout_width="@dimen/skeletonRow2"
+                android:layout_height="@dimen/skeletonRow2"
+                android:background="@drawable/skeleton_2"/>
+
+            <View
+                android:layout_width="70dp"
+                android:layout_height="@dimen/skeletonRow5"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/skeleton_2"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/likesCountLinearLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/likesCountTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/followers_count_tmp"
+                android:textSize="@dimen/statsPanelNumberFontSize"
+                android:textColor="@color/colorFontUserStatsNumbers"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_stats_likes"
+                android:textSize="@dimen/statsPanelTitleFontSize"
+                android:textColor="@color/colorFontUserStatsNumbers"/>
+
+        </LinearLayout>
 
         <View
-            android:layout_width="70dp"
-            android:layout_height="@dimen/skeletonRow5"
-            android:layout_marginTop="6dp"
-            android:background="@drawable/skeleton_2"/>
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorUserStatsDivider"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"/>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/timeToReadLinearLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/timeToReadTextView"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/timeToReadSkeleton"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/time_to_read_tmp"
-            android:textSize="22sp"
-            android:textColor="@color/colorFontUserStatsNumbers"
-            android:fontFamily="@font/cabin_bold"/>
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone">
 
-        <TextView
-            android:layout_width="wrap_content"
+            <View
+                android:layout_width="@dimen/skeletonRow2"
+                android:layout_height="@dimen/skeletonRow2"
+                android:background="@drawable/skeleton_2"/>
+
+            <View
+                android:layout_width="70dp"
+                android:layout_height="@dimen/skeletonRow5"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/skeleton_2"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/timeToReadLinearLayout"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/time_to_read_min"
-            android:textSize="16sp"
-            android:textColor="@color/colorFontUserStatsNumbers"
-            android:fontFamily="@font/cabin_regular"/>
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/timeToReadTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/time_to_read_tmp"
+                android:textSize="@dimen/statsPanelNumberFontSize"
+                android:textColor="@color/colorFontUserStatsNumbers"
+                android:textStyle="bold"/>
 
-</LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/time_to_read"
+                android:textSize="@dimen/statsPanelTitleFontSize"
+                android:textColor="@color/colorFontUserStatsNumbers"
+                android:fontFamily="@font/cabin_regular"/>
+
+        </LinearLayout>
+
+
+    </carbon.widget.LinearLayout>
+</carbon.widget.LinearLayout>

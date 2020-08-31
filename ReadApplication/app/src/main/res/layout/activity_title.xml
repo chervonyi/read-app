@@ -32,24 +32,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="100dp"
+                android:layout_marginStart="5dp"
                 android:background="@drawable/skeleton_1"
                 android:textSize="@dimen/titleHeaderFontSize"
-                android:fontFamily="@font/cabin_semi_bold"/>
+                android:textStyle="bold"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/titleHeaderTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:text="@string/tmp_title_panel_header"
                 android:textSize="@dimen/titleHeaderFontSize"
-                android:textColor="@color/colorFontMain"
-                android:fontFamily="@font/cabin_semi_bold"
-                android:visibility="gone"/>
+                android:textColor="@color/colorFontTitleHeader"
+                android:textStyle="bold"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginStart="5dp"
                 android:gravity="center_vertical">
 
                 <com.makeramen.roundedimageview.RoundedImageView
@@ -67,7 +70,8 @@
                     android:layout_marginStart="10dp"
                     android:background="@drawable/skeleton_1"
                     android:textSize="@dimen/titleAuthorFontSize"
-                    android:fontFamily="@font/cabin_semi_bold"/>
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/titleAuthorTextView"
@@ -76,9 +80,8 @@
                     android:layout_marginStart="10dp"
                     android:text="@string/tmp_title_panel_author"
                     android:textSize="@dimen/titleAuthorFontSize"
-                    android:textColor="@color/colorFontMain"
-                    android:fontFamily="@font/cabin_semi_bold"
-                    android:visibility="gone"/>
+                    android:textColor="@color/colorFontTitleAuthor"
+                    android:textStyle="bold"/>
 
             </LinearLayout>
 
@@ -93,7 +96,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:divider="@drawable/skeleton_text_divider"
-                android:showDividers="middle">
+                android:showDividers="middle"
+                android:visibility="gone">
 
                 <View
                     android:layout_width="match_parent"
@@ -112,15 +116,18 @@
                 android:id="@+id/titleDescriptionTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:text="@string/tmp_title_panel_body"
                 android:textSize="@dimen/titleDescriptionFontSize"
-                android:textColor="@color/colorFontBody"
-                android:fontFamily="@font/cabin_regular"
-                android:visibility="gone"/>
+                android:textColor="@color/colorFontTitleBody"
+                android:lineSpacingExtra="@dimen/textLineSpacing"/>
 
             <room106.app.read.views.MainButton
                 android:id="@+id/saveTitleButton"
                 android:layout_width="match_parent"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:layout_height="@dimen/buttonHeight"
                 android:text="@string/save"
                 android:onClick="onClickSaveFavoriteTitle"/>
@@ -131,7 +138,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:divider="@drawable/skeleton_text_divider"
-                android:showDividers="middle">
+                android:showDividers="middle"
+                android:visibility="gone">
 
                 <View
                     android:layout_width="match_parent"
@@ -199,13 +207,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:visibility="gone"/>
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center">
+                android:gravity="center"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp">
 
                 <room106.app.read.views.LikeButton
                     android:id="@+id/likeButton"

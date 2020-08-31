@@ -13,7 +13,7 @@
         android:orientation="vertical"
         android:background="@drawable/content_panel"
         android:padding="20dp"
-        app:carbon_elevation="5dp"
+        app:carbon_elevation="@dimen/elevation"
         app:carbon_elevationShadowColor="@color/colorPanelShadowColor"
         app:carbon_cornerRadius="@dimen/cornerRadius">
 
@@ -63,7 +63,7 @@
             android:layout_marginTop="18dp"
             android:textSize="@dimen/titlePanelAuthorFontSize"
             android:textColor="@color/colorFontTitleBody"
-            android:lineSpacingExtra="8dp"/>
+            android:lineSpacingExtra="@dimen/textLineSpacing"/>
 
     </carbon.widget.LinearLayout>
 

@@ -53,8 +53,8 @@
     <string name="tmp_title_panel_body">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don’t look even slightly believable.</string>
     <string name="title_stats_reads">Reads</string>
     <string name="title_stats_likes">Likes</string>
-    <string name="time_to_read_min">Min</string>
-    <string name="time_to_read_tmp">8</string>
+    <string name="time_to_read">Time</string>
+    <string name="time_to_read_tmp">8m</string>
     <string name="_12k">12k</string>
     <string name="save">Save</string>
     <string name="save_draft">Save as Draft</string>

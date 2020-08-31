@@ -11,7 +11,7 @@ class ChapterTextView(context: Context) : androidx.appcompat.widget.AppCompatTex
 
     init {
         setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.titleBodyFontSize))
-        typeface = ResourcesCompat.getFont(context, R.font.cabin_regular)
-        setTextColor(ContextCompat.getColor(context, R.color.colorFontBody))
+        setTextColor(ContextCompat.getColor(context, R.color.colorFontTitleBody))
+        setLineSpacing(resources.getDimension(R.dimen.textLineSpacing), 1.0f)
     }
 }

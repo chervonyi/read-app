@@ -38,7 +38,7 @@
                android:id="@+id/anonymousUserImageButton"
                android:layout_width="@dimen/avatarSmallSize"
                android:layout_height="@dimen/avatarSmallSize"
-               android:background="@drawable/anonymous_user"
+               android:background="@null"
                android:src="@drawable/ic_person"
                android:layout_centerVertical="true"
                android:layout_alignParentEnd="true"

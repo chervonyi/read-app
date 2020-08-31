@@ -1,5 +1,6 @@
 package room106.app.read.views
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.AttributeSet
 import android.util.Log
@@ -55,23 +56,18 @@ class TitleStatsPanelView: LinearLayout {
         readsCountTextView =            findViewById(R.id.readsCountTextView)
         likesCountTextView =            findViewById(R.id.likesCountTextView)
         timeToReadTextView =            findViewById(R.id.timeToReadTextView)
+
+        skeletonIsShown = true
     }
 
+    @SuppressLint("SetTextI18n")
     fun attachData(readsCount: Int, likesCount: Int, timeToRead: Int) {
         // Set data
         readsCountTextView.text = formatNumber(readsCount)
         likesCountTextView.text = formatNumber(likesCount)
-        timeToReadTextView.text = timeToRead.toString()
+        timeToReadTextView.text = timeToRead.toString() + "m"
 
-        // Hide skeleton panels
-        readsCountSkeleton.visibility = View.GONE
-        likesCountSkeleton.visibility = View.GONE
-        timeToReadSkeleton.visibility = View.GONE
-
-        // Show data panels
-        readsCountLinearLayout.visibility = View.VISIBLE
-        likesCountLinearLayout.visibility = View.VISIBLE
-        timeToReadLinearLayout.visibility = View.VISIBLE
+        skeletonIsShown = false
     }
 
     private fun formatNumber(number: Int): String {
@@ -87,5 +83,29 @@ class TitleStatsPanelView: LinearLayout {
         } else {
             DecimalFormat("#,##0").format(number)
         }
+    }
+
+    private var _skeletonIsShown = false
+    var skeletonIsShown: Boolean
+        get() = _skeletonIsShown
+        set(value) {
+
+            if (value) {
+                manageVisibility(View.VISIBLE, View.GONE)
+            } else {
+                manageVisibility(View.GONE, View.VISIBLE)
+            }
+        }
+
+    private fun manageVisibility(skeletonPanelsVisibility: Int, dataPanelsVisibility: Int) {
+        // Skeleton
+        readsCountSkeleton.visibility = skeletonPanelsVisibility
+        likesCountSkeleton.visibility = skeletonPanelsVisibility
+        timeToReadSkeleton.visibility = skeletonPanelsVisibility
+
+        // Data
+        readsCountLinearLayout.visibility = dataPanelsVisibility
+        likesCountLinearLayout.visibility = dataPanelsVisibility
+        timeToReadLinearLayout.visibility = dataPanelsVisibility
     }
 }
