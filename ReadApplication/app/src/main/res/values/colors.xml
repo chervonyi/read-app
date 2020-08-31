@@ -6,7 +6,7 @@
     <color name="colorTabSupporting">#FFF</color>
     <color name="colorSkeleton1">#E7EBEF</color>
     <color name="colorSkeleton2">#D1D7DD</color>
-    <color name="colorEditTextBackground">#F8F8F8</color>
+    <color name="colorEditTextBackground">#FFF</color>
 
     <color name="colorIcons">#484848</color>
     <color name="colorLightIcons">#777777</color>
@@ -40,8 +40,8 @@
     <color name="colorLikeButton">#EB4E4E</color>
     <color name="colorLikeButtonPressed">#DA4242</color>
 
-    <color name="colorPrimary">#7D79E8</color>
-    <color name="colorPrimaryDisable">#B6B5EF</color>
+    <color name="colorPrimary">#53C696</color>
+    <color name="colorPrimaryDisable">#7AC8A8</color>
     <color name="colorPrimaryDark">#F4F6F8</color>
-    <color name="colorAccent">#7D79E8</color>
+    <color name="colorAccent">#53C696</color>
 </resources>

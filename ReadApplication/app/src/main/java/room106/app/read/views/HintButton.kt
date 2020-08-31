@@ -1,6 +1,7 @@
 package room106.app.read.views
 
 import android.content.Context
+import android.graphics.Typeface
 import android.util.AttributeSet
 import android.util.TypedValue
 import androidx.core.content.ContextCompat
@@ -27,7 +28,7 @@ class HintButton: androidx.appcompat.widget.AppCompatButton {
             background = null
             setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.hintFontSize))
             isAllCaps = false
-            typeface = ResourcesCompat.getFont(context, R.font.cabin_semi_bold)
+//            typeface = Typeface.DEFAULT_BOLD
             isFocusable = false
             stateListAnimator = null
         }
