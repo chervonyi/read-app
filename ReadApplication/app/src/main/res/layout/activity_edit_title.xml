@@ -102,7 +102,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
 
                 <EditText
                     android:id="@+id/bodyEditText"
@@ -113,87 +114,18 @@
                     android:minLines="4"
                     android:textSize="@dimen/titleDescriptionFontSize"
                     android:padding="18dp"
-                    android:layout_marginTop="20dp"
                     android:background="@drawable/edit_text_background"
                     android:lineSpacingExtra="@dimen/textLineSpacing"
                     android:textColor="@color/colorFontMain"
                     android:inputType="textCapSentences|textMultiLine"
                     android:importantForAutofill="no"/>
 
-                <LinearLayout
-                    android:id="@+id/bodySkeleton"
+                <include layout="@layout/skeleton_body"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:orientation="vertical"
-                    android:divider="@drawable/skeleton_text_divider"
-                    android:showDividers="middle"
-                    android:visibility="gone">
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/skeletonRow4"
-                        android:layout_marginEnd="30dp"
-                        android:background="@drawable/skeleton_1"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/skeletonRow4"
-                        android:background="@drawable/skeleton_1"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/skeletonRow4"
-                        android:layout_marginEnd="100dp"
-                        android:background="@drawable/skeleton_1"/>
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/skeletonRow4"
-                        android:layout_marginEnd="30dp"
-                        android:background="@drawable/skeleton_1"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/skeletonRow4"
-                        android:background="@drawable/skeleton_1"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/skeletonRow4"
-                        android:layout_marginEnd="100dp"
-                        android:background="@drawable/skeleton_1"/>
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/skeletonRow4"
-                        android:layout_marginEnd="30dp"
-                        android:background="@drawable/skeleton_1"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/skeletonRow4"
-                        android:background="@drawable/skeleton_1"/>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/skeletonRow4"
-                        android:layout_marginEnd="100dp"
-                        android:background="@drawable/skeleton_1"/>
-
-                </LinearLayout>
+                    android:layout_marginTop="30dp"/>
 
             </RelativeLayout>
-
-
 
             <room106.app.read.views.MainButton
                 android:id="@+id/saveTitleButton"

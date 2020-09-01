@@ -59,7 +59,7 @@ class EditTitleActivity : AppCompatActivity() {
         publishTitleButton =    findViewById(R.id.publishTitleButton)
         titleSkeleton =         findViewById(R.id.titleSkeleton)
         descriptionSkeleton =   findViewById(R.id.descriptionSkeleton)
-        bodySkeleton =          findViewById(R.id.bodySkeleton)
+        bodySkeleton =          findViewById(R.id.titleBodySkeleton)
 
         // Set "Done" button on keyboard
         titleEditText.imeOptions = EditorInfo.IME_ACTION_DONE
@@ -77,6 +77,8 @@ class EditTitleActivity : AppCompatActivity() {
         auth = Firebase.auth
         db = Firebase.firestore
 
+        skeletonIsShow = true
+
         titleID = intent.getStringExtra("title_id")
     }
 
@@ -90,6 +92,7 @@ class EditTitleActivity : AppCompatActivity() {
         } else {
             // User's going to create a new title
             saveTitleButton.text = getString(R.string.save_draft)
+            skeletonIsShow = false
         }
 
         checkFields()
@@ -107,10 +110,6 @@ class EditTitleActivity : AppCompatActivity() {
                     document.reference.collection("body").document("text")
                         .get().addOnSuccessListener { bodyDocument ->
                             val body = bodyDocument.get("text").toString()
-                            // TODO - Remove delay
-//                            Handler().postDelayed({
-//                                updateTitleUI(title, body)
-//                            }, 3000)
                             updateTitleUI(title, body)
                         }
                 }
@@ -129,20 +128,14 @@ class EditTitleActivity : AppCompatActivity() {
             bodyEditText.setText("")
         }
 
-        // Hide skeleton
-        titleSkeleton.visibility = View.GONE
-        descriptionSkeleton.visibility = View.GONE
-        bodySkeleton.visibility = View.GONE
-
-        // Show data views
-        titleEditText.visibility = View.VISIBLE
-        descriptionEditText.visibility = View.VISIBLE
-        bodyEditText.visibility = View.VISIBLE
+        skeletonIsShow = false
     }
     //endregion
 
     //region Click Listeners
     fun onClickSave(v: View) {
+        if (skeletonIsShow) { return }
+
         val currentUser = auth.currentUser ?: return
 
         if (titleID == null) {
@@ -245,7 +238,7 @@ class EditTitleActivity : AppCompatActivity() {
     }
 
     fun onClickPublish(v: View) {
-        if (titleID != null) {
+        if (titleID != null && !skeletonIsShow) {
             updateExistingTitle()
 
             val titleRef = db.collection("titles").document(titleID!!)
@@ -324,4 +317,30 @@ class EditTitleActivity : AppCompatActivity() {
         }
     }
     //endregion
+
+    private var _skeletonIsShown = false
+    var skeletonIsShow: Boolean
+        get() = _skeletonIsShown
+        set(value) {
+            _skeletonIsShown = value
+
+            if (value) {
+                // Show skeleton
+                manageVisibility(View.VISIBLE, View.GONE)
+            } else {
+                manageVisibility(View.GONE, View.VISIBLE)
+            }
+        }
+
+    private fun manageVisibility(skeletonVisibility: Int, dataVisibility: Int) {
+        // Skeleton panels
+        titleSkeleton.visibility =          skeletonVisibility
+        descriptionSkeleton.visibility =    skeletonVisibility
+        bodySkeleton.visibility =           skeletonVisibility
+
+        // Data panels
+        titleEditText.visibility =          dataVisibility
+        descriptionEditText.visibility =    dataVisibility
+        bodyEditText.visibility =           dataVisibility
+    }
 }

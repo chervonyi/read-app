@@ -37,6 +37,8 @@ class MainActivity : AppCompatActivity() {
     // Fragments
     private lateinit var mainTabsFragment: MainTabsFragment
 
+    private var dataIsLoading = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -66,16 +68,21 @@ class MainActivity : AppCompatActivity() {
 
     //region User data
     fun onClickAnonymousUser(v: View) {
-        val intent = Intent(this, SignUpActivity::class.java)
-        startActivity(intent)
+        if (!dataIsLoading) {
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     fun onClickUserAccount(v: View) {
-        val intent = Intent(this, UserActivity::class.java)
-        startActivity(intent)
+        if (!dataIsLoading) {
+            val intent = Intent(this, UserActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun readUserData() {
+        dataIsLoading = true
         val user = auth.currentUser
 
         if (user != null) {
@@ -112,6 +119,8 @@ class MainActivity : AppCompatActivity() {
             userAccountImageButton.visibility = View.GONE
             anonymousUserImageButton.visibility = View.VISIBLE
         }
+
+        dataIsLoading = false
     }
     //endregion
 

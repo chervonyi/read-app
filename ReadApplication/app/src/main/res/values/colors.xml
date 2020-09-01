@@ -4,8 +4,8 @@
     <color name="colorBackground">#F5F7F8</color>
     <color name="colorTab">#545D6A</color>
     <color name="colorTabSupporting">#FFF</color>
-    <color name="colorSkeleton1">#E7EBEF</color>
-    <color name="colorSkeleton2">#D1D7DD</color>
+    <color name="colorSkeleton1">#EAEEF1</color>
+    <color name="colorSkeleton2">#EAEEF1</color>
     <color name="colorEditTextBackground">#FFF</color>
 
     <color name="colorIcons">#484848</color>

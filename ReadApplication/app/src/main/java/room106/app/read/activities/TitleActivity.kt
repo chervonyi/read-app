@@ -100,6 +100,8 @@ class TitleActivity : AppCompatActivity() {
         checkIfLiked()
         checkIfSaved()
         titleBodyLinearLayout.removeAllViews()
+
+        skeletonIsShow = true
     }
 
     //region Load Title
@@ -142,18 +144,7 @@ class TitleActivity : AppCompatActivity() {
             authorAvatarImageView.setImageResource(image)
 
             titleStatsPanel.attachData(title.readsCount, title.likesCount, timeToRead)
-
-            // Hide skeleton
-            titleHeaderSkeleton.visibility = View.GONE
-            titleAuthorSkeleton.visibility = View.GONE
-            titleDescriptionSkeleton.visibility = View.GONE
-            titleBodySkeleton.visibility = View.GONE
-
-            // Show data panels
-            headerTextView.visibility = View.VISIBLE
-            authorTextView.visibility = View.VISIBLE
-            descriptionTextView.visibility = View.VISIBLE
-            titleBodyLinearLayout.visibility = View.VISIBLE
+            skeletonIsShow = false
         }
     }
     //endregion
@@ -175,15 +166,17 @@ class TitleActivity : AppCompatActivity() {
     }
 
     private fun onClickEditTitle() {
-        val intent = Intent(this, EditTitleActivity::class.java)
-        intent.putExtra("title_id", titleID)
-        startActivity(intent)
+        if (titleID != null && !skeletonIsShow) {
+            val intent = Intent(this, EditTitleActivity::class.java)
+            intent.putExtra("title_id", titleID)
+            startActivity(intent)
+        }
     }
     //endregion
 
     //region Like
     fun onClickLike(v: View) {
-        if (title != null && titleID != null) {
+        if (title != null && titleID != null && !skeletonIsShow) {
 
             val currentUserID = auth.currentUser?.uid
 
@@ -278,7 +271,7 @@ class TitleActivity : AppCompatActivity() {
 
     //region Save
     fun onClickSaveFavoriteTitle(v: View) {
-        if (title != null && titleID != null) {
+        if (title != null && titleID != null && !skeletonIsShow) {
 
             val currentUserID = auth.currentUser?.uid
 
@@ -354,7 +347,7 @@ class TitleActivity : AppCompatActivity() {
     //endregion
 
     private val onClickTitleAuthor = View.OnClickListener {
-        if (title != null) {
+        if (title != null && !skeletonIsShow) {
             val intent = Intent(this, UserActivity::class.java)
             intent.putExtra("user_id", title?.authorID)
             startActivity(intent)
@@ -369,5 +362,33 @@ class TitleActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         titleBodyLinearLayout.destroyAds()
+    }
+
+    private var _skeletonIsShown = false
+    var skeletonIsShow: Boolean
+        get() = _skeletonIsShown
+        set(value) {
+            _skeletonIsShown = value
+
+            if (value) {
+                // Show skeleton
+                manageVisibility(View.VISIBLE, View.GONE)
+            } else {
+                manageVisibility(View.GONE, View.VISIBLE)
+            }
+        }
+
+    private fun manageVisibility(skeletonVisibility: Int, dataVisibility: Int) {
+        // Skeleton panels
+        titleHeaderSkeleton.visibility =        skeletonVisibility
+        titleAuthorSkeleton.visibility =        skeletonVisibility
+        titleDescriptionSkeleton.visibility =   skeletonVisibility
+        titleBodySkeleton.visibility =          skeletonVisibility
+
+        // Data panels
+        headerTextView.visibility =         dataVisibility
+        authorTextView.visibility =         dataVisibility
+        descriptionTextView.visibility =    dataVisibility
+        titleBodyLinearLayout.visibility =  dataVisibility
     }
 }

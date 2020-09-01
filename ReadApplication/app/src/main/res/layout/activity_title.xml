@@ -97,6 +97,8 @@
                 android:orientation="vertical"
                 android:divider="@drawable/skeleton_text_divider"
                 android:showDividers="middle"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
                 android:visibility="gone">
 
                 <View
@@ -132,75 +134,11 @@
                 android:text="@string/save"
                 android:onClick="onClickSaveFavoriteTitle"/>
 
-            <LinearLayout
-                android:id="@+id/titleBodySkeleton"
+            <include layout="@layout/skeleton_body"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:divider="@drawable/skeleton_text_divider"
-                android:showDividers="middle"
-                android:visibility="gone">
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/skeletonRow4"
-                    android:layout_marginEnd="30dp"
-                    android:background="@drawable/skeleton_1"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/skeletonRow4"
-                    android:background="@drawable/skeleton_1"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/skeletonRow4"
-                    android:layout_marginEnd="100dp"
-                    android:background="@drawable/skeleton_1"/>
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/skeletonRow4"
-                    android:layout_marginEnd="30dp"
-                    android:background="@drawable/skeleton_1"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/skeletonRow4"
-                    android:background="@drawable/skeleton_1"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/skeletonRow4"
-                    android:layout_marginEnd="100dp"
-                    android:background="@drawable/skeleton_1"/>
-
-                <Space
-                    android:layout_width="match_parent"
-                    android:layout_height="20dp"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/skeletonRow4"
-                    android:layout_marginEnd="30dp"
-                    android:background="@drawable/skeleton_1"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/skeletonRow4"
-                    android:background="@drawable/skeleton_1"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/skeletonRow4"
-                    android:layout_marginEnd="100dp"
-                    android:background="@drawable/skeleton_1"/>
-
-            </LinearLayout>
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"/>
 
             <room106.app.read.views.TitleBodyLinearLayout
                 android:id="@+id/titleBodyLinearLayout"
@@ -257,7 +195,8 @@
             app:menu="@menu/title_current_user_author_menu"
             app:layout_scrollFlags="scroll|enterAlways"
             app:theme="@style/ToolBarStyle"
-            app:popupTheme="@style/AppTheme"/>
+            app:popupTheme="@style/AppTheme"
+            android:background="@color/colorBackground"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

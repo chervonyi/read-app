@@ -3,6 +3,7 @@ package room106.app.read.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
@@ -68,6 +69,8 @@ class UserActivity : AppCompatActivity() {
         db = Firebase.firestore
 
         userID = intent.getStringExtra("user_id")
+
+        skeletonIsVisible = true
     }
 
     override fun onStart() {
@@ -126,13 +129,7 @@ class UserActivity : AppCompatActivity() {
 
                 if (user != null) {
                     userData = user
-
-                    // TODO - Remove Delay
-//                    Handler().postDelayed({
-//                        updateUserUI(user)
-//                    }, 3000)
                     updateUserUI(user)
-
                 }
             }
 
@@ -149,9 +146,9 @@ class UserActivity : AppCompatActivity() {
 
         // Set other user info
         userNameTextView.text = userData.name
-        userNameTextView.visibility = View.VISIBLE
-        userNameSkeleton.visibility = View.GONE
         userStatsPanel.attachData(userData.titlesCount, userData.followersCount, userData.likesCount)
+
+        skeletonIsVisible = false
     }
     //endregion
 
@@ -183,7 +180,8 @@ class UserActivity : AppCompatActivity() {
     }
 
     private fun onClickChangeAvatar() {
-        // Go to ChangeAvatarActivity
+        if (skeletonIsVisible) { return }
+
         val intent = Intent(this, ChangeAvatarActivity::class.java)
         intent.putExtra("avatar_id", userData?.avatar)
         intent.putExtra("purpose", "change_avatar")
@@ -191,41 +189,46 @@ class UserActivity : AppCompatActivity() {
     }
 
     private fun onClickChangeName() {
+        if (skeletonIsVisible) { return }
+
         val intent = Intent(this, ChangeNameActivity::class.java)
         intent.putExtra("name", userData?.name)
         startActivity(intent)
     }
 
     private fun onClickChangePassword() {
+        if (skeletonIsVisible) { return }
+
         val intent = Intent(this, ChangePasswordActivity::class.java)
         startActivity(intent)
     }
 
     private fun logOutUser() {
+        if (skeletonIsVisible) { return }
+
         auth.signOut()
 
         // Go to MainActivity
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
-//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
     }
 
     private val onClickBackListener = View.OnClickListener {
         finish()
-//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
     }
     //endregion
 
     fun onClickCreateNewTitle(v: View) {
-        val intent = Intent(this, EditTitleActivity::class.java)
-        startActivity(intent)
-//        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
+        if (!skeletonIsVisible) {
+            val intent = Intent(this, EditTitleActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     //region Follow
     fun onClickFollow(v: View) {
-        if (userID != null) {
+        if (userID != null && !skeletonIsVisible) {
 
             val currentUserID = auth.currentUser?.uid
 
@@ -234,7 +237,6 @@ class UserActivity : AppCompatActivity() {
                 val intent = Intent(this, OfferToLoginActivity::class.java)
                 startActivity(intent)
                 finish()
-//                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
 
             } else if (followingDocID != null) {
                 // User has already followed this account
@@ -303,4 +305,21 @@ class UserActivity : AppCompatActivity() {
         }
     }
     //endregion
+
+    private var _skeletonIsVisible = false
+    var skeletonIsVisible: Boolean
+        get() = _skeletonIsVisible
+        set(value) {
+            _skeletonIsVisible = value
+
+            if (value) {
+                // Show skeleton
+                userNameTextView.visibility = View.GONE
+                userNameSkeleton.visibility = View.VISIBLE
+            } else {
+                // Hide skeleton
+                userNameTextView.visibility = View.VISIBLE
+                userNameSkeleton.visibility = View.GONE
+            }
+        }
 }
