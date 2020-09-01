@@ -23,7 +23,6 @@ class ChangeNameActivity : AppCompatActivity() {
     // Views
     private lateinit var toolBar: Toolbar
     private lateinit var nameEditText: EditText
-    private lateinit var saveButton: Button
 
     private var currentName: String? = null
 
@@ -41,10 +40,10 @@ class ChangeNameActivity : AppCompatActivity() {
         // Connect views
         toolBar = findViewById(R.id.toolBar)
         nameEditText = findViewById(R.id.nameEditText)
-        saveButton = findViewById(R.id.saveButton)
 
         // Attach listeners
         nameEditText.addTextChangedListener(nameEditTextWatcher)
+        toolBar.setOnMenuItemClickListener(onClickSubmitListener)
         toolBar.setNavigationOnClickListener(onClickBack)
 
         currentName = intent.getStringExtra("name")
@@ -56,7 +55,7 @@ class ChangeNameActivity : AppCompatActivity() {
         checkTypedName()
     }
 
-    fun onClickSave(v: View) {
+    private fun saveName() {
         val currentUserID = auth.currentUser?.uid ?: return
 
         if (checkTypedName()) {
@@ -103,7 +102,7 @@ class ChangeNameActivity : AppCompatActivity() {
     private fun checkTypedName(): Boolean {
         val typedName = nameEditText.text.toString()
         val isNameValid = isNameValid(typedName)
-        saveButton.isEnabled = isNameValid
+        toolBar.menu.findItem(R.id.menuSubmitItem).isVisible = isNameValid
         return isNameValid
     }
 
@@ -122,6 +121,17 @@ class ChangeNameActivity : AppCompatActivity() {
 
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             checkTypedName()
+        }
+    }
+
+    private val onClickSubmitListener = Toolbar.OnMenuItemClickListener  {
+        when (it.itemId) {
+            R.id.menuSubmitItem -> {
+                saveName()
+                true
+            }
+
+            else -> false
         }
     }
 

@@ -15,7 +15,7 @@
         app:navigationIcon="?attr/homeAsUpIndicator"
         app:layout_scrollFlags="scroll"
         app:theme="@style/ToolBarStyle"
-        app:menu="@menu/change_avatar_menu"
+        app:menu="@menu/submit_menu"
         app:popupTheme="@style/AppTheme"
         android:background="@color/colorBackground"/>
 

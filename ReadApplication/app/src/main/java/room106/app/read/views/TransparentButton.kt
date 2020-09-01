@@ -1,6 +1,7 @@
 package room106.app.read.views
 
 import android.content.Context
+import android.graphics.Typeface
 import android.util.AttributeSet
 import android.util.TypedValue
 import androidx.core.content.ContextCompat
@@ -28,7 +29,7 @@ class TransparentButton: androidx.appcompat.widget.AppCompatButton {
             setTextColor(ContextCompat.getColor(context, R.color.colorAccent))
             setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.buttonFontSize))
             isAllCaps = false
-            typeface = ResourcesCompat.getFont(context, R.font.cabin_semi_bold)
+            typeface = Typeface.DEFAULT_BOLD
             isFocusable = false
             stateListAnimator = null
         }

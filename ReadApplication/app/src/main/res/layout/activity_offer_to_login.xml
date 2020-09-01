@@ -13,7 +13,8 @@
         android:layout_height="?attr/actionBarSize"
         app:navigationIcon="?attr/homeAsUpIndicator"
         app:theme="@style/ToolBarStyle"
-        app:popupTheme="@style/AppTheme"/>
+        app:popupTheme="@style/AppTheme"
+        android:background="@color/colorBackground"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,12 +33,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:textAlignment="center"
             android:text="@string/offer_to_login"
             android:textSize="@dimen/mainFontSize"
-            android:textColor="@color/colorFontMain"
-            android:fontFamily="@font/cabin_regular"/>
+            android:textColor="@color/colorFontMain"/>
 
     </LinearLayout>
 

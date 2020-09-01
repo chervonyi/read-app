@@ -24,7 +24,6 @@ class ChangePasswordActivity : AppCompatActivity() {
     private lateinit var oldPasswordEditText: EditText
     private lateinit var newPasswordEditText: EditText
     private lateinit var confirmNewPasswordEditText: EditText
-    private lateinit var saveButton: Button
 
     // Firebase
     private lateinit var auth: FirebaseAuth
@@ -42,16 +41,18 @@ class ChangePasswordActivity : AppCompatActivity() {
         oldPasswordEditText = findViewById(R.id.oldPasswordEditText)
         newPasswordEditText = findViewById(R.id.newPasswordEditText)
         confirmNewPasswordEditText = findViewById(R.id.confirmNewPasswordEditText)
-        saveButton = findViewById(R.id.saveButton)
 
         // Attach listeners
         oldPasswordEditText.addTextChangedListener(passwordEditTextWatcher)
         newPasswordEditText.addTextChangedListener(passwordEditTextWatcher)
         confirmNewPasswordEditText.addTextChangedListener(passwordEditTextWatcher)
         toolBar.setNavigationOnClickListener(onClickBack)
+        toolBar.setOnMenuItemClickListener(onClickSubmitListener)
+
+        toolBar.menu.findItem(R.id.menuSubmitItem).isVisible = false
     }
 
-    fun onClickSave(v: View) {
+    private fun savePassword() {
         val currentUser = auth.currentUser ?: return
 
         if (isFormValid() && currentUser.email != null) {
@@ -95,7 +96,18 @@ class ChangePasswordActivity : AppCompatActivity() {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
 
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            saveButton.isEnabled = isFormValid()
+            toolBar.menu.findItem(R.id.menuSubmitItem).isVisible = isFormValid()
+        }
+    }
+
+    private val onClickSubmitListener = Toolbar.OnMenuItemClickListener  {
+        when (it.itemId) {
+            R.id.menuSubmitItem -> {
+                savePassword()
+                true
+            }
+
+            else -> false
         }
     }
 

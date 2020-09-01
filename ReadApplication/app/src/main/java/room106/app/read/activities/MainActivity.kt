@@ -37,8 +37,6 @@ class MainActivity : AppCompatActivity() {
     // Fragments
     private lateinit var mainTabsFragment: MainTabsFragment
 
-    private var userIsLoggedIn = false
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -101,15 +99,18 @@ class MainActivity : AppCompatActivity() {
     private fun updateUserUI(user: FirebaseUser?, userData: User?) {
         if (user != null && userData != null) {
             // User Logged In
-            userIsLoggedIn = true
 
             // Set avatar
             val avatarName = "ic_avatar_${userData.avatar}"
             val image = resources.getIdentifier(avatarName, "drawable", packageName)
             userAccountImageButton.setImageResource(image)
+
+            userAccountImageButton.visibility = View.VISIBLE
+            anonymousUserImageButton.visibility = View.GONE
         } else {
             // User Logged Out
-            userIsLoggedIn = false
+            userAccountImageButton.visibility = View.GONE
+            anonymousUserImageButton.visibility = View.VISIBLE
         }
     }
     //endregion

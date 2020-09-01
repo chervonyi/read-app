@@ -14,7 +14,9 @@
         android:layout_height="?attr/actionBarSize"
         app:navigationIcon="?attr/homeAsUpIndicator"
         app:theme="@style/ToolBarStyle"
-        app:popupTheme="@style/AppTheme"/>
+        app:popupTheme="@style/AppTheme"
+        app:menu="@menu/submit_menu"
+        android:background="@color/colorBackground"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -29,7 +31,7 @@
             android:text="@string/change_name"
             android:textSize="@dimen/headerFontSize"
             android:textColor="@color/colorFontMain"
-            android:fontFamily="@font/cabin_semi_bold"/>
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/nameEditText"
@@ -46,15 +48,6 @@
             android:importantForAutofill="no"
             android:textSize="@dimen/editTextFontSize"
             android:textColor="@color/colorFontMain"/>
-
-        <room106.app.read.views.MainButton
-            android:id="@+id/saveButton"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/buttonHeight"
-            android:text="@string/save"
-            android:layout_alignParentBottom="true"
-            android:enabled="false"
-            android:onClick="onClickSave"/>
 
     </RelativeLayout>
 </LinearLayout>

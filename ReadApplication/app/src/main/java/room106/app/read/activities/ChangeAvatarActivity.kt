@@ -3,18 +3,14 @@ package room106.app.read.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.ImageButton
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.makeramen.roundedimageview.RoundedImageView
@@ -50,7 +46,7 @@ class ChangeAvatarActivity : AppCompatActivity() {
             toolBar.navigationIcon = null
         } else if (purpose == "change_avatar") {
             // Activity opened after UserActivity -> Hide "Submit" button
-            toolBar.menu.findItem(R.id.changeAvatarMenuSubmit).isVisible = false
+            toolBar.menu.findItem(R.id.menuSubmitItem).isVisible = false
         }
 
         // Firebase
@@ -163,7 +159,7 @@ class ChangeAvatarActivity : AppCompatActivity() {
 
     private val onClickSubmitListener = Toolbar.OnMenuItemClickListener  {
         when (it.itemId) {
-            R.id.changeAvatarMenuSubmit -> {
+            R.id.menuSubmitItem -> {
                 onClickSubmit()
                 true
             }

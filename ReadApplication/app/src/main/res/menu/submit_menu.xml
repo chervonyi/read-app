@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <item android:id="@+id/changeAvatarMenuSubmit"
-        android:title="@string/change_avatar"
+    <item android:id="@+id/menuSubmitItem"
+        android:title="@string/submit"
         android:icon="@drawable/ic_submit"
         app:showAsAction="always"/>
 </menu>
