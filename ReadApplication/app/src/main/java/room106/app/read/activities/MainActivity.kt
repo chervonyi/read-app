@@ -3,9 +3,14 @@ package room106.app.read.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.ContextCompat
+import androidx.core.view.updatePadding
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -19,11 +24,9 @@ import room106.app.read.fragments.MainTabsFragment
 import room106.app.read.fragments.SearchFragment
 import room106.app.read.models.User
 
-
 class MainActivity : AppCompatActivity() {
 
     // Views
-    private lateinit var searchView: SearchView
     private lateinit var userAccountImageButton: RoundedImageView
     private lateinit var anonymousUserImageButton: ImageView
 
@@ -33,10 +36,8 @@ class MainActivity : AppCompatActivity() {
 
     // Fragments
     private lateinit var mainTabsFragment: MainTabsFragment
-    private lateinit var searchFragment: SearchFragment
 
     private var userIsLoggedIn = false
-    private var isSearchActive = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,13 +46,11 @@ class MainActivity : AppCompatActivity() {
         MobileAds.initialize(this) {}
 
         // Connect views
-        searchView = findViewById(R.id.searchView)
         userAccountImageButton = findViewById(R.id.userAccountImageButton)
         anonymousUserImageButton = findViewById(R.id.anonymousUserImageButton)
 
         // Prepare fragments
         mainTabsFragment = MainTabsFragment()
-        searchFragment = SearchFragment()
 
         auth = Firebase.auth
         db = Firebase.firestore
@@ -60,12 +59,6 @@ class MainActivity : AppCompatActivity() {
         val ft = supportFragmentManager.beginTransaction()
         ft.replace(R.id.frameLayout, mainTabsFragment)
         ft.commit()
-
-        // Attach listeners
-        searchView.setOnSearchClickListener(onClickSearchListener)
-        searchView.setOnCloseListener(onClickCloseSearchListener)
-        searchView.setOnQueryTextListener(onQueryTextListener)
-
     }
 
     override fun onStart() {
@@ -114,23 +107,15 @@ class MainActivity : AppCompatActivity() {
             val avatarName = "ic_avatar_${userData.avatar}"
             val image = resources.getIdentifier(avatarName, "drawable", packageName)
             userAccountImageButton.setImageResource(image)
-
-            if (!isSearchActive) {
-                userAccountImageButton.visibility = View.VISIBLE
-                anonymousUserImageButton.visibility = View.INVISIBLE
-            }
         } else {
             // User Logged Out
             userIsLoggedIn = false
-
-            if (!isSearchActive) {
-                userAccountImageButton.visibility = View.INVISIBLE
-                anonymousUserImageButton.visibility = View.VISIBLE
-            }
         }
     }
     //endregion
 
+    /*
+    // SEARCH
     private val onClickSearchListener = View.OnClickListener {
         // Show SearchFragment
         val ft = supportFragmentManager.beginTransaction()
@@ -142,6 +127,14 @@ class MainActivity : AppCompatActivity() {
         // Hide header buttons
         anonymousUserImageButton.visibility = View.INVISIBLE
         userAccountImageButton.visibility = View.INVISIBLE
+
+        val searchViewPadding = resources.getDimensionPixelOffset(R.dimen.searchViewPadding)
+        val headerPadding = resources.getDimensionPixelOffset(R.dimen.headerPadding)
+        val params = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
+        params.setMargins(searchViewPadding, headerPadding, searchViewPadding, 0)
+        searchView.layoutParams = params
+        searchView.background = ContextCompat.getDrawable(this, R.drawable.edit_text_background)
+
     }
 
     private val onClickCloseSearchListener = SearchView.OnCloseListener {
@@ -158,6 +151,12 @@ class MainActivity : AppCompatActivity() {
             anonymousUserImageButton.visibility = View.VISIBLE
         }
 
+        val headerPadding = resources.getDimensionPixelOffset(R.dimen.headerPadding)
+        val params = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
+        params.setMargins(headerPadding, headerPadding, headerPadding, 0)
+        searchView.layoutParams = params
+        searchView.background = ContextCompat.getDrawable(this, android.R.color.transparent)
+
         false
     }
 
@@ -171,7 +170,6 @@ class MainActivity : AppCompatActivity() {
             }
             return false
         }
-
     }
-
+     */
 }

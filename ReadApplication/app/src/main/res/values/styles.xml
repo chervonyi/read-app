@@ -24,9 +24,4 @@
         <item name="android:tint">@color/colorIcons</item>
     </style>
 
-    <style name="SearchView" parent="Widget.AppCompat.Light.SearchView">
-        <item name="submitBackground">@color/colorBackground</item>
-        <item name="queryBackground">@color/colorBackground</item>
-    </style>
-
 </resources>

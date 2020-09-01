@@ -16,7 +16,8 @@
         app:layout_scrollFlags="scroll"
         app:theme="@style/ToolBarStyle"
         app:menu="@menu/change_avatar_menu"
-        app:popupTheme="@style/AppTheme"/>
+        app:popupTheme="@style/AppTheme"
+        android:background="@color/colorBackground"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -28,10 +29,12 @@
         android:paddingStart="@dimen/mainPadding"
         android:paddingEnd="@dimen/mainPadding">
 
-        <LinearLayout
+        <carbon.widget.LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
             android:paddingBottom="@dimen/mainPadding">
 
             <TextView
@@ -40,27 +43,30 @@
                 android:text="@string/change_avatar_title"
                 android:textSize="@dimen/headerFontSize"
                 android:textColor="@color/colorFontMain"
-                android:fontFamily="@font/cabin_semi_bold"/>
+                android:textStyle="bold"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/change_avatar_hint"
                 android:textSize="@dimen/hintFontSize"
                 android:textColor="@color/colorFontSub"
-                android:fontFamily="@font/cabin_semi_bold"/>
+                android:lineSpacingExtra="@dimen/textLineSpacing"/>
 
-            <LinearLayout
+            <carbon.widget.LinearLayout
                 android:id="@+id/avatarsLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/mainPadding"
                 android:orientation="vertical"
                 android:background="@drawable/content_panel"
-                android:padding="20dp"
+                android:padding="@dimen/avatarListDivider"
                 android:divider="@drawable/divider_avatars_list"
-                android:showDividers="middle">
+                android:showDividers="middle"
+                app:carbon_elevation="@dimen/elevation"
+                app:carbon_elevationShadowColor="@color/colorPanelShadowColor"
+                app:carbon_cornerRadius="@dimen/cornerRadius">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -262,9 +268,9 @@
 
                 </LinearLayout>
 
-            </LinearLayout>
+            </carbon.widget.LinearLayout>
 
-        </LinearLayout>
+        </carbon.widget.LinearLayout>
 
     </ScrollView>
 

@@ -23,16 +23,11 @@
        <RelativeLayout
            android:layout_width="match_parent"
            android:layout_height="?attr/actionBarSize"
-           android:paddingStart="@dimen/headerPadding"
-           android:paddingEnd="@dimen/headerPadding"
-           app:layout_scrollFlags="scroll|enterAlways">
-
-           <androidx.appcompat.widget.SearchView
-               android:id="@+id/searchView"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:queryBackground="@android:color/transparent"
-               style="@style/SearchView"/>
+           android:layout_marginTop="10dp"
+           app:layout_scrollFlags="scroll"
+           android:gravity="center_vertical|end"
+           android:layout_marginEnd="@dimen/mainPadding"
+           android:layout_marginStart="@dimen/mainPadding">
 
            <ImageButton
                android:id="@+id/anonymousUserImageButton"
@@ -40,8 +35,6 @@
                android:layout_height="@dimen/avatarSmallSize"
                android:background="@null"
                android:src="@drawable/ic_person"
-               android:layout_centerVertical="true"
-               android:layout_alignParentEnd="true"
                android:scaleType="fitCenter"
                android:padding="5dp"
                android:onClick="onClickAnonymousUser"
@@ -53,8 +46,6 @@
                android:layout_height="@dimen/avatarSmallSize"
                android:background="@drawable/user_small_avatar_skeleton"
                android:onClick="onClickUserAccount"
-               android:layout_centerVertical="true"
-               android:layout_alignParentEnd="true"
                android:scaleType="centerCrop"
                app:riv_corner_radius="@dimen/smallUserIconCorners"/>
 
