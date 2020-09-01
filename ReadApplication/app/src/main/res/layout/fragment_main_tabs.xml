@@ -7,16 +7,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/titleTypesTabLayout"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        app:tabTextAppearance="@style/CustomTabStyle"
-        app:tabIndicator="@drawable/selected_tab"
-        app:tabMode="auto"
-        app:tabIndicatorGravity="center"
-        style="@style/CustomTabLayoutStyle"/>
+        android:gravity="center"
+        android:paddingStart="@dimen/mainPadding"
+        android:paddingEnd="@dimen/mainPadding">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/titleTypesTabLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            app:tabTextAppearance="@style/CustomTabStyle"
+            app:tabIndicator="@drawable/selected_tab"
+            app:tabMode="scrollable"
+            app:tabIndicatorGravity="center"
+            style="@style/CustomTabLayoutStyle"/>
+    </RelativeLayout>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
