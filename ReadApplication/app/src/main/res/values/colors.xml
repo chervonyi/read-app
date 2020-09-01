@@ -26,7 +26,6 @@
 
     <!--    User Stats Panel   -->
     <color name="colorPanelBackground">#FFF</color>
-    <color name="colorPanelShadowColor">#CFCFCF</color>
     <color name="colorUserStatsDivider">#E0E0E0</color>
     <color name="colorFontUserStatsNumbers">#7E7E7E</color>
     <color name="colorFontUserStatsTitles">#C9C9C9</color>

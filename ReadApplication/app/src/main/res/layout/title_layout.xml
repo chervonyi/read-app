@@ -1,70 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<carbon.widget.LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp"
-    android:layout_margin="0dp">
+    android:padding="@dimen/mainPadding"
+    android:background="@drawable/content_panel">
 
-    <carbon.widget.LinearLayout
+    <TextView
+        android:id="@+id/titleHeaderTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@drawable/content_panel"
-        android:padding="20dp"
-        app:carbon_elevation="@dimen/elevation"
-        app:carbon_elevationShadowColor="@color/colorPanelShadowColor"
-        app:carbon_cornerRadius="@dimen/cornerRadius">
+        android:text="@string/tmp_title_panel_header"
+        android:textSize="@dimen/titlePanelHeaderFontSize"
+        android:textColor="@color/colorFontTitleHeader"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/titleAuthorAvatarImageView"
+            android:layout_width="@dimen/avatarTinySize"
+            android:layout_height="@dimen/avatarTinySize"
+            android:background="@drawable/anonymous_user"
+            android:onClick="onClickUserAccount"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_avatar_1"
+            app:riv_corner_radius="@dimen/tinyUserIconCorners"/>
 
         <TextView
-            android:id="@+id/titleHeaderTextView"
+            android:id="@+id/titleAuthorTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/tmp_title_panel_header"
-            android:textSize="@dimen/titlePanelHeaderFontSize"
+            android:layout_marginStart="10dp"
+            android:text="@string/tmp_title_panel_author"
+            android:textSize="@dimen/titlePanelAuthorFontSize"
             android:textColor="@color/colorFontTitleHeader"
             android:textStyle="bold"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:gravity="center">
+    </LinearLayout>
 
-            <com.makeramen.roundedimageview.RoundedImageView
-                android:id="@+id/titleAuthorAvatarImageView"
-                android:layout_width="@dimen/avatarTinySize"
-                android:layout_height="@dimen/avatarTinySize"
-                android:background="@drawable/anonymous_user"
-                android:onClick="onClickUserAccount"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_avatar_1"
-                app:riv_corner_radius="@dimen/tinyUserIconCorners"/>
+    <TextView
+        android:id="@+id/titleDescriptionTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/tmp_title_panel_body"
+        android:layout_marginTop="18dp"
+        android:textSize="@dimen/titlePanelAuthorFontSize"
+        android:textColor="@color/colorFontTitleBody"
+        android:lineSpacingExtra="@dimen/textLineSpacing"/>
 
-            <TextView
-                android:id="@+id/titleAuthorTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="@string/tmp_title_panel_author"
-                android:textSize="@dimen/titlePanelAuthorFontSize"
-                android:textColor="@color/colorFontTitleHeader"
-                android:textStyle="bold"/>
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/titleDescriptionTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/tmp_title_panel_body"
-            android:layout_marginTop="18dp"
-            android:textSize="@dimen/titlePanelAuthorFontSize"
-            android:textColor="@color/colorFontTitleBody"
-            android:lineSpacingExtra="@dimen/textLineSpacing"/>
-
-    </carbon.widget.LinearLayout>
-
-</carbon.widget.LinearLayout>
+</LinearLayout>

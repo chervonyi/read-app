@@ -32,7 +32,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="100dp"
-                android:layout_marginStart="5dp"
                 android:background="@drawable/skeleton_1"
                 android:textSize="@dimen/titleHeaderFontSize"
                 android:textStyle="bold"
@@ -42,7 +41,6 @@
                 android:id="@+id/titleHeaderTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
                 android:text="@string/tmp_title_panel_header"
                 android:textSize="@dimen/titleHeaderFontSize"
                 android:textColor="@color/colorFontTitleHeader"
@@ -52,7 +50,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginStart="5dp"
                 android:gravity="center_vertical">
 
                 <com.makeramen.roundedimageview.RoundedImageView
@@ -97,8 +94,6 @@
                 android:orientation="vertical"
                 android:divider="@drawable/skeleton_text_divider"
                 android:showDividers="middle"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
                 android:visibility="gone">
 
                 <View
@@ -118,8 +113,6 @@
                 android:id="@+id/titleDescriptionTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
                 android:text="@string/tmp_title_panel_body"
                 android:textSize="@dimen/titleDescriptionFontSize"
                 android:textColor="@color/colorFontTitleBody"
@@ -128,33 +121,25 @@
             <room106.app.read.views.MainButton
                 android:id="@+id/saveTitleButton"
                 android:layout_width="match_parent"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
                 android:layout_height="@dimen/buttonHeight"
                 android:text="@string/save"
                 android:onClick="onClickSaveFavoriteTitle"/>
 
             <include layout="@layout/skeleton_body"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"/>
+                android:layout_height="wrap_content"/>
 
             <room106.app.read.views.TitleBodyLinearLayout
                 android:id="@+id/titleBodyLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"/>
+                android:layout_marginBottom="20dp"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp">
+                android:gravity="center">
 
                 <room106.app.read.views.LikeButton
                     android:id="@+id/likeButton"

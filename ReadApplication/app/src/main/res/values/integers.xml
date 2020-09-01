@@ -34,7 +34,6 @@
     <dimen name="statsPanelHeight">80dp</dimen>
     <dimen name="tabHeight">40dp</dimen>
     <dimen name="tabIndicatorHeight">35dp</dimen>
-    <dimen name="elevation">5dp</dimen>
     <dimen name="statsPanelNumberFontSize">20sp</dimen>
     <dimen name="statsPanelTitleFontSize">15sp</dimen>
 
