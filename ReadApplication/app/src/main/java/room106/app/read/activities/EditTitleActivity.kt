@@ -16,6 +16,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
@@ -189,16 +190,18 @@ class EditTitleActivity : AppCompatActivity() {
 
     private fun updateExistingTitle() {
         if (titleID != null) {
-            val updates = mapOf(
-                "title" to titleEditText.text.toString(),
-                "description" to descriptionEditText.text.toString()
-            )
+            val title = titleEditText.text.toString()
+            val description = descriptionEditText.text.toString()
 
             val titleRef = db.collection("titles").document(titleID!!)
             val bodyRef = titleRef.collection("body").document("text")
 
             // Update title document
-            titleRef.update(updates).addOnSuccessListener(savingSuccessListener)
+            titleRef.update(mapOf(
+                "title" to title,
+                "description" to description,
+                "lastTimeUpdated" to Timestamp(Date())
+            )).addOnSuccessListener(savingSuccessListener)
 
             // Update body text in subcollection
             bodyRef.update("text", bodyEditText.text.toString())
@@ -212,6 +215,11 @@ class EditTitleActivity : AppCompatActivity() {
                 // Update this title data in "saved" collection
                 val savedTitlesRef = db.collection("saved")
                     .whereEqualTo("titleID", titleID)
+
+                val updates = mapOf(
+                    "title" to title,
+                    "description" to description
+                )
 
                 executeUpdateTitleData(likedTitlesRef, updates)
                 executeUpdateTitleData(savedTitlesRef, updates)
@@ -252,14 +260,26 @@ class EditTitleActivity : AppCompatActivity() {
             }
 
             // Change title status
-            // TODO - Update also publication time!
-            titleRef.update("status", "published")
+            val updates = mapOf(
+                "status" to "published",
+                "publicationTime" to Timestamp(Date())
+            )
+            titleRef.update(updates)
                 .addOnSuccessListener {
+                    incrementUserTitlesCount()
+
                     Toast.makeText(this, getString(R.string.published), Toast.LENGTH_SHORT).show()
                     isPublished = true
                     checkFields()
                 }
         }
+    }
+
+    private fun incrementUserTitlesCount() {
+        val currentUserID = auth.currentUser?.uid ?: return
+
+        db.collection("users").document(currentUserID)
+            .update("titlesCount", FieldValue.increment(1))
     }
 
     private val onClickBackListener = View.OnClickListener {
