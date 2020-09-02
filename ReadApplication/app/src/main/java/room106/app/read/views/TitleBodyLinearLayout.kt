@@ -52,7 +52,7 @@ class TitleBodyLinearLayout: LinearLayout {
         }
     }
 
-    fun setBodyText(body: String) {
+    fun setBodyText(body: String, isPublished: Boolean) {
         val regex = Pattern.compile("(?<!\\w\\.\\w.)(?<![A-Z][a-z]\\.)(?<=\\.|\\?|\\!)\\s+")
         val sentences = body.split(regex)
 
@@ -61,14 +61,19 @@ class TitleBodyLinearLayout: LinearLayout {
         for (sentence in sentences) {
             if (chapter.length >= chapterLength) {
                 appendChapter(chapter)
-                appendAdContainer()
+
+                if (isPublished) {
+                    appendAdContainer()
+                }
                 chapter = ""
             }
-
             chapter += sentence
         }
         appendChapter(chapter)
-        loadAds()
+
+        if (isPublished) {
+            loadAds()
+        }
     }
 
     private fun appendChapter(text: String) {

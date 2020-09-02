@@ -131,7 +131,8 @@ class TitleActivity : AppCompatActivity() {
             headerTextView.text = title.title
             authorTextView.text = title.authorName
             descriptionTextView.text = title.description
-            titleBodyLinearLayout.setBodyText(body)
+            titleBodyLinearLayout.setBodyText(body, title.status == "published")
+
 
             var timeToRead = body.length / CHARACTERS_PER_MINUTE
             if (timeToRead <= 0) {
@@ -147,6 +148,14 @@ class TitleActivity : AppCompatActivity() {
         }
     }
 
+
+    //endregion
+
+    //region ToolBar
+    private val onClickBackListener = View.OnClickListener {
+        finish()
+    }
+
     private fun showHideMenu(title: Title?) {
         val currentUserID = auth.currentUser?.uid ?: return
 
@@ -157,12 +166,6 @@ class TitleActivity : AppCompatActivity() {
             // Hide menu
             toolBar.inflateMenu(R.menu.empty_menu)
         }
-    }
-    //endregion
-
-    //region ToolBar
-    private val onClickBackListener = View.OnClickListener {
-        finish()
     }
 
     private val onClickMenuListener = Toolbar.OnMenuItemClickListener {
