@@ -43,14 +43,21 @@
                     android:inputType="textCapSentences|textMultiLine"
                     android:importantForAutofill="no"/>
 
-                <View
-                    android:id="@+id/titleSkeleton"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/skeletonRow2"
-                    android:layout_marginTop="12dp"
-                    android:layout_marginEnd="60dp"
-                    android:background="@drawable/skeleton_1"
-                    android:visibility="gone"/>
+               <RelativeLayout
+                   android:id="@+id/titleSkeleton"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:background="@drawable/edit_text_background"
+                   android:padding="18dp"
+                   android:visibility="gone">
+
+                   <View
+                       android:layout_width="match_parent"
+                       android:layout_height="@dimen/skeletonRow2"
+                       android:layout_marginEnd="60dp"
+                       android:background="@drawable/skeleton_1"/>
+
+               </RelativeLayout>
 
             </RelativeLayout>
 
@@ -79,11 +86,15 @@
                     android:id="@+id/descriptionSkeleton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
+                    android:paddingTop="18dp"
+                    android:paddingStart="18dp"
+                    android:paddingEnd="18dp"
+                    android:paddingBottom="50dp"
                     android:orientation="vertical"
                     android:divider="@drawable/skeleton_text_divider"
                     android:showDividers="middle"
-                    android:visibility="gone">
+                    android:visibility="gone"
+                    android:background="@drawable/edit_text_background">
 
                     <View
                         android:layout_width="match_parent"
@@ -120,10 +131,19 @@
                     android:inputType="textCapSentences|textMultiLine"
                     android:importantForAutofill="no"/>
 
+            <RelativeLayout
+                android:id="@+id/bodySkeleton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_text_background"
+                android:padding="18dp"
+                android:visibility="gone">
+
                 <include layout="@layout/skeleton_body"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"/>
+                    android:layout_height="wrap_content"/>
+            </RelativeLayout>
+
 
             </RelativeLayout>
 

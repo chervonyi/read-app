@@ -9,6 +9,7 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.google.android.gms.tasks.OnSuccessListener
@@ -39,6 +40,7 @@ class EditTitleActivity : AppCompatActivity() {
     private lateinit var titleSkeleton: View
     private lateinit var descriptionSkeleton: View
     private lateinit var bodySkeleton: View
+    private lateinit var bodySkeletonList: View
 
     // Firebase
     private lateinit var auth: FirebaseAuth
@@ -60,7 +62,8 @@ class EditTitleActivity : AppCompatActivity() {
         publishTitleButton =    findViewById(R.id.publishTitleButton)
         titleSkeleton =         findViewById(R.id.titleSkeleton)
         descriptionSkeleton =   findViewById(R.id.descriptionSkeleton)
-        bodySkeleton =          findViewById(R.id.titleBodySkeleton)
+        bodySkeleton =          findViewById(R.id.bodySkeleton)
+        bodySkeletonList =      findViewById(R.id.titleBodySkeleton)
 
         // Set "Done" button on keyboard
         titleEditText.imeOptions = EditorInfo.IME_ACTION_DONE
@@ -357,6 +360,7 @@ class EditTitleActivity : AppCompatActivity() {
         titleSkeleton.visibility =          skeletonVisibility
         descriptionSkeleton.visibility =    skeletonVisibility
         bodySkeleton.visibility =           skeletonVisibility
+        bodySkeletonList.visibility =       skeletonVisibility
 
         // Data panels
         titleEditText.visibility =          dataVisibility
