@@ -1,26 +1,24 @@
 package room106.app.read.activities
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.PopupMenu
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import com.google.android.material.appbar.AppBarLayout
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.makeramen.roundedimageview.RoundedImageView
@@ -161,8 +159,54 @@ class TitleActivity : AppCompatActivity() {
                 true
             }
 
+            R.id.titleMenuDelete -> {
+                showOfferToDeleteTitleDialog()
+                true
+            }
+
             else -> false
         }
+    }
+
+    private fun deleteTitle() {
+        if (title != null && titleID != null && !skeletonIsShow) {
+
+            db.collection("titles").document(titleID!!)
+                .update("status", "deleted")
+                .addOnSuccessListener {
+                    val likedTitlesRef = db.collection("liked")
+                        .whereEqualTo("titleID", titleID)
+
+                    val savedTitlesRef = db.collection("saved")
+                        .whereEqualTo("titleID", titleID)
+
+                    executeDeletionQuery(likedTitlesRef)
+                    executeDeletionQuery(savedTitlesRef)
+
+                    Toast.makeText(this, getString(R.string.successfully_deleted), Toast.LENGTH_LONG).show()
+                    finish()
+                }
+        }
+    }
+
+    private fun executeDeletionQuery(query: Query) {
+        query.get().addOnSuccessListener {documents ->
+            documents.forEach { document ->
+                document.reference.delete()
+            }
+        }
+    }
+
+    private fun showOfferToDeleteTitleDialog() {
+        val dialogClickListener = DialogInterface.OnClickListener { _, i ->
+            if (i ==  DialogInterface.BUTTON_POSITIVE) {
+                deleteTitle()
+            }
+        }
+
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setMessage("Are you sure you want to delete this title?").setPositiveButton("Delete", dialogClickListener)
+            .setNegativeButton("Cancel", dialogClickListener).show()
     }
 
     private fun onClickEditTitle() {
