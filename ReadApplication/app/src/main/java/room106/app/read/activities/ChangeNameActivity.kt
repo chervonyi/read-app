@@ -95,6 +95,7 @@ class ChangeNameActivity : AppCompatActivity() {
             executedQueriesNum += 1
             if (executedQueriesNum == 3) {
                 Toast.makeText(this, R.string.saved, Toast.LENGTH_LONG).show()
+                finish()
             }
         }
     }

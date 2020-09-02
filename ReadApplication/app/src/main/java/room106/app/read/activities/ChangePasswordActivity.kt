@@ -67,8 +67,10 @@ class ChangePasswordActivity : AppCompatActivity() {
                 currentUser.updatePassword(newPassword)
                     .addOnSuccessListener {
                         Toast.makeText(this, getString(R.string.password_updated), Toast.LENGTH_LONG).show()
+                        finish()
                     }
             }
+            // TODO - add Failed listener
         }
     }
 

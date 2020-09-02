@@ -54,7 +54,7 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:background="@drawable/skeleton_1"
                 android:textStyle="bold"
                 android:visibility="gone"/>
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="@string/user_name"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:textColor="@color/colorFontMain"
                 android:textStyle="bold"/>
 
