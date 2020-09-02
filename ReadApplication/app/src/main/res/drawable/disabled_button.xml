@@ -9,6 +9,13 @@
         </shape>
     </item>
 
+    <item android:state_enabled="false">
+        <shape>
+            <solid android:color="@color/colorButtonDisabled"/>
+            <corners android:radius="@dimen/cornerRadius"/>
+        </shape>
+    </item>
+
     <item android:state_pressed="true">
         <shape>
             <solid android:color="@color/colorButtonPressed"/>

@@ -34,10 +34,10 @@
     <color name="colorSimpleButtonPressed">#E9EDEF</color>
     <color name="colorSimpleButtonText">#979CA7</color>
     <color name="colorButton">#53C696</color>
-    <color name="colorButtonPressed">#4FC594</color>
-    <color name="colorButtonDisabled">#80E4BA</color>
+    <color name="colorButtonPressed">#46AE83</color>
+    <color name="colorButtonDisabled">#9EDDC3</color>
     <color name="colorLikeButton">#EB4E4E</color>
-    <color name="colorLikeButtonPressed">#DA4242</color>
+    <color name="colorLikeButtonPressed">#CC4343</color>
 
     <color name="colorPrimary">#53C696</color>
     <color name="colorPrimaryDisable">#7AC8A8</color>

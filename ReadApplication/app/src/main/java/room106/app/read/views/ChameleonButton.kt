@@ -7,7 +7,7 @@ import android.util.TypedValue
 import androidx.core.content.ContextCompat
 import room106.app.read.R
 
-class MainButton: androidx.appcompat.widget.AppCompatButton {
+class ChameleonButton: androidx.appcompat.widget.AppCompatButton {
     constructor(context: Context) : super(context) {
         initView(context)
     }
@@ -24,7 +24,7 @@ class MainButton: androidx.appcompat.widget.AppCompatButton {
 
     private fun initView(context: Context?) {
         if (context != null) {
-            background = ContextCompat.getDrawable(context, R.drawable.disabled_button)
+            background = ContextCompat.getDrawable(context, R.drawable.main_button)
             setTextColor(ContextCompat.getColor(context, R.color.colorFontMainButton))
             setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.buttonFontSize))
             isAllCaps = false
@@ -34,4 +34,24 @@ class MainButton: androidx.appcompat.widget.AppCompatButton {
             includeFontPadding = false
         }
     }
+
+    private var _isAccentButtonColor = false
+    var isAccentButtonColor: Boolean
+        get() {
+            return _isAccentButtonColor
+        }
+
+        set(newValue) {
+            _isAccentButtonColor = newValue
+
+            background = ContextCompat.getDrawable(context, R.drawable.main_button)
+
+            if (newValue) {
+                background = ContextCompat.getDrawable(context, R.drawable.main_button)
+                setTextColor(ContextCompat.getColor(context, R.color.colorFontMainButton))
+            } else {
+                background = ContextCompat.getDrawable(context, R.drawable.simple_button)
+                setTextColor(ContextCompat.getColor(context, R.color.colorFontTitleHeader))
+            }
+        }
 }

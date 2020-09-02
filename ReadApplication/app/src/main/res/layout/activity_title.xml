@@ -118,7 +118,7 @@
                 android:textColor="@color/colorFontTitleBody"
                 android:lineSpacingExtra="@dimen/textLineSpacing"/>
 
-            <room106.app.read.views.MainButton
+            <room106.app.read.views.ChameleonButton
                 android:id="@+id/saveTitleButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/buttonHeight"

@@ -3,7 +3,6 @@ package room106.app.read.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
@@ -21,9 +20,8 @@ import room106.app.read.R
 import room106.app.read.adapters.Title4TypesFragmentPageAdapter
 import room106.app.read.fragments.CurrentUserFragment
 import room106.app.read.fragments.TitlesListTabFragment
-import room106.app.read.models.Title
 import room106.app.read.models.User
-import room106.app.read.views.MainButton
+import room106.app.read.views.ChameleonButton
 import room106.app.read.views.UserStatsPanelView
 
 class UserActivity : AppCompatActivity() {
@@ -37,7 +35,7 @@ class UserActivity : AppCompatActivity() {
     private lateinit var userStatsPanel: UserStatsPanelView
     private lateinit var userTitlesFrameLayout: FrameLayout
     private lateinit var createNewTitleButton: Button
-    private lateinit var followButton: MainButton
+    private lateinit var followButton: ChameleonButton
 
     // Firebase
     private lateinit var auth: FirebaseAuth
@@ -290,12 +288,12 @@ class UserActivity : AppCompatActivity() {
         set(newValue) {
             _followingDocID = newValue
 
-            if (newValue != null) {
-                followButton.isFunctionActive = false
-                followButton.text = getString(R.string.you_following)
-            } else {
-                followButton.isFunctionActive = true
+            if (newValue == null) {
+                followButton.isAccentButtonColor = true
                 followButton.text = getString(R.string.follow)
+            } else {
+                followButton.isAccentButtonColor = false
+                followButton.text = getString(R.string.you_following)
             }
         }
 

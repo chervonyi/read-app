@@ -84,7 +84,7 @@
                 android:text="@string/create_new_title_button"
                 android:onClick="onClickCreateNewTitle"/>
 
-            <room106.app.read.views.MainButton
+            <room106.app.read.views.ChameleonButton
                 android:id="@+id/followButton"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/buttonHeight"

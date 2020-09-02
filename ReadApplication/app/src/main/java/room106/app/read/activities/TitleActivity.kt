@@ -25,7 +25,7 @@ import com.makeramen.roundedimageview.RoundedImageView
 import room106.app.read.R
 import room106.app.read.models.Title
 import room106.app.read.views.LikeButton
-import room106.app.read.views.MainButton
+import room106.app.read.views.ChameleonButton
 import room106.app.read.views.TitleBodyLinearLayout
 import room106.app.read.views.TitleStatsPanelView
 
@@ -42,7 +42,7 @@ class TitleActivity : AppCompatActivity() {
     private lateinit var descriptionTextView: TextView
     private lateinit var titleBodyLinearLayout: TitleBodyLinearLayout
     private lateinit var likeButton: LikeButton
-    private lateinit var saveTitleButton: MainButton
+    private lateinit var saveTitleButton: ChameleonButton
     private lateinit var titleStatsPanel: TitleStatsPanelView
 
     private lateinit var titleHeaderSkeleton: View
@@ -147,8 +147,6 @@ class TitleActivity : AppCompatActivity() {
             skeletonIsShow = false
         }
     }
-
-
     //endregion
 
     //region ToolBar
@@ -378,12 +376,12 @@ class TitleActivity : AppCompatActivity() {
         set(newValue) {
             _saveDocID = newValue
 
-            if (newValue != null) {
-                saveTitleButton.isFunctionActive = false
-                saveTitleButton.text = getString(R.string.you_saved_it)
-            } else {
-                saveTitleButton.isFunctionActive = true
+            if (newValue == null) {
                 saveTitleButton.text = getString(R.string.save)
+                saveTitleButton.isAccentButtonColor = true
+            } else {
+                saveTitleButton.text = getString(R.string.you_saved_it)
+                saveTitleButton.isAccentButtonColor = false
             }
         }
 
