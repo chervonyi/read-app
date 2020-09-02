@@ -21,6 +21,7 @@ import room106.app.read.R
 import room106.app.read.adapters.Title4TypesFragmentPageAdapter
 import room106.app.read.fragments.CurrentUserFragment
 import room106.app.read.fragments.TitlesListTabFragment
+import room106.app.read.models.Title
 import room106.app.read.models.User
 import room106.app.read.views.MainButton
 import room106.app.read.views.UserStatsPanelView
@@ -85,6 +86,7 @@ class UserActivity : AppCompatActivity() {
 
         if (auth.currentUser != null && (userID == null || userID == auth.currentUser?.uid)) {
             // Load current user data
+            setMenuVisibility(true)
             readUserData(auth.currentUser!!.uid)
 
             createNewTitleButton.visibility = View.VISIBLE
@@ -95,6 +97,7 @@ class UserActivity : AppCompatActivity() {
             ft.commit()
         } else if (userID != null) {
             // Load other user data
+            setMenuVisibility(false)
             readUserData(userID!!)
 
             createNewTitleButton.visibility = View.GONE
@@ -149,6 +152,16 @@ class UserActivity : AppCompatActivity() {
         userStatsPanel.attachData(userData.titlesCount, userData.followersCount, userData.likesCount)
 
         skeletonIsVisible = false
+    }
+
+    private fun setMenuVisibility(isVisible: Boolean) {
+        if (isVisible) {
+            // Show menu
+            toolBar.inflateMenu(R.menu.current_user_menu)
+        } else {
+            // Hide menu
+            toolBar.inflateMenu(R.menu.empty_menu)
+        }
     }
     //endregion
 

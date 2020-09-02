@@ -177,7 +177,6 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:navigationIcon="?attr/homeAsUpIndicator"
-            app:menu="@menu/title_current_user_author_menu"
             app:layout_scrollFlags="scroll|enterAlways"
             app:theme="@style/ToolBarStyle"
             app:popupTheme="@style/AppTheme"

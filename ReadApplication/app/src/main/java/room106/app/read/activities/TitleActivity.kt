@@ -113,6 +113,7 @@ class TitleActivity : AppCompatActivity() {
                document.reference.collection("body").document("text")
                    .get().addOnSuccessListener { bodyDocument ->
                        val body = bodyDocument.get("text").toString()
+                       showHideMenu(title)
                        updateTitleUI(title, body)
                    }
            }
@@ -143,6 +144,18 @@ class TitleActivity : AppCompatActivity() {
 
             titleStatsPanel.attachData(title.readsCount, title.likesCount, timeToRead)
             skeletonIsShow = false
+        }
+    }
+
+    private fun showHideMenu(title: Title?) {
+        val currentUserID = auth.currentUser?.uid ?: return
+
+        if (currentUserID == title?.authorID) {
+            // Show menu
+            toolBar.inflateMenu(R.menu.title_current_user_author_menu)
+        } else {
+            // Hide menu
+            toolBar.inflateMenu(R.menu.empty_menu)
         }
     }
     //endregion
