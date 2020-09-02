@@ -131,37 +131,20 @@
                     android:inputType="textCapSentences|textMultiLine"
                     android:importantForAutofill="no"/>
 
-            <RelativeLayout
-                android:id="@+id/bodySkeleton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_background"
-                android:padding="18dp"
-                android:visibility="gone">
-
-                <include layout="@layout/skeleton_body"
+                <RelativeLayout
+                    android:id="@+id/bodySkeleton"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/edit_text_background"
+                    android:padding="18dp"
+                    android:visibility="gone">
+    
+                    <include layout="@layout/skeleton_body"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
             </RelativeLayout>
-
-
-            </RelativeLayout>
-
-            <room106.app.read.views.MainButton
-                android:id="@+id/saveTitleButton"
-                android:layout_width="match_parent"
-                android:layout_marginTop="20dp"
-                android:layout_height="@dimen/buttonHeight"
-                android:text="@string/save"
-                android:onClick="onClickSave"/>
-
-            <room106.app.read.views.PublishButton
-                android:id="@+id/publishTitleButton"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/buttonHeight"
-                android:layout_marginTop="14dp"
-                android:text="@string/publish"
-                android:onClick="onClickPublish"/>
 
         </LinearLayout>
 
@@ -180,6 +163,7 @@
             app:navigationIcon="?attr/homeAsUpIndicator"
             app:layout_scrollFlags="scroll|enterAlways"
             app:theme="@style/ToolBarStyle"
+            app:menu="@menu/edit_title_menu"
             app:popupTheme="@style/AppTheme"
             android:background="@color/colorBackground"/>
 

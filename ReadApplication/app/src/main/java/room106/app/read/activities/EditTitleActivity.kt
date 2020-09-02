@@ -1,16 +1,19 @@
 package room106.app.read.activities
 
+import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RelativeLayout
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.Timestamp
@@ -25,6 +28,7 @@ import com.google.firebase.ktx.Firebase
 import room106.app.read.R
 import room106.app.read.models.Title
 import room106.app.read.models.User
+import room106.app.read.views.MainButton
 import java.util.*
 
 class EditTitleActivity : AppCompatActivity() {
@@ -34,8 +38,6 @@ class EditTitleActivity : AppCompatActivity() {
     private lateinit var titleEditText: EditText
     private lateinit var descriptionEditText: EditText
     private lateinit var bodyEditText: EditText
-    private lateinit var saveTitleButton: Button
-    private lateinit var publishTitleButton: Button
 
     private lateinit var titleSkeleton: View
     private lateinit var descriptionSkeleton: View
@@ -48,6 +50,7 @@ class EditTitleActivity : AppCompatActivity() {
 
     private var titleID: String? = null
     private var isPublished = false
+    private var isSaved = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,8 +61,6 @@ class EditTitleActivity : AppCompatActivity() {
         titleEditText =         findViewById(R.id.titleEditText)
         descriptionEditText =   findViewById(R.id.descriptionEditText)
         bodyEditText =          findViewById(R.id.bodyEditText)
-        saveTitleButton =       findViewById(R.id.saveTitleButton)
-        publishTitleButton =    findViewById(R.id.publishTitleButton)
         titleSkeleton =         findViewById(R.id.titleSkeleton)
         descriptionSkeleton =   findViewById(R.id.descriptionSkeleton)
         bodySkeleton =          findViewById(R.id.bodySkeleton)
@@ -76,6 +77,7 @@ class EditTitleActivity : AppCompatActivity() {
         descriptionEditText.addTextChangedListener(titleDataWatcher)
         bodyEditText.addTextChangedListener(titleDataWatcher)
         toolBar.setNavigationOnClickListener(onClickBackListener)
+        toolBar.setOnMenuItemClickListener(onClickMenuListener)
 
         // Firebase
         auth = Firebase.auth
@@ -92,14 +94,11 @@ class EditTitleActivity : AppCompatActivity() {
         if (titleID != null) {
             // User editing an existing title
             loadTitleData()
-            saveTitleButton.text = getString(R.string.save)
         } else {
             // User's going to create a new title
-            saveTitleButton.text = getString(R.string.save_draft)
             skeletonIsShow = false
+            checkFields()
         }
-
-        checkFields()
     }
 
     //region Load Title Data
@@ -132,12 +131,14 @@ class EditTitleActivity : AppCompatActivity() {
             bodyEditText.setText("")
         }
 
+        isSaved = true
         skeletonIsShow = false
+        checkFields()
     }
     //endregion
 
-    //region Click Listeners
-    fun onClickSave(v: View) {
+    //region Save Click Listener
+    private fun onClickSave() {
         if (skeletonIsShow) { return }
 
         val currentUser = auth.currentUser ?: return
@@ -147,10 +148,11 @@ class EditTitleActivity : AppCompatActivity() {
             saveNewTitle(currentUser)
         } else {
             // Edit an existing document in "titles" collection
-            updateExistingTitle()
+            updateExistingTitle(true)
         }
     }
 
+    // Saving #1 Case
     private fun saveNewTitle(currentUser: FirebaseUser) {
         val title = titleEditText.text.toString()
         val description = descriptionEditText.text.toString()
@@ -181,9 +183,10 @@ class EditTitleActivity : AppCompatActivity() {
                             titleDocument.collection("body").document("text")
                                 .set(bodyObject).addOnSuccessListener {
                                     titleID = titleDocument.id
-                                    saveTitleButton.text = getString(R.string.saved)
+                                    isSaved = true
                                     isPublished = false
                                     checkFields()
+                                    showToast(getString(R.string.saved))
                                 }
                         }
 
@@ -191,7 +194,8 @@ class EditTitleActivity : AppCompatActivity() {
             }
     }
 
-    private fun updateExistingTitle() {
+    // Saving #2 Case
+    private fun updateExistingTitle(showToast: Boolean) {
         if (titleID != null) {
             val title = titleEditText.text.toString()
             val description = descriptionEditText.text.toString()
@@ -204,29 +208,39 @@ class EditTitleActivity : AppCompatActivity() {
                 "title" to title,
                 "description" to description,
                 "lastTimeUpdated" to Timestamp(Date())
-            )).addOnSuccessListener(savingSuccessListener)
+            )).addOnSuccessListener {
 
-            // Update body text in subcollection
-            bodyRef.update("text", bodyEditText.text.toString())
-                .addOnSuccessListener(savingSuccessListener)
+                // Update body text in subcollection
+                bodyRef.update("text", bodyEditText.text.toString())
+                    .addOnSuccessListener {
+                        isSaved = true
+                        checkFields()
 
-            if (isPublished) {
-                // Update this title data in "liked" collection
-                val likedTitlesRef = db.collection("liked")
-                    .whereEqualTo("titleID", titleID)
+                        if (showToast) {
+                            showToast(getString(R.string.saved))
+                        }
 
-                // Update this title data in "saved" collection
-                val savedTitlesRef = db.collection("saved")
-                    .whereEqualTo("titleID", titleID)
+                        if (isPublished) {
+                            // Update this title data in "liked" collection
+                            val likedTitlesRef = db.collection("liked")
+                                .whereEqualTo("titleID", titleID)
 
-                val updates = mapOf(
-                    "title" to title,
-                    "description" to description
-                )
+                            // Update this title data in "saved" collection
+                            val savedTitlesRef = db.collection("saved")
+                                .whereEqualTo("titleID", titleID)
 
-                executeUpdateTitleData(likedTitlesRef, updates)
-                executeUpdateTitleData(savedTitlesRef, updates)
+                            val updates = mapOf(
+                                "title" to title,
+                                "description" to description
+                            )
+
+                            executeUpdateTitleData(likedTitlesRef, updates)
+                            executeUpdateTitleData(savedTitlesRef, updates)
+                    }
+                }
             }
+
+
         }
     }
 
@@ -238,44 +252,55 @@ class EditTitleActivity : AppCompatActivity() {
         }
     }
 
-    private var savingParts = 0
-    private val savingSuccessListener = OnSuccessListener<Void> {
-        savingParts += 1
+    private fun showToast(text: String) {
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show()
+    }
+    //endregion
 
-        if (savingParts == 2) {
-            savingParts = 0
-            saveTitleButton.text = getString(R.string.saved)
+    //region Publish Click Listener
+    private fun onClickPublish() {
+        if (titleID != null && !skeletonIsShow) {
+            showOfferToPublishTitleDialog()
         }
     }
 
-    fun onClickPublish(v: View) {
-        if (titleID != null && !skeletonIsShow) {
-            updateExistingTitle()
+    private fun publishTitle() {
+        updateExistingTitle(false)
 
-            val titleRef = db.collection("titles").document(titleID!!)
+        val titleRef = db.collection("titles").document(titleID!!)
 
-            // Make search flags
-            val title = titleEditText.text.toString().toLowerCase(Locale.getDefault())
-            val words = title.split(" ")
+        // Make search flags
+        val title = titleEditText.text.toString().toLowerCase(Locale.getDefault())
+        val words = title.split(" ")
 
-            if (words.isNotEmpty()) {
-                titleRef.update("flags", words)
-            }
-
-            // Change title status
-            val updates = mapOf(
-                "status" to "published",
-                "publicationTime" to Timestamp(Date())
-            )
-            titleRef.update(updates)
-                .addOnSuccessListener {
-                    incrementUserTitlesCount()
-
-                    Toast.makeText(this, getString(R.string.published), Toast.LENGTH_SHORT).show()
-                    isPublished = true
-                    checkFields()
-                }
+        if (words.isNotEmpty()) {
+            titleRef.update("flags", words)
         }
+
+        // Change title status
+        val updates = mapOf(
+            "status" to "published",
+            "publicationTime" to Timestamp(Date())
+        )
+        titleRef.update(updates)
+            .addOnSuccessListener {
+                incrementUserTitlesCount()
+
+                showToast(getString(R.string.published))
+                finish()
+            }
+    }
+
+    private fun showOfferToPublishTitleDialog() {
+        val dialogClickListener = DialogInterface.OnClickListener { _, i ->
+            if (i ==  DialogInterface.BUTTON_POSITIVE) {
+                publishTitle()
+            }
+        }
+
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setMessage("Publish this title?").setPositiveButton("Publish", dialogClickListener)
+            .setNegativeButton("Cancel", dialogClickListener).show()
     }
 
     private fun incrementUserTitlesCount() {
@@ -284,9 +309,45 @@ class EditTitleActivity : AppCompatActivity() {
         db.collection("users").document(currentUserID)
             .update("titlesCount", FieldValue.increment(1))
     }
+    //endregion
+
+    //region Other Listeners
+    private val onClickMenuListener = Toolbar.OnMenuItemClickListener {
+        when (it.itemId) {
+            R.id.menuSaveItem -> {
+                onClickSave()
+                true
+            }
+
+            R.id.menuPublishItem -> {
+                onClickPublish()
+                true
+            }
+            else -> false
+        }
+    }
 
     private val onClickBackListener = View.OnClickListener {
-        finish()
+        if (!isSaved && isValidForSave()) {
+            showOfferToSaveTitleDialog()
+        } else {
+            finish()
+        }
+    }
+
+    private fun showOfferToSaveTitleDialog() {
+        val dialogClickListener = DialogInterface.OnClickListener { _, i ->
+            if (i ==  DialogInterface.BUTTON_POSITIVE) {
+                // Save title
+                onClickSave()
+            } else if (i == DialogInterface.BUTTON_NEGATIVE) {
+                finish()
+            }
+        }
+
+        val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+        builder.setMessage("Save changes?").setPositiveButton("Yes", dialogClickListener)
+            .setNegativeButton("No", dialogClickListener).show()
     }
     //endregion
 
@@ -296,6 +357,7 @@ class EditTitleActivity : AppCompatActivity() {
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
 
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            isSaved = false
             checkFields()
         }
     }
@@ -326,21 +388,20 @@ class EditTitleActivity : AppCompatActivity() {
                 resources.getInteger(R.integer.titleBodyMaxLength)
     }
 
-    private fun checkFields() {
+    private fun isValidForSave(): Boolean {
         val minLengthToSave = 10
-
-        saveTitleButton.isEnabled = titleEditText.text.length > minLengthToSave ||
+        return (titleEditText.text.length > minLengthToSave ||
                 descriptionEditText.text.length > minLengthToSave ||
-                bodyEditText.text.length > minLengthToSave
+                bodyEditText.text.length > minLengthToSave)
+    }
 
-        publishTitleButton.visibility = if (isValidForPublish()) {
-            View.VISIBLE
-        } else {
-            View.GONE
-        }
+    private fun checkFields() {
+        toolBar.menu.findItem(R.id.menuSaveItem).isVisible = !isSaved && isValidForSave()
+        toolBar.menu.findItem(R.id.menuPublishItem).isVisible = isValidForPublish()
     }
     //endregion
 
+    //region Skeleton
     private var _skeletonIsShown = false
     var skeletonIsShow: Boolean
         get() = _skeletonIsShown
@@ -367,4 +428,5 @@ class EditTitleActivity : AppCompatActivity() {
         descriptionEditText.visibility =    dataVisibility
         bodyEditText.visibility =           dataVisibility
     }
+    //endregion
 }
