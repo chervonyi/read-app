@@ -58,6 +58,7 @@ class TitleActivity : AppCompatActivity() {
     private var title: Title? = null
 
     private val CHARACTERS_PER_MINUTE = 300
+    private var menuIsSet = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,6 +93,10 @@ class TitleActivity : AppCompatActivity() {
 
         db = Firebase.firestore
         auth = Firebase.auth
+    }
+
+    override fun onStart() {
+        super.onStart()
 
         loadTitle()
         checkIfLiked()
@@ -162,12 +167,15 @@ class TitleActivity : AppCompatActivity() {
     }
 
     private fun showHideMenu(title: Title?) {
+        if (menuIsSet) { return }
         val currentUserID = auth.currentUser?.uid ?: return
 
         if (currentUserID == title?.authorID) {
             // Show menu
             toolBar.inflateMenu(R.menu.title_current_user_author_menu)
         }
+
+        menuIsSet = true
     }
 
     private val onClickMenuListener = Toolbar.OnMenuItemClickListener {
