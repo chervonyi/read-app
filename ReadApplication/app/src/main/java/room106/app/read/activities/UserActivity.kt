@@ -43,6 +43,8 @@ class UserActivity : AppCompatActivity() {
 
     private var userData: User? = null
     private var userID: String? = null
+
+    private var menuIsSet = false
     //endregion
 
     //region Start Activity
@@ -153,13 +155,14 @@ class UserActivity : AppCompatActivity() {
     }
 
     private fun setMenuVisibility(isVisible: Boolean) {
+        if (menuIsSet) { return }
+
         if (isVisible) {
             // Show menu
             toolBar.inflateMenu(R.menu.current_user_menu)
-        } else {
-            // Hide menu
-            toolBar.inflateMenu(R.menu.empty_menu)
         }
+
+        menuIsSet = true
     }
     //endregion
 

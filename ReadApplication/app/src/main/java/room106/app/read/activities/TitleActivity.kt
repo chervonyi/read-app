@@ -93,7 +93,6 @@ class TitleActivity : AppCompatActivity() {
         db = Firebase.firestore
         auth = Firebase.auth
 
-        // onStart???
         loadTitle()
         checkIfLiked()
         checkIfSaved()
@@ -160,9 +159,6 @@ class TitleActivity : AppCompatActivity() {
         if (currentUserID == title?.authorID) {
             // Show menu
             toolBar.inflateMenu(R.menu.title_current_user_author_menu)
-        } else {
-            // Hide menu
-            toolBar.inflateMenu(R.menu.empty_menu)
         }
     }
 
