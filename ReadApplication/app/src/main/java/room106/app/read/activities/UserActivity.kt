@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -137,7 +138,8 @@ class UserActivity : AppCompatActivity() {
             }
 
             .addOnFailureListener {
-                // TODO - Implement
+                showErrorToast()
+                finish()
             }
     }
 
@@ -262,6 +264,9 @@ class UserActivity : AppCompatActivity() {
                         db.collection("users").document(userID!!)
                             .update("followersCount", FieldValue.increment(-1))
                     }
+                    .addOnFailureListener {
+                        showErrorToast()
+                    }
 
             } else if (userID != currentUserID) {
                 // Follow user
@@ -277,6 +282,9 @@ class UserActivity : AppCompatActivity() {
                         // Increment followersCount
                         db.collection("users").document(userID!!)
                             .update("followersCount", FieldValue.increment(1))
+                    }
+                    .addOnFailureListener {
+                        showErrorToast()
                     }
             }
         }
@@ -336,4 +344,8 @@ class UserActivity : AppCompatActivity() {
                 userNameSkeleton.visibility = View.GONE
             }
         }
+
+    private fun showErrorToast() {
+        Toast.makeText(this, getString(R.string.loading_error), Toast.LENGTH_LONG).show()
+    }
 }

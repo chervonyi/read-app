@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -123,24 +124,29 @@ class ChangeAvatarActivity : AppCompatActivity() {
             // Update user document
             val userRef = db.collection("users").document(currentUser.uid)
             userRef.update("avatar", selectedAvatar)
+                .addOnSuccessListener {
 
-            // Update all titles written by this use
-            val userTitlesRef = db.collection("titles")
-                .whereEqualTo("authorID", currentUser.uid)
-                .orderBy("publicationTime", Query.Direction.DESCENDING)
+                    // Update all titles written by this use
+                    val userTitlesRef = db.collection("titles")
+                        .whereEqualTo("authorID", currentUser.uid)
+                        .orderBy("publicationTime", Query.Direction.DESCENDING)
 
-            // Update all titles written by this user that have been liked by someone
-            val likedTitlesRef = db.collection("liked")
-                .whereEqualTo("authorID", currentUser.uid)
+                    // Update all titles written by this user that have been liked by someone
+                    val likedTitlesRef = db.collection("liked")
+                        .whereEqualTo("authorID", currentUser.uid)
 
-            // Update all titles written by this user that have been saved by someone
-            val savedTitlesRef = db.collection("saved")
-                .whereEqualTo("authorID", currentUser.uid)
+                    // Update all titles written by this user that have been saved by someone
+                    val savedTitlesRef = db.collection("saved")
+                        .whereEqualTo("authorID", currentUser.uid)
 
-            // Execute queries
-            executeUpdateAvatarQuery(userTitlesRef, selectedAvatar)
-            executeUpdateAvatarQuery(likedTitlesRef, selectedAvatar)
-            executeUpdateAvatarQuery(savedTitlesRef, selectedAvatar)
+                    // Execute queries
+                    executeUpdateAvatarQuery(userTitlesRef, selectedAvatar)
+                    executeUpdateAvatarQuery(likedTitlesRef, selectedAvatar)
+                    executeUpdateAvatarQuery(savedTitlesRef, selectedAvatar)
+                }
+                .addOnFailureListener {
+                    showToast(getString(R.string.loading_error))
+                }
         }
     }
 
@@ -174,4 +180,8 @@ class ChangeAvatarActivity : AppCompatActivity() {
         finish()
     }
     //endregion
+
+    private fun showToast(text: String) {
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show()
+    }
 }

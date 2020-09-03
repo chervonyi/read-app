@@ -13,7 +13,8 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.FirebaseNetworkException
+import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import room106.app.read.R
@@ -76,7 +77,13 @@ class LoginActivity : AppCompatActivity() {
                     finish()
                 }
                 .addOnFailureListener {
-                    Toast.makeText(this, getString(R.string.incorrect_login), Toast.LENGTH_LONG).show()
+                    if (it is FirebaseAuthException ||
+                            it is FirebaseAuthEmailException ||
+                            it is FirebaseAuthInvalidCredentialsException) {
+                        showToast(getString(R.string.incorrect_login))
+                    } else {
+                        showToast(getString(R.string.loading_error))
+                    }
                 }
         }
     }
@@ -152,4 +159,8 @@ class LoginActivity : AppCompatActivity() {
         return password.length in 5..20
     }
     //endregion
+
+    private fun showToast(text: String) {
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show()
+    }
 }

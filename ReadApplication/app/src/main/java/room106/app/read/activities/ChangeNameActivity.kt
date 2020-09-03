@@ -64,24 +64,29 @@ class ChangeNameActivity : AppCompatActivity() {
             // Update user document
             val userRef = db.collection("users").document(currentUserID)
             userRef.update("name", typedName)
+                .addOnSuccessListener {
 
-            // Update all titles written by this user
-            val userTitlesRef = db.collection("titles")
-                .whereEqualTo("authorID", currentUserID)
-                .orderBy("publicationTime", Query.Direction.DESCENDING)
+                    // Update all titles written by this user
+                    val userTitlesRef = db.collection("titles")
+                        .whereEqualTo("authorID", currentUserID)
+                        .orderBy("publicationTime", Query.Direction.DESCENDING)
 
-            // Update all titles written by this user that have been liked by someone
-            val likedTitlesRef = db.collection("liked")
-                .whereEqualTo("authorID", currentUserID)
+                    // Update all titles written by this user that have been liked by someone
+                    val likedTitlesRef = db.collection("liked")
+                        .whereEqualTo("authorID", currentUserID)
 
 
-            // Update all titles written by this user that have been saved by someone
-            val savedTitlesRef = db.collection("saved")
-                .whereEqualTo("authorID", currentUserID)
+                    // Update all titles written by this user that have been saved by someone
+                    val savedTitlesRef = db.collection("saved")
+                        .whereEqualTo("authorID", currentUserID)
 
-            executeUpdateNameQuery(userTitlesRef, typedName)
-            executeUpdateNameQuery(likedTitlesRef, typedName)
-            executeUpdateNameQuery(savedTitlesRef, typedName)
+                    executeUpdateNameQuery(userTitlesRef, typedName)
+                    executeUpdateNameQuery(likedTitlesRef, typedName)
+                    executeUpdateNameQuery(savedTitlesRef, typedName)
+                }
+                .addOnFailureListener {
+                    showToast(getString(R.string.loading_error))
+                }
         }
     }
 
@@ -138,5 +143,9 @@ class ChangeNameActivity : AppCompatActivity() {
 
     private val onClickBack = View.OnClickListener {
         finish()
+    }
+
+    private fun showToast(text: String) {
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show()
     }
 }

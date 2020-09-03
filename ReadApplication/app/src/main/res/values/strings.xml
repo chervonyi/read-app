@@ -40,7 +40,7 @@
     <string name="sent">Sent</string>
     <string name="failed">Failed</string>
     <string name="incorrect_login">Incorrect email or password</string>
-    <string name="failed_to_register">Failed to register</string>
+    <string name="failed_to_register">Failed to register.</string>
     <string name="show_password_content_description">Show/Hide Password Button</string>
     <string name="anonymous_user_button_content_description">Anonymous User Button</string>
     <string name="search_content_description">Search</string>
@@ -89,4 +89,7 @@
     <string name="submit">Submit</string>
     <string name="delete">Delete</string>
     <string name="successfully_deleted">The title was successfully deleted</string>
+    <string name="loading_error">Something went wrong. Try again later.</string>
+    <string name="wrong_password">Wrong password</string>
+    <string name="invalid_password">Invalid password</string>
 </resources>

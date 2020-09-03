@@ -6,16 +6,12 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import android.widget.Button
 import android.widget.EditText
-import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -28,7 +24,6 @@ import com.google.firebase.ktx.Firebase
 import room106.app.read.R
 import room106.app.read.models.Title
 import room106.app.read.models.User
-import room106.app.read.views.MainButton
 import java.util.*
 
 class EditTitleActivity : AppCompatActivity() {
@@ -115,6 +110,14 @@ class EditTitleActivity : AppCompatActivity() {
                             val body = bodyDocument.get("text").toString()
                             updateTitleUI(title, body)
                         }
+                        .addOnFailureListener {
+                            showToast(getString(R.string.loading_error))
+                            finish()
+                        }
+                }
+                .addOnFailureListener {
+                    showToast(getString(R.string.loading_error))
+                    finish()
                 }
         }
     }
@@ -188,9 +191,17 @@ class EditTitleActivity : AppCompatActivity() {
                                     checkFields()
                                     showToast(getString(R.string.saved))
                                 }
+                                .addOnFailureListener {
+                                    showToast(getString(R.string.loading_error))
+                                }
                         }
-
+                        .addOnFailureListener {
+                            showToast(getString(R.string.loading_error))
+                        }
                 }
+            }
+            .addOnFailureListener {
+                showToast(getString(R.string.loading_error))
             }
     }
 
@@ -236,11 +247,15 @@ class EditTitleActivity : AppCompatActivity() {
 
                             executeUpdateTitleData(likedTitlesRef, updates)
                             executeUpdateTitleData(savedTitlesRef, updates)
+                        }
+                    }
+                    .addOnFailureListener {
+                        showToast(getString(R.string.loading_error))
                     }
                 }
-            }
-
-
+                .addOnFailureListener {
+                    showToast(getString(R.string.loading_error))
+                }
         }
     }
 
@@ -288,6 +303,9 @@ class EditTitleActivity : AppCompatActivity() {
 
                 showToast(getString(R.string.published))
                 finish()
+            }
+            .addOnFailureListener {
+                showToast(getString(R.string.loading_error))
             }
     }
 

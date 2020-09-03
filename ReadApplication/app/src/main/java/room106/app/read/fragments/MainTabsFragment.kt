@@ -42,7 +42,6 @@ class MainTabsFragment: Fragment() {
         titleTypesTabLayout.addTab(titleTypesTabLayout.newTab().setText(getString(R.string.tab_new)))
         titleTypesTabLayout.addTab(titleTypesTabLayout.newTab().setText(getString(R.string.tab_recommended)))
         titleTypesTabLayout.addTab(titleTypesTabLayout.newTab().setText(getString(R.string.tab_top)))
-//        titleTypesTabLayout.addTab(titleTypesTabLayout.newTab().setText(getString(R.string.tab_followed)))
 
         titleTypesTabLayout.addOnTabSelectedListener(onTabSelectedListener)
         viewPager.adapter = Title3TypesFragmentPageAdapter(childFragmentManager)

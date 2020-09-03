@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -62,15 +64,29 @@ class ChangePasswordActivity : AppCompatActivity() {
             val credential = EmailAuthProvider
                 .getCredential(currentUser.email!!, oldPassword)
 
-            currentUser.reauthenticate(credential).addOnSuccessListener {
-                // User has been recently Login (required for security changes e.g. password changing)
-                currentUser.updatePassword(newPassword)
-                    .addOnSuccessListener {
-                        Toast.makeText(this, getString(R.string.password_updated), Toast.LENGTH_LONG).show()
-                        finish()
+            currentUser.reauthenticate(credential)
+                .addOnSuccessListener {
+                    // User has been recently Login (required for security changes e.g. password changing)
+                    currentUser.updatePassword(newPassword)
+                        .addOnSuccessListener {
+                            Toast.makeText(this, getString(R.string.password_updated), Toast.LENGTH_LONG).show()
+                            finish()
+                        }
+                        .addOnFailureListener {
+                            if (it is FirebaseAuthWeakPasswordException) {
+                                showToast(getString(R.string.invalid_password))
+                            } else {
+                                showToast(getString(R.string.loading_error))
+                            }
+                        }
+                }
+                .addOnFailureListener {
+                    if (it is FirebaseAuthInvalidCredentialsException) {
+                        showToast(getString(R.string.wrong_password))
+                    } else {
+                        showToast(getString(R.string.loading_error))
                     }
-            }
-            // TODO - add Failed listener
+                }
         }
     }
 
@@ -115,5 +131,9 @@ class ChangePasswordActivity : AppCompatActivity() {
 
     private val onClickBack = View.OnClickListener {
         finish()
+    }
+
+    private fun showToast(text: String) {
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show()
     }
 }

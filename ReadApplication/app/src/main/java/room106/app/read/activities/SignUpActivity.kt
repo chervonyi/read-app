@@ -66,13 +66,11 @@ class SignUpActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
-//            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
         }
     }
 
     //region Click Listeners
     fun onClickCreateAccount(v: View) {
-
         val name = nameEditText.text.toString()
         val email = emailEditText.text.toString()
         val password = passwordEditText.text.toString()
@@ -80,7 +78,7 @@ class SignUpActivity : AppCompatActivity() {
         if (isNameValid(name) && isEmailValid(email) && isPasswordValid(password)) {
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnSuccessListener {
-                    // Sign In success
+                    // Sign Up success
 
                     val userInstance = getDefaultUserData(name)
                     val currentUser = auth.currentUser
@@ -95,17 +93,17 @@ class SignUpActivity : AppCompatActivity() {
                                 intent.putExtra("purpose", "sign_up")
                                 startActivity(intent)
                                 finish()
-//                                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
                             }
                             .addOnFailureListener {
-                                Toast.makeText(this, getString(R.string.failed_to_register), Toast.LENGTH_LONG).show()
+                                // Failed to register new user
+                                showToast(getString(R.string.failed_to_register))
                             }
                     }
                 }
 
                 .addOnFailureListener {
                     // Failed to register new user
-                    Toast.makeText(this, getString(R.string.failed_to_register), Toast.LENGTH_LONG).show()
+                    showToast(getString(R.string.failed_to_register))
                 }
         }
     }
@@ -113,19 +111,16 @@ class SignUpActivity : AppCompatActivity() {
     fun onClickShowPrivacyPolicy(v: View) {
         val intent = Intent(this, PrivacyPolicyActivity::class.java)
         startActivity(intent)
-//        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
 
     fun onClickGoToLogin(v: View) {
         val intent = Intent(this, LoginActivity::class.java)
         startActivity(intent)
         finish()
-//        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_right)
     }
 
     private val onClickBackListener = View.OnClickListener {
         finish()
-//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
     }
 
     fun onClickShowHidePassword(v: View) {
@@ -205,5 +200,9 @@ class SignUpActivity : AppCompatActivity() {
 
     companion object {
         const val TAG = "SignUpActivity"
+    }
+
+    private fun showToast(text: String) {
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show()
     }
 }

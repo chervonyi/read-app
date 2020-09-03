@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -56,23 +57,20 @@ class ResetPasswordActivity : AppCompatActivity() {
 
             Firebase.auth.sendPasswordResetEmail(email)
                 .addOnSuccessListener {
-                    resetPasswordButton.text = getString(R.string.sent)
+                    showToast(getString(R.string.sent))
 
                     Handler().postDelayed({
                         finish()
-//                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
                     }, 1000)
                 }
                 .addOnFailureListener {
-                    // TODO - Implement
-                    resetPasswordButton.text = getString(R.string.failed)
+                    showToast(getString(R.string.loading_error))
                 }
         }
     }
 
     private val onClickBackListener = View.OnClickListener {
         finish()
-//        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left)
     }
 
     private val formFormWatcher = object: TextWatcher {
@@ -91,5 +89,9 @@ class ResetPasswordActivity : AppCompatActivity() {
         //   - min 4 characters
         //   - max 30 characters
         return email.length in 4..30 && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
+    }
+
+    private fun showToast(text: String) {
+        Toast.makeText(this, text, Toast.LENGTH_LONG).show()
     }
 }

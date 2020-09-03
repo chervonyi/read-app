@@ -115,10 +115,18 @@ class TitleActivity : AppCompatActivity() {
                        showHideMenu(title)
                        updateTitleUI(title, body)
                    }
-           }
+                   .addOnFailureListener {
+                       showErrorToast()
+                       finish()
+                   }
 
-           // Increment readsCount
-           titleRef.update("readsCount", FieldValue.increment(1))
+               // Increment readsCount
+               titleRef.update("readsCount", FieldValue.increment(1))
+           }
+               .addOnFailureListener {
+                   showErrorToast()
+                   finish()
+               }
        }
     }
 
@@ -196,6 +204,9 @@ class TitleActivity : AppCompatActivity() {
                     Toast.makeText(this, getString(R.string.successfully_deleted), Toast.LENGTH_LONG).show()
                     finish()
                 }
+                .addOnFailureListener {
+                    showErrorToast()
+                }
         }
     }
 
@@ -255,6 +266,9 @@ class TitleActivity : AppCompatActivity() {
                         db.collection("users").document(title!!.authorID)
                             .update("likesCount", FieldValue.increment(-1))
                     }
+                    .addOnFailureListener {
+                        showErrorToast()
+                    }
 
             } else {
                 // Like title
@@ -281,6 +295,9 @@ class TitleActivity : AppCompatActivity() {
                         // Increment likesCount in user document
                         db.collection("users").document(title!!.authorID)
                             .update("likesCount", FieldValue.increment(1))
+                    }
+                    .addOnFailureListener {
+                        showErrorToast()
                     }
             }
         }
@@ -341,6 +358,9 @@ class TitleActivity : AppCompatActivity() {
                     .addOnSuccessListener {
                         saveDocID = null
                     }
+                    .addOnFailureListener {
+                        showErrorToast()
+                    }
 
             } else {
                 // Save title
@@ -358,6 +378,9 @@ class TitleActivity : AppCompatActivity() {
                 db.collection("saved").add(saveDoc)
                     .addOnSuccessListener {
                         saveDocID = it.id
+                    }
+                    .addOnFailureListener {
+                        showErrorToast()
                     }
             }
         }
@@ -444,5 +467,9 @@ class TitleActivity : AppCompatActivity() {
         authorTextView.visibility =         dataVisibility
         descriptionTextView.visibility =    dataVisibility
         titleBodyLinearLayout.visibility =  dataVisibility
+    }
+
+    private fun showErrorToast() {
+        Toast.makeText(this, getString(R.string.loading_error), Toast.LENGTH_LONG).show()
     }
 }

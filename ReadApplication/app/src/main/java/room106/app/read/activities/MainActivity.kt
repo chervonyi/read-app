@@ -96,6 +96,9 @@ class MainActivity : AppCompatActivity() {
                     updateUserUI(user, userData)
                 }
             }
+                .addOnFailureListener {
+                    updateUserUI(null, null)
+                }
         } else {
             updateUserUI(null, null)
         }
