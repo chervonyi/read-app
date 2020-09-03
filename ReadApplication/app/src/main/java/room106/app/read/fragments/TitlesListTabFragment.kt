@@ -12,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
@@ -24,12 +25,14 @@ import room106.app.read.views.TitleView
 class TitlesListTabFragment: Fragment() {
 
     // Views
+    private lateinit var pullToRefresh: SwipeRefreshLayout
     private lateinit var scrollView: NestedScrollView
     private lateinit var titlesLinearLayout: LinearLayout
 
     // Firebase
     private lateinit var db: FirebaseFirestore
     var query: Query? = null
+    private var initialQuery: Query? = null
 
     private var isVisibleToUser = false
     private var allTitlesLoaded = false
@@ -45,17 +48,22 @@ class TitlesListTabFragment: Fragment() {
         val v = inflater.inflate(R.layout.fragment_titles_list, container, false)
 
         // Connect Views
+        pullToRefresh = v.findViewById(R.id.pullToRefresh)
         scrollView = v.findViewById(R.id.scrollView)
         titlesLinearLayout = v.findViewById(R.id.titlesLinearLayout)
 
         // Attach listeners
         scrollView.viewTreeObserver.addOnScrollChangedListener(onScrollBottomReachListener)
+        pullToRefresh.setOnRefreshListener(onRefreshListener)
 
         // Firebase
         db = Firebase.firestore
 
         allTitlesLoaded = false
         listContainsSkeleton = true
+
+        // Save query for refreshing purpose in future
+        initialQuery = query
 
         loadNextTitles()
 
@@ -93,6 +101,8 @@ class TitlesListTabFragment: Fragment() {
                         titlesLinearLayout.addView(titleView)
                     }
 
+                    pullToRefresh.isRefreshing = false
+
                     // Prepare query for next N titles
                     val lastVisibleDocument = documents.documents[documents.size() - 1]
                     query = query!!.startAfter(lastVisibleDocument)
@@ -104,6 +114,13 @@ class TitlesListTabFragment: Fragment() {
             .addOnCompleteListener {
                 isLoading = false
             }
+    }
+
+    private val onRefreshListener = SwipeRefreshLayout.OnRefreshListener {
+        query = initialQuery
+        listContainsSkeleton = true
+        allTitlesLoaded = false
+        loadNextTitles()
     }
 
     private val onScrollBottomReachListener = ViewTreeObserver.OnScrollChangedListener {
