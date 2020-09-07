@@ -10,15 +10,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:paddingStart="@dimen/mainPadding"
-        android:paddingEnd="@dimen/mainPadding">
+        android:gravity="center">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/titleTypesTabLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="10dp"
+            android:paddingStart="@dimen/mainPadding"
+            android:paddingEnd="@dimen/mainPadding"
             app:tabTextAppearance="@style/CustomTabStyle"
             app:tabIndicator="@drawable/selected_tab"
             app:tabMode="scrollable"

@@ -78,36 +78,38 @@ class TitlesListTabFragment: Fragment() {
             .addOnSuccessListener { documents ->
                 removeSkeletonScreens()
 
-                if (documents.size() > 0) {
+                if (context != null) {
+                    if (documents.size() > 0) {
 
-                    for (document in documents) {
-                        val title = document.toObject(Title::class.java)
-                        val titleView = TitleView(context, title, document.id)
+                        for (document in documents) {
+                            val title = document.toObject(Title::class.java)
+                            val titleView = TitleView(context!!, title, document.id)
 
-                        titleView.setOnClickListener {
-                            val intent = Intent(context, TitleActivity::class.java)
+                            titleView.setOnClickListener {
+                                val intent = Intent(context, TitleActivity::class.java)
 
-                            if (isSavedTabType) {
-                                val titleID = document["titleID"]
-                                if (titleID is String) {
-                                    intent.putExtra("title_id", titleID)
+                                if (isSavedTabType) {
+                                    val titleID = document["titleID"]
+                                    if (titleID is String) {
+                                        intent.putExtra("title_id", titleID)
+                                    }
+                                } else {
+                                    intent.putExtra("title_id", document.id)
                                 }
-                            } else {
-                                intent.putExtra("title_id", document.id)
+                                context?.startActivity(intent)
                             }
-                            context?.startActivity(intent)
+
+                            titlesLinearLayout.addView(titleView)
                         }
 
-                        titlesLinearLayout.addView(titleView)
+
+                        // Prepare query for next N titles
+                        val lastVisibleDocument = documents.documents[documents.size() - 1]
+                        query = query!!.startAfter(lastVisibleDocument)
+                    } else {
+                        allTitlesLoaded = true
+                        Log.d("ScrollView", "All titles in 'TitlesListTabFragment' tab have been loaded")
                     }
-
-
-                    // Prepare query for next N titles
-                    val lastVisibleDocument = documents.documents[documents.size() - 1]
-                    query = query!!.startAfter(lastVisibleDocument)
-                } else {
-                    allTitlesLoaded = true
-                    Log.d("ScrollView", "All titles in 'TitlesListTabFragment' tab have been loaded")
                 }
             }
             .addOnCompleteListener {

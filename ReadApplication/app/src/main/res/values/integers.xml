@@ -23,7 +23,7 @@
     <dimen name="smallUserIconCorners">50dp</dimen>
     <dimen name="tinyUserIconCorners">50dp</dimen>
     <dimen name="avatarCornersRadius">100dp</dimen>
-    <dimen name="avatarListDivider">30dp</dimen>
+    <dimen name="avatarListDivider">24dp</dimen>
     <dimen name="selectedAvatarBorderWidth">3dp</dimen>
     <dimen name="mainPadding">18dp</dimen>
     <dimen name="headerPadding">10dp</dimen>

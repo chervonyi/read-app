@@ -269,12 +269,7 @@ class EditTitleActivity : AppCompatActivity() {
         query.get().addOnSuccessListener { documents ->
             documents.forEach { document ->
                 document.reference.update(updates)
-                    .addOnFailureListener {
-                    Log.d("EditTitleActivity", "Error with UPDAING data in saved/liked collections")
-                }
             }
-        } .addOnFailureListener {
-            Log.d("EditTitleActivity", "Error with READING data in saved/liked collections")
         }
     }
 

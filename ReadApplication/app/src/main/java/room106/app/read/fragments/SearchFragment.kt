@@ -44,7 +44,7 @@ class SearchFragment: Fragment() {
     }
 
     fun updateTitlesList(searchQuery: String) {
-        if (titlesLinearLayout == null) { return }
+        if (titlesLinearLayout == null || context == null) { return }
 
         titlesLinearLayout?.removeAllViews()
 
@@ -59,7 +59,7 @@ class SearchFragment: Fragment() {
                searchRef.get().addOnSuccessListener { documents ->
                    for (document in documents) {
                        val title = document.toObject(Title::class.java)
-                       val titleView = TitleView(context, title, document.id)
+                       val titleView = TitleView(context!!, title, document.id)
 
                        titleView.setOnClickListener {
                            val intent = Intent(context, TitleActivity::class.java)

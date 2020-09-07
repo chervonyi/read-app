@@ -116,31 +116,33 @@ class FollowedFragment: Fragment() {
                         initialLoad = false
                     }
 
-                    if (documents.size() > 0) {
-                        for (document in documents) {
-                            val title = document.toObject(Title::class.java)
-                            val titleView = TitleView(context, title, document.id)
+                    if (context != null) {
+                        if (documents.size() > 0) {
+                            for (document in documents) {
+                                val title = document.toObject(Title::class.java)
+                                val titleView = TitleView(context!!, title, document.id)
 
-                            titleView.setOnClickListener {
-                                val intent = Intent(context, TitleActivity::class.java)
-                                intent.putExtra("title_id", document.id)
-                                context?.startActivity(intent)
+                                titleView.setOnClickListener {
+                                    val intent = Intent(context, TitleActivity::class.java)
+                                    intent.putExtra("title_id", document.id)
+                                    context?.startActivity(intent)
+                                }
+
+                                titlesLinearLayout.addView(titleView)
                             }
 
-                            titlesLinearLayout.addView(titleView)
+                            // Prepare query for next N titles
+                            val lastVisibleDocument = documents.documents[documents.size() - 1]
+                            nextTitlesQuery = db.collection("titles")
+                                .whereEqualTo("status", "published")
+                                .whereIn("authorID", followedUsersID)
+                                .orderBy("publicationTime", Query.Direction.DESCENDING)
+                                .startAfter(lastVisibleDocument)
+                                .limit(TITLES_LIMIT)
+                        } else {
+                            allTitlesLoaded = true
+                            Log.d("ScrollView", "All titles in 'Followed' tab have been loaded")
                         }
-
-                        // Prepare query for next N titles
-                        val lastVisibleDocument = documents.documents[documents.size() - 1]
-                        nextTitlesQuery = db.collection("titles")
-                            .whereEqualTo("status", "published")
-                            .whereIn("authorID", followedUsersID)
-                            .orderBy("publicationTime", Query.Direction.DESCENDING)
-                            .startAfter(lastVisibleDocument)
-                            .limit(TITLES_LIMIT)
-                    } else {
-                        allTitlesLoaded = true
-                        Log.d("ScrollView", "All titles in 'Followed' tab have been loaded")
                     }
                 }
                 .addOnCompleteListener {

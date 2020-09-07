@@ -208,7 +208,7 @@ class TitleActivity : AppCompatActivity() {
                     if (isPublished) {
                         decrementTitlesCount()
                     }
-                    
+
                     val likedTitlesRef = db.collection("liked")
                         .whereEqualTo("authorID", currentUserID)
                         .whereEqualTo("titleID", titleID)
