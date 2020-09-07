@@ -11,6 +11,7 @@ import android.view.ViewTreeObserver
 import android.widget.LinearLayout
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -25,6 +26,7 @@ import room106.app.read.views.TitleView
 class FollowedFragment: Fragment() {
 
     // Views
+    private lateinit var pullToRefresh: SwipeRefreshLayout
     private lateinit var scrollView: NestedScrollView
     private lateinit var titlesLinearLayout: LinearLayout
 
@@ -47,11 +49,13 @@ class FollowedFragment: Fragment() {
         val v = inflater.inflate(R.layout.fragment_titles_list, container, false)
 
         // Connect Views
+        pullToRefresh = v.findViewById(R.id.pullToRefresh)
         scrollView = v.findViewById(R.id.scrollView)
         titlesLinearLayout = v.findViewById(R.id.titlesLinearLayout)
 
         // Attach listeners
         scrollView.viewTreeObserver.addOnScrollChangedListener(onScrollBottomReachListener)
+        pullToRefresh.setOnRefreshListener(onRefreshListener)
 
         // Firebase
         auth = Firebase.auth
@@ -186,6 +190,10 @@ class FollowedFragment: Fragment() {
                 }
             }
         }
+
+    private val onRefreshListener = SwipeRefreshLayout.OnRefreshListener {
+        pullToRefresh.isRefreshing = false
+    }
 
     companion object {
         const val TITLES_LIMIT: Long = 3

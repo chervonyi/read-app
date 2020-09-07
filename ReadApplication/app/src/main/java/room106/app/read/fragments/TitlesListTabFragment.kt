@@ -101,7 +101,6 @@ class TitlesListTabFragment: Fragment() {
                         titlesLinearLayout.addView(titleView)
                     }
 
-                    pullToRefresh.isRefreshing = false
 
                     // Prepare query for next N titles
                     val lastVisibleDocument = documents.documents[documents.size() - 1]
@@ -112,6 +111,7 @@ class TitlesListTabFragment: Fragment() {
                 }
             }
             .addOnCompleteListener {
+                pullToRefresh.isRefreshing = false
                 isLoading = false
             }
     }

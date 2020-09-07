@@ -3,6 +3,7 @@ package room106.app.read.activities
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.ScrollView
@@ -196,15 +197,24 @@ class TitleActivity : AppCompatActivity() {
     }
 
     private fun deleteTitle() {
+        val currentUserID = auth.currentUser?.uid ?: return
+
         if (title != null && titleID != null && !skeletonIsShow) {
 
             db.collection("titles").document(titleID!!)
                 .update("status", "deleted")
                 .addOnSuccessListener {
+
+                    if (isPublished) {
+                        decrementTitlesCount()
+                    }
+                    
                     val likedTitlesRef = db.collection("liked")
+                        .whereEqualTo("authorID", currentUserID)
                         .whereEqualTo("titleID", titleID)
 
                     val savedTitlesRef = db.collection("saved")
+                        .whereEqualTo("authorID", currentUserID)
                         .whereEqualTo("titleID", titleID)
 
                     executeDeletionQuery(likedTitlesRef)
@@ -225,6 +235,13 @@ class TitleActivity : AppCompatActivity() {
                 document.reference.delete()
             }
         }
+    }
+
+    private fun decrementTitlesCount() {
+        val currentUserID = auth.currentUser?.uid ?: return
+
+        db.collection("users").document(currentUserID)
+            .update("titlesCount", FieldValue.increment(-1))
     }
 
     private fun showOfferToDeleteTitleDialog() {
