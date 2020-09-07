@@ -51,7 +51,7 @@ class ChameleonButton: androidx.appcompat.widget.AppCompatButton {
                 setTextColor(ContextCompat.getColor(context, R.color.colorFontMainButton))
             } else {
                 background = ContextCompat.getDrawable(context, R.drawable.simple_button)
-                setTextColor(ContextCompat.getColor(context, R.color.colorFontTitleHeader))
+                setTextColor(ContextCompat.getColor(context, R.color.colorFontSimpleButton))
             }
         }
 }

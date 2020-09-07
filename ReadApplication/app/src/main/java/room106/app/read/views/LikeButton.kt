@@ -4,9 +4,7 @@ import android.content.Context
 import android.graphics.Typeface
 import android.util.AttributeSet
 import android.util.TypedValue
-import android.view.Gravity
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import room106.app.read.R
 
 class LikeButton: androidx.appcompat.widget.AppCompatButton {
@@ -48,7 +46,7 @@ class LikeButton: androidx.appcompat.widget.AppCompatButton {
 
             if (newValue) {
                 background = ContextCompat.getDrawable(context, R.drawable.simple_button)
-                setTextColor(ContextCompat.getColor(context, R.color.colorSimpleButtonText))
+                setTextColor(ContextCompat.getColor(context, R.color.colorFontSimpleButton))
             } else {
                 background = ContextCompat.getDrawable(context, R.drawable.like_button)
                 setTextColor(ContextCompat.getColor(context, R.color.colorFontMainButton))

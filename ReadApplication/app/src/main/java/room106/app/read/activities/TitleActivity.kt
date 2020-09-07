@@ -59,6 +59,7 @@ class TitleActivity : AppCompatActivity() {
 
     private val CHARACTERS_PER_MINUTE = 300
     private var menuIsSet = false
+    private var isPublished = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -144,7 +145,7 @@ class TitleActivity : AppCompatActivity() {
             authorTextView.text = title.authorName
             descriptionTextView.text = title.description
             titleBodyLinearLayout.setBodyText(body, title.status == "published")
-
+            isPublished = title.status == "published"
 
             var timeToRead = body.length / CHARACTERS_PER_MINUTE
             if (timeToRead <= 0) {
@@ -258,8 +259,15 @@ class TitleActivity : AppCompatActivity() {
                 val intent = Intent(this, OfferToLoginActivity::class.java)
                 startActivity(intent)
                 finish()
+            }
 
-            } else if (likeDocID != null) {
+            // Check if title is published. If it is not -> do not like
+            if (!isPublished) {
+                Toast.makeText(this, getString(R.string.title_not_published), Toast.LENGTH_LONG).show()
+                return
+            }
+
+            if (likeDocID != null) {
                 // Title has already been liked -> Do unlike
                 // TODO - Make a transaction
                 db.collection("liked").document(likeDocID!!).delete()
@@ -342,6 +350,9 @@ class TitleActivity : AppCompatActivity() {
                         likeDocID = documents.documents[0].id
                     }
                 }
+                .addOnFailureListener {
+                    likeDocID = null
+                }
         } else {
             likeDocID = null
         }
@@ -359,8 +370,15 @@ class TitleActivity : AppCompatActivity() {
                 val intent = Intent(this, OfferToLoginActivity::class.java)
                 startActivity(intent)
                 finish()
+            }
 
-            } else if (saveDocID != null) {
+            // Check if title is published. If it is not -> do not like
+            if (!isPublished) {
+                Toast.makeText(this, getString(R.string.title_not_published), Toast.LENGTH_LONG).show()
+                return
+            }
+
+            if (saveDocID != null) {
                 // Title has already been saved
                 db.collection("saved").document(saveDocID!!).delete()
                     .addOnSuccessListener {
@@ -424,6 +442,9 @@ class TitleActivity : AppCompatActivity() {
                     if (documents.documents.size > 0) {
                         saveDocID = documents.documents[0].id
                     }
+                }
+                .addOnFailureListener {
+                    saveDocID = null
                 }
         } else {
             saveDocID = null

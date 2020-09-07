@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.InputType
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
@@ -207,6 +208,8 @@ class EditTitleActivity : AppCompatActivity() {
 
     // Saving #2 Case
     private fun updateExistingTitle(showToast: Boolean) {
+        val currentUserID = auth.currentUser?.uid ?: return
+
         if (titleID != null) {
             val title = titleEditText.text.toString()
             val description = descriptionEditText.text.toString()
@@ -224,6 +227,7 @@ class EditTitleActivity : AppCompatActivity() {
                 // Update body text in subcollection
                 bodyRef.update("text", bodyEditText.text.toString())
                     .addOnSuccessListener {
+
                         isSaved = true
                         checkFields()
 
@@ -234,10 +238,12 @@ class EditTitleActivity : AppCompatActivity() {
                         if (isPublished) {
                             // Update this title data in "liked" collection
                             val likedTitlesRef = db.collection("liked")
+                                .whereEqualTo("authorID", currentUserID)
                                 .whereEqualTo("titleID", titleID)
 
                             // Update this title data in "saved" collection
                             val savedTitlesRef = db.collection("saved")
+                                .whereEqualTo("authorID", currentUserID)
                                 .whereEqualTo("titleID", titleID)
 
                             val updates = mapOf(
@@ -263,7 +269,12 @@ class EditTitleActivity : AppCompatActivity() {
         query.get().addOnSuccessListener { documents ->
             documents.forEach { document ->
                 document.reference.update(updates)
+                    .addOnFailureListener {
+                    Log.d("EditTitleActivity", "Error with UPDAING data in saved/liked collections")
+                }
             }
+        } .addOnFailureListener {
+            Log.d("EditTitleActivity", "Error with READING data in saved/liked collections")
         }
     }
 
